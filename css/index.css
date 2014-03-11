@@ -22,7 +22,7 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
-
+body { padding-top: 70px; }
 /* Portrait layout (default) */
 .app {
     background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
