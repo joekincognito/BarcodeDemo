@@ -53,21 +53,17 @@
       </div>
     </div>
         <div class="container">
-            <h1>Are we ready to ScanDat?</h1>
-            <div id="deviceready" class="blink">
-                <p class="alert alert-info listening">Connecting to Device</p>
-                <p class="alert alert-success received">Device is Ready</p>
+            <div class="jumbotron">
+                <h1>Are we ready to ScanDat?</h1>
+                <p>To scan hit the scan button. The camera will activate, scan a barcode and see what happens.</p>
+                <p><a href="#" class="topcoat-button btn btn-lg btn-success" id="scan">SCAN</a></p>
             </div>
-            <br>
-            <a href="#" class="topcoat-button btn btn-lg btn-success" id="scan">SCAN</a>
+            <div id="deviceready" class="blink">
+                    <p class="alert alert-info listening">Connecting to Device</p>
+                    <p class="alert alert-success received">Device is Ready</p>
+                </div>
             <br><br>
             <p id="alert alert-info info"></p>
-            <br><br>
-            <h2>OPENING LINKS:</h2>
-            <a href="#" class="topcoat-button btn btn-lg btn-primary" onclick="window.open('http://www.nhl.com', '_blank', 'location=yes');">InAppBrowser</a>
-            <a href="#" class="topcoat-button btn btn-lg btn-primary" onclick="window.open('http://www.nhl.com', '_system', 'location=yes');">System Browser</a>
-            <a href="#" class="topcoat-button btn btn-lg btn-primary" onclick="window.open('http://www.yahoo.com', '_self', 'location=yes');">This Webview</a>
-            <a href="#" class="topcoat-button btn btn-lg btn-primary" onclick="window.plugins.childBrowser.showWebPage('http://www.nhl.com', {});">ChildBrowser</a>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="barcodescanner.js"></script>
