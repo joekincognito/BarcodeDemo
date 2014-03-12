@@ -81,7 +81,7 @@ var app = {
             $.ajax({
                 url: "php/test.php",
                 data: "qs=" + result.text,
-                //datatype: "json"
+                datatype: "text"
                 })
                 .done(function( returnData ) {
                     console.log(returnData);
