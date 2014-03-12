@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-  /*$.ajax({
+  $.ajax({
                 url: "php/test.php",
                 data: "qs=9114901075742714812669",
                 //datatype: "json"
@@ -25,7 +25,6 @@
                     console.log(returnData);
                     $( "#info" ).append( returnData );
                 });
-*/
 var app = {
     // Application Constructor
     initialize: function() {
@@ -76,7 +75,6 @@ var app = {
                 "text: " + result.text + "\n" +
                 "format: " + result.format + "\n" +
                 "cancelled: " + result.cancelled + "\n");
-            //document.getElementById("info").innerHTML = result.text;
             console.log(result);
             $.ajax({
                 url: "php/test.php",
