@@ -19,7 +19,7 @@
   $.ajax({
                 url: "php/test.php",
                 data: "qs=9114901075742714812669",
-                //datatype: "json"
+                datatype: "text"
                 })
                 .done(function( returnData ) {
                     console.log(returnData);
