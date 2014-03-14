@@ -1,30 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-  $.ajax({
-                url: "php/test.php",
-                data: "qs=9114901075742714812669",
-                datatype: "text"
-                })
-                .done(function( returnData ) {
-                    console.log(returnData);
-                    $( "#info" ).append( returnData );
-                });
 var app = {
     // Application Constructor
     initialize: function() {
@@ -76,15 +49,18 @@ var app = {
                 "format: " + result.format + "\n" +
                 "cancelled: " + result.cancelled + "\n");
             console.log(result);
-            $.ajax({
-                url: "php/test.php",
-                data: "qs=" + result.text,
-                datatype: "text"
-                })
-                .done(function( returnData ) {
-                    console.log(returnData);
-                    $( "#info" ).append( returnData );
-                });
+            $( "#info" ).append( result.text + "\n");
+            /* The scan data doesn't need to be sent to a php script
+            *  The scan data will be the bercor number
+            *$.ajax({
+            *    url: "php/test.php",
+            *    data: "qs=" + result.text,
+            *    datatype: "text"
+            *    })
+            *    .done(function( returnData ) {
+            *        console.log(returnData);
+            *        $( "#info" ).append( returnData );
+            *    });*/
 
         }, function (error) { 
             console.log("Scanning failed: ", error); 
