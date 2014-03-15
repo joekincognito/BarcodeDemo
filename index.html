@@ -59,8 +59,28 @@
                     <p class="alert alert-success received">Device is Ready</p>
                 </div>
             <br><br>
-            <p id="info" class="alert alert-info"></p>
-        </div>
+            <p id="info" class="alert alert-info" display="hidden"></p>
+        <div class="well bs-component">
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>Quick Order</legend>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                             <ul class="dropdown-menu">
+                                 <li><a href="#">Action</a></li>
+                                 <li><a href="#">Another action</a></li>
+                                 <li><a href="#">Something else here</a></li>
+                                 <li class="divider"></li>
+                                 <li><a href="#">Separated link</a></li>
+                             </ul>
+                         </div><!-- /btn-group -->
+                    </div><!-- /input-group -->
+                </div><!-- /well bs-component-->
+            </fieldset>
+        </form>
+        </div> <!-- Container -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="barcodescanner.js"></script>
         <script type="text/javascript" src="childbrowser.js"></script>
