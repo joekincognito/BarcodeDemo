@@ -52,15 +52,15 @@ var app = {
             $( "#info" ).append( result.text + "\n");
             /* The scan data doesn't need to be sent to a php script
             *  The scan data will be the bercor number
-            *$.ajax({
-            *    url: "php/test.php",
-            *    data: "qs=" + result.text,
-            *    datatype: "text"
-            *    })
-            *    .done(function( returnData ) {
-            *        console.log(returnData);
-            *        $( "#info" ).append( returnData );
-            *    });*/
+            */$.ajax({
+                url: "php/test.php",
+                data: "qs=" + result.text,
+                datatype: "text"
+                })
+                .done(function( returnData ) {
+                    console.log(returnData);
+                    $( "#info" ).append( returnData );
+                });
 
         }, function (error) { 
             console.log("Scanning failed: ", error); 
