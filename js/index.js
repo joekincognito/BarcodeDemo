@@ -53,7 +53,7 @@ var app = {
             /* The scan data doesn't need to be sent to a php script
             *  The scan data will be the bercor number
             */$.ajax({
-                url: "php/test.php",
+                url: "50.204.18.115/apps/BarcodeDemo2/php/test.php",
                 data: "qs=" + result.text,
                 datatype: "text"
                 })
