@@ -49,10 +49,11 @@ var app = {
                 "format: " + result.format + "\n" +
                 "cancelled: " + result.cancelled + "\n");
             console.log(result);
-            $( "#info" ).append( result.text + "\n");
+            /*$( "#info" ).append( result.text + "\n");*/
             /* The scan data doesn't need to be sent to a php script
             *  The scan data will be the bercor number
-            */$.ajax({
+            */
+            $.ajax({
                 url: "50.204.18.115/apps/BarcodeDemo2/php/test.php",
                 data: "qs=" + result.text,
                 datatype: "text"
