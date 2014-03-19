@@ -52,13 +52,12 @@ var app = {
             /*$( "#info" ).append( result.text + "\n");*/
             /* The scan data doesn't need to be sent to a php script
             *  The scan data will be the bercor number
-            */
             $.mobile.allowCrossDomainPages = true;
             $.support.cors = true;
+            */
             $.ajax({
                 url: "50.204.18.115/apps/BarcodeDemo2/php/test.php",
-                data: "qs=" + result.text,
-                datatype: "text"
+                data: "qs=" + result.text
                 })
                 .done(function( returnData ) {
                     console.log(returnData);
