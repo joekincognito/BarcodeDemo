@@ -10,6 +10,10 @@
 		if($key===$qs){
 			$returnData = $value;
 		}
+		else
+		{
+			$returnData = 'no luck buddy';
+		}
 	}
 echo $returnData;
 ?>
