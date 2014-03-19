@@ -1,6 +1,8 @@
 var app = {
     // Application Constructor
     initialize: function() {
+        $.mobile.allowCrossDomainPages = true;
+        $.support.cors = true;
         this.bindEvents();
     },
     // Bind Event Listeners
