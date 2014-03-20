@@ -55,6 +55,8 @@ var app = {
             $.mobile.allowCrossDomainPages = true;
             $.support.cors = true;
             */
+            $.mobile.allowCrossDomainPages = true;
+            $.support.cors = true;
             $.ajax({
                 url: "50.204.18.115/apps/BarcodeDemo2/php/test.php",
                 data: "qs=" + result.text

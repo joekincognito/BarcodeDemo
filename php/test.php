@@ -10,10 +10,9 @@
 		if($key===$qs){
 			$returnData = $value;
 		}
-		else
-		{
-			$returnData = 'no luck buddy';
-		}
 	}
+if($returnData = ""){
+	$returnData = "Number not found";
+}	
 echo $returnData;
 ?>
