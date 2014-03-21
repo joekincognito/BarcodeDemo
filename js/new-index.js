@@ -31,11 +31,6 @@ $(document).bind("mobileinit", function(){
     $.mobile.allowCrossDomainPages = true;
     $.support.cors = true;
 });
-
-$( document ).ajaxError(function() {
-  $( "#info" ).append( "Triggered ajaxError handler." );
-});
-
 function onDeviceReady() {
     $(".ui-loader").hide();
     // do everything here.
