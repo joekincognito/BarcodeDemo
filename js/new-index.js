@@ -61,13 +61,13 @@ function onDeviceReady() {
             $.support.cors = true;
             */
             $.ajax({
-                url: "50.204.18.115/apps/BarcodeDemo2/php/test.php",
+                url: "http://50.204.18.115/apps/BarcodeDemo2/php/test.php",
                 data: "qs=" + result.text,
+                crossDomain: true,
                 statusCode: {
                     404: function() {
                     alert( "page not found" );
-                    }}, 
-                crossDomain: true
+                    }} 
                 })
                 .done(function( returnData ) {
                     console.log(returnData);
