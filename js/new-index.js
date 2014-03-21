@@ -26,6 +26,8 @@ $(document).ready(function() {
 $( document ).ajaxError(function() {
   $( "#info" ).append( "Triggered ajaxError handler." );
 });
+/*
+Seeing if I can remove jQuery mobile because its a pain in my ass
 $(document).bind("mobileinit", function(){
     console.log('mobileinit function');
     $(".ui-loader").hide();
@@ -33,6 +35,7 @@ $(document).bind("mobileinit", function(){
     $.mobile.allowCrossDomainPages = true;
     $.support.cors = true;
 });
+*/
 function onDeviceReady() {
     $(".ui-loader").hide();
     // do everything here.
