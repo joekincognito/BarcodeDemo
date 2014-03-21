@@ -32,6 +32,10 @@ $(document).bind("mobileinit", function(){
     $.support.cors = true;
 });
 
+$( document ).ajaxError(function() {
+  $( "#info" ).append( "Triggered ajaxError handler." );
+});
+
 function onDeviceReady() {
     $(".ui-loader").hide();
     // do everything here.
@@ -61,7 +65,12 @@ function onDeviceReady() {
             */
             $.ajax({
                 url: "50.204.18.115/apps/BarcodeDemo2/php/test.php",
-                data: "qs=" + result.text
+                data: "qs=" + result.text,
+                statusCode: {
+                    404: function() {
+                    alert( "page not found" );
+                    },
+  }             crossDomain: true
                 })
                 .done(function( returnData ) {
                     console.log(returnData);
