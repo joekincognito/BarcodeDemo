@@ -23,7 +23,9 @@ $(document).ready(function() {
         $(".ui-loader").hide();
     }
 });
-
+$( document ).ajaxError(function() {
+  $( "#info" ).append( "Triggered ajaxError handler." );
+});
 $(document).bind("mobileinit", function(){
     console.log('mobileinit function');
     $(".ui-loader").hide();
@@ -64,8 +66,8 @@ function onDeviceReady() {
                 statusCode: {
                     404: function() {
                     alert( "page not found" );
-                    },
-  }             crossDomain: true
+                    }}, 
+                crossDomain: true
                 })
                 .done(function( returnData ) {
                     console.log(returnData);
