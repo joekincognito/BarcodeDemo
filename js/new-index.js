@@ -1,4 +1,3 @@
-console.log ('?');
 $(".ui-loader").hide();
 $(document).ready(function() {
     $(".ui-loader").hide();
@@ -36,7 +35,37 @@ $(document).bind("mobileinit", function(){
     $.support.cors = true;
 });
 */
+$('.order').click(function(){
+    orderID = this.id;
+    itemID = $('#item').val();
+    var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+    db.transaction(populateDb, errorCB, successCB);        
+});
+
+$('#new-Order').click(function(){
+    $('#createNewOrder-Form').show();
+});
+$('#createNewOrder').click(function(){
+    orderName = $('#orderName').value();
+    if (orderName != ""
+        && window.isphone)
+    {  
+        var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+        db.transaction(function(){
+        tx.executeSql('create table if not exists orders (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name, isSubmitted, date)');
+        tx.executeSql('insert into orders(name) values ('+orderName+')');
+        },
+        errorCB, 
+        successCB);
+    }
+});
+
 function onDeviceReady() {
+    if( window.isphone ) {
+    var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+    db.transaction(getOrders, errorCB, successCB);
+    }
+    
     $(".ui-loader").hide();
     // do everything here.
     console.log('deviceready');
@@ -82,3 +111,30 @@ function onDeviceReady() {
         } );
     });
 }
+
+function getOrders(tx) {
+        tx.executeSql('SELECT Id, name FROM orders WHERE isSubmitted = 0', [], getOrdersSuccess, errorCB);
+    }
+
+    // Query the success callback
+    //
+function getOrdersSuccess(tx, results) {
+        var len = results.rows.length;
+        console.log("Orders table: " + len + " rows found.");
+        for (var i=0; i<len; i++){
+            console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Name =  " + results.rows.item(i).name);
+            $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).id+'">'+results.rows.item(i).name+'</a></li>');
+        }
+    }
+function populateDB(tx) {
+            tx.executeSql('create table if not exists order_item (order_Id, item_Id)');
+            tx.executeSql('insert into order_item (order_Id, item_Id) values ('+orderID+','+itemID+')');
+        }
+
+function errorCB(err) {
+            alert("Error processing SQL: "+err.code);
+        }
+
+function successCB() {
+            alert("success!");
+        }    
