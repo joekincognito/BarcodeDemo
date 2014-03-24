@@ -19,7 +19,7 @@ include_once zend_deployment_library_path('PHP Toolkit for IBMI i') . DIRECTORY_
 
 	$qs = $_GET['qs']; 
 	//echo $qs;
-	$bercor = substr($qs, 0, -3);
+	$bercor = substr($qs, -8, -3);
 	//echo $bercor;
 	db2_bind_param($stmt, 1, "bercor", DB2_PARAM_IN);
 	$desc = "";	
