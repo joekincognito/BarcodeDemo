@@ -50,6 +50,7 @@ $('#createNewOrder').click(function(){
     if (orderName != ""
         && window.isphone)
     {  
+        $('#createNewOrder-Form').hide();     
         var db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(function(){
         tx.executeSql('create table if not exists orders (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name, isSubmitted, date)');
