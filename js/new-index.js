@@ -38,7 +38,7 @@ $('#new-Order').click(function(){
     $('#createNewOrder-Form').show();
 });
 $('#createNewOrder').click(function(){
-    orderName = $('#orderName').value();
+    orderName = $('#orderName').val();
     if (orderName != ""
         && window.isphone)
     {  
