@@ -1,6 +1,4 @@
-$(".ui-loader").hide();
 $(document).ready(function() {
-    $(".ui-loader").hide();
     // are we running in native app or in a browser?
     window.isphone = false;
     if(document.URL.indexOf("http://") === -1 
@@ -10,25 +8,24 @@ $(document).ready(function() {
 
     if(document.URL="file:///C:/Users/Joe/Dropbox/GIt%20Hub/barcodedemo/index.html") {
         window.isphone = false;
-        console.log ('testing locally');
+        $('#log').append('<p>testing locally</p>');
     }
 
     if( window.isphone ) {
-        console.log ('phone');
+        $('#log').append('<p>phone</p>');
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
-        console.log('not phone');
+        $('#log').append('<p>not phone</p>');
         onDeviceReady();
-        $(".ui-loader").hide();
     }
 });
 $( document ).ajaxError(function() {
-  $( "#info" ).append( "Triggered ajaxError handler." );
+  $( "#log" ).append( "Triggered ajaxError handler." );
 });
 /*
 Seeing if I can remove jQuery mobile because its a pain in my ass
 $(document).bind("mobileinit", function(){
-    console.log('mobileinit function');
+    $('#log').append('mobileinit function');
     $(".ui-loader").hide();
     // - didnt work - $.mobile.loadingMessage = 'potato';
     $.mobile.allowCrossDomainPages = true;
@@ -66,10 +63,7 @@ function onDeviceReady() {
     var db = window.openDatabase("Database", "1.0", "The Database", 200000);
     db.transaction(getOrders, errorCB, successCB);
     }
-    
-    $(".ui-loader").hide();
     // do everything here.
-    console.log('deviceready');
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
 
@@ -82,11 +76,11 @@ function onDeviceReady() {
             "Format: " + result.format + "\n" + 
             "Cancelled: " + result.cancelled);  
 
-           console.log("Scanner result: \n" +
+           $('#log').append("Scanner result: \n" +
                 "text: " + result.text + "\n" +
                 "format: " + result.format + "\n" +
                 "cancelled: " + result.cancelled + "\n");
-            console.log(result);
+            $('#log').append(result);
             /*$( "#info" ).append( result.text + "\n");*/
             /* The scan data doesn't need to be sent to a php script
             *  The scan data will be the bercor number
@@ -103,12 +97,12 @@ function onDeviceReady() {
                     }} 
                 })
                 .done(function( returnData ) {
-                    console.log(returnData);
+                    $('#log').append("<p>"+returnData+"</p>");
                     $( "#info" ).append( returnData );
                 });
 
         }, function (error) { 
-            console.log("Scanning failed: ", error); 
+            $('#log').append("<p>Scanning failed: " + error + "</p>"); 
         } );
     });
 }
@@ -121,9 +115,9 @@ function getOrders(tx) {
     //
 function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
-        console.log("Orders table: " + len + " rows found.");
+        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
         for (var i=0; i<len; i++){
-            console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Name =  " + results.rows.item(i).name);
+            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).id + " Name =  " + results.rows.item(i).name + "</p>");
             $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).id+'">'+results.rows.item(i).name+'</a></li>');
         }
     }
