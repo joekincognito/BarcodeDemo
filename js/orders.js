@@ -29,8 +29,8 @@ function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
         $('#log').append("<p>Orders table: " + len + " rows found.</p>");
         for (var i=0; i<len; i++){
-            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).id + " Name =  " + results.rows.item(i).name + "</p>");
-            $('#current').appepend('<li>'+results.rows.item(i).id+'---'+results.rows.item(i).name+'</li>');
+            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+            $('#current').appepend('<li>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</li>');
         }
     }
 function populateDB(tx) {
@@ -39,9 +39,9 @@ function populateDB(tx) {
         }
 
 function errorCB(err) {
-            alert("Error processing SQL: "+err.code);
+            $('#log').append("<p>Error processing SQL: "+err.code+"</p>");
         }
 
 function successCB() {
-            alert("success!");
+            $('#log').append("<p>success!</p>");
         } 
