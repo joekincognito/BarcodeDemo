@@ -56,6 +56,7 @@ $('#createNewOrder').click(function(){
 function onDeviceReady() {
     if( window.isphone ) {
     var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+    $('#log').append("<p>var db = " + db + "</p>");
     db.transaction(getOrders, errorCB, successCB);
     }
     // do everything here.

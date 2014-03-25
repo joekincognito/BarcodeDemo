@@ -21,7 +21,7 @@ function onDeviceReady() {
     }
 }
 function getOrders(tx) {
-        tx.executeSql('SELECT Id, name FROM orders WHERE isSubmitted = 0', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
     }
     // Query the success callback
     //
