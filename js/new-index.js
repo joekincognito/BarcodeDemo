@@ -51,11 +51,11 @@ $('#createNewOrder').click(function(){
 function onDeviceReady() {
     if( window.isphone ) {
     var db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    var out = '';
-    for (var i in db) {
-        out += i + ": " + obj[i] + "\n";
-    }
-    $('#log').append(out);
+    //var out = '';
+    //for (var i in db) {
+     //   out += i + ": " + obj[i] + "\n";
+    //}
+    //$('#log').append(out);
     db.transaction(getOrders, errorCB, successCB);
     }
     // do everything here.
