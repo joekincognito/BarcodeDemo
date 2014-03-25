@@ -30,7 +30,7 @@ function getOrdersSuccess(tx, results) {
         $('#log').append("<p>Orders table: " + len + " rows found.</p>");
         for (var i=0; i<len; i++){
             $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
-            $('#current').appepend('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
+            $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
         }
     }
 function populateDB(tx) {
