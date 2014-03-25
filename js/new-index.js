@@ -6,11 +6,6 @@ $(document).ready(function() {
         window.isphone = true;
     }
 
-    if(document.URL="file:///C:/Users/Joe/Dropbox/GIt%20Hub/barcodedemo/index.html") {
-        window.isphone = false;
-        $('#log').append('<p>testing locally</p>');
-    }
-
     if( window.isphone ) {
         $('#log').append('<p>phone</p>');
         document.addEventListener("deviceready", onDeviceReady, false);
