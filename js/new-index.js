@@ -115,7 +115,7 @@ function getOrdersSuccess(tx, results) {
 function populateDB(tx) {
             orderName ="hardcoded test";
             tx.executeSql('create table if not exists orders (Id INTEGER AUTOINCREMENT, name, isSubmitted, date)');
-            tx.executeSql('insert into orders(name,isSubmitted, date) values ('+orderName+','0','')');
+            tx.executeSql('insert into orders(name,isSubmitted, date) values ("'+orderName+'","0","")');
             //tx.executeSql('create table if not exists order_item (order_Id, item_Id)');
             //tx.executeSql('insert into order_item (order_Id, item_Id) values ('+orderID+','+itemID+')');
         }
