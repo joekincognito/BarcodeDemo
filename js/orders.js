@@ -20,7 +20,10 @@ $(document).ready(function() {
     }
 });
 function onDeviceReady() {
-    getOrders();
+    if( window.isphone ) {
+    var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+    db.transaction(getOrders, errorCB, successCB);
+    }
 }
 function getOrders(tx) {
         tx.executeSql('SELECT Id, name FROM orders WHERE isSubmitted = 0', [], getOrdersSuccess, errorCB);
