@@ -27,12 +27,13 @@ function setupTable(tx){
 function getOrders() {
         $('#log').append("<p>getOrders</p>");
         db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
-        },errorCB);
+            tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
+        }, errorCB);
     }
     // Query the success callback
     //
 function getOrdersSuccess(tx, results) {
+    $('#log').append("<p>getOrdersSuccess</p>");
         var len = results.rows.length;
         $('#log').append("<p>Orders table: " + len + " rows found.</p>");
         $('#current').html('');
