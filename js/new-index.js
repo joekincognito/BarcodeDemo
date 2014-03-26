@@ -49,10 +49,11 @@ $('#createNewOrder').click(function(){
         saveOrder(order,getOrders);
     }
 });
+var db;
 
 function onDeviceReady() {
     if( window.isphone ) {
-    var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+    db = window.openDatabase("Database", "1.0", "The Database", 200000);
     db.transaction(setupTable, errorCB, getOrders);
     }
     // do everything here.
