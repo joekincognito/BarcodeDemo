@@ -38,21 +38,23 @@ $('#new-Order').click(function(){
     $('#createNewOrder-Form').show();
 });
 $('#createNewOrder').click(function(){
-    orderName = $('#orderName').val();
-    if (orderName != ""
+    var order = {name:$("#orderName").val()}; 
+                    //body:$("#noteBody").val(),
+                    //id:$("#noteId").val()
+        //};
+    if (order.name != ""
         && window.isphone)
     {  
-        $('#createNewOrder-Form').hide();     
-        var db = window.openDatabase("Database", "1.0", "The Database", 200000);
-        db.transaction(populateDB, errorCB, successCB);
+        saveOrder(order,function() {
+            getOrders();
+        });
     }
 });
 
 function onDeviceReady() {
     if( window.isphone ) {
     var db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    $('#log').append("<p>" + db + "</p>");
-    db.transaction(getOrders, errorCB, successCB);
+    db.transaction(setupTable, errorCB, getOrders);
     }
     // do everything here.
     $('#deviceready .listening').hide();
@@ -98,8 +100,14 @@ function onDeviceReady() {
     });
 }
 
-function getOrders(tx) {
+function setupTable(tx){
+        tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+}
+
+function getOrders() {
+        db.transaction(function(tx){
         tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
+        },errorCB);
     }
 
     // Query the success callback
@@ -107,20 +115,17 @@ function getOrders(tx) {
 function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
         $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        $('.dropdown-menu').html('');
         for (var i=0; i<len; i++){
             $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
             $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).Id+'">'+results.rows.item(i).name+'</a></li>');
         }
     }
-function populateDB(tx) {
-            orderName ="hardcoded test";
-            //tx.executeSql('create table if not exists orders (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name, isSubmitted, date)');
-            tx.executeSql('create table if not exists orders (Id, name, isSubmitted, date)');
-            tx.executeSql('insert into orders(Id, name,isSubmitted, date) values ("1","'+orderName+'","0","")');
-            //tx.executeSql('create table if not exists order_item (order_Id, item_Id)');
-            //tx.executeSql('insert into order_item (order_Id, item_Id) values ('+orderID+','+itemID+')');
-        }
-
+function saveOrder(order, cb) {
+        db.transaction(function(tx){
+            tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',[order.name,"0",new Date()]);
+        },errorCB, cb);
+    } 
 function errorCB(err) {
             $('#log').append("<p>Error processing SQL: "+err.code+"</p>");
         }

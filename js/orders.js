@@ -17,17 +17,23 @@ $(document).ready(function() {
 function onDeviceReady() {
     if( window.isphone ) {
     var db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    db.transaction(getOrders, errorCB, successCB);
+    db.transaction(setupTable, errorCB, getOrders);
     }
 }
-function getOrders(tx) {
+function setupTable(tx){
+        tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+}
+function getOrders() {
+        db.transaction(function(tx){
         tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
+        },errorCB);
     }
     // Query the success callback
     //
 function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
         $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        $('.dropdown-menu').html('');
         for (var i=0; i<len; i++){
             $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
             $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
