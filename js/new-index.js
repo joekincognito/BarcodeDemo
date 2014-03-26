@@ -1,3 +1,6 @@
+var db;
+var order;
+
 $(document).ready(function() {
     // are we running in native app or in a browser?
     window.isphone = false;
@@ -27,13 +30,13 @@ $(document).bind("mobileinit", function(){
     $.support.cors = true;
 });
 */
-$('.order').click(function(){
-    orderID = this.id;
-    itemID = $('#item').val();
-    var db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    db.transaction(populateDb, errorCB, successCB);        
-});
 
+$('.order').click(function(){
+    order.item = {bercor = $('#item').val()};
+    addToOrder(item,atoCB);      
+});
+/*
+removing for now but it was working
 $('#new-Order').click(function(){
     $('#createNewOrder-Form').show();
 });
@@ -49,12 +52,13 @@ $('#createNewOrder').click(function(){
         saveOrder(order,getOrders);
     }
 });
+*/
 var db;
 
 function onDeviceReady() {
     if( window.isphone ) {
-    db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    db.transaction(setupTable, errorCB, getOrders);
+        db = window.openDatabase("Database", "1.0", "The Database", 200000);
+        db.transaction(setupTables, errorCB, successCB);S
     }
     // do everything here.
     $('#deviceready .listening').hide();
@@ -100,9 +104,24 @@ function onDeviceReady() {
     });
 }
 
-function setupTable(tx){
+function setupTables(tx){
     $('#log').append("<p>setupTable</p>");
-        tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+    tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+    tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
+}
+
+function addToOrder(item, cb) {
+    $('#log').append("<p>add to order</p>");
+        //need to decide how to figure out what the order number is
+        //i guess there should only be 1 that is not submitted for now
+        //while doing 1 order at a time, that will work
+        db.transaction(function(tx){
+            tx.executeSql('insert into orderItems(bercor) values(?,?,?)',[order.Id,order.item.bercor,1]);
+        },errorCB, cb);
+    } 
+function atoCB(){
+    $('#info').html('item successfully added to the order in progress');
+    $('#item').val('');
 }
 
 function getOrders() {
@@ -118,13 +137,37 @@ function getOrdersSuccess(tx, results) {
             $('#log').append("<p>Orders table: " + len + " rows found.</p>");
         }else{
             $('#log').append("<p>Orders table: " + len + " rows found.</p>");
-            $('.dropdown-menu').html('');
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
                 $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).Id+'">'+results.rows.item(i).name+'</a></li>');
             }
         }
     }
+function getCurrentOrder() {
+        $('#log').append("<p>getCurrentOrder</p>");
+        db.transaction(function(tx){
+        tx.executeSql('SELECT Id FROM orders where isSubmitted = 0', [], getCurrentOrderSuccess, errorCB);
+        }, errorCB);
+    }
+
+function getCurrentOrderSuccess(tx, results) {
+        var len = results.rows.length;
+        if (len == 0) {
+            $('#log').append("adding row");
+            newOrder(getCurrentOrder);
+        }else{
+            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            for (var i=0; i<len; i++){
+                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                order.Id=results.rows.item(i).Id;
+            }
+        }
+    }
+function newOrder(cb){
+    db.transaction(function(tx){
+            tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',["","0",new Date()]);
+        },errorCB, cb);
+}
 function saveOrder(order, cb) {
     $('#log').append("<p>saveOrder</p>");
         db.transaction(function(tx){

@@ -14,9 +14,10 @@ $(document).ready(function() {
         onDeviceReady();
     }
 });
+var db;
 function onDeviceReady() {
     if( window.isphone ) {
-    var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+    db = window.openDatabase("Database", "1.0", "The Database", 200000);
     db.transaction(setupTable, errorCB, getOrders);
     }
 }
@@ -24,24 +25,24 @@ function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
         tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
 }
-function getOrders() {
-        $('#log').append("<p>getOrders</p>");
-        db.transaction(function(tx){
-            tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
-        }, errorCB);
-    }
-    // Query the success callback
-    //
-function getOrdersSuccess(tx, results) {
-    $('#log').append("<p>getOrdersSuccess</p>");
-        var len = results.rows.length;
-        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
-        $('#current').html('');
-        for (var i=0; i<len; i++){
-            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
-            $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
+    function getOrders() {
+            $('#log').append("<p>getOrders</p>");
+            db.transaction(function(tx){
+                tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
+            }, errorCB);
         }
-    }
+        // Query the success callback
+        //
+    function getOrdersSuccess(tx, results) {
+        $('#log').append("<p>getOrdersSuccess</p>");
+            var len = results.rows.length;
+            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            $('#current').html('');
+            for (var i=0; i<len; i++){
+                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
+            }
+        }
 function populateDB(tx) {
             tx.executeSql('create table if not exists order_item (order_Id, item_Id)');
             tx.executeSql('insert into order_item (order_Id, item_Id) values ('+orderID+','+itemID+')');
