@@ -45,8 +45,8 @@ $('#createNewOrder').click(function(){
     if (order.name != ""
         && window.isphone)
     {  
-        saveOrder(order,getOrders);
         $('#createNewOrder-Form').hide();
+        saveOrder(order,getOrders);
     }
 });
 
@@ -105,21 +105,23 @@ function setupTable(tx){
 }
 
 function getOrders() {
-    $('#log').append("<p>getOrders</p>");
+        $('#log').append("<p>getOrders</p>");
         db.transaction(function(tx){
         tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
         },errorCB);
     }
 
-    // Query the success callback
-    //
 function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
-        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
-        $('.dropdown-menu').html('');
-        for (var i=0; i<len; i++){
-            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
-            $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).Id+'">'+results.rows.item(i).name+'</a></li>');
+        if (len == 0) {
+            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        }else{
+            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            $('.dropdown-menu').html('');
+            for (var i=0; i<len; i++){
+                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).Id+'">'+results.rows.item(i).name+'</a></li>');
+            }
         }
     }
 function saveOrder(order, cb) {
