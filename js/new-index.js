@@ -45,9 +45,8 @@ $('#createNewOrder').click(function(){
     if (order.name != ""
         && window.isphone)
     {  
-        saveOrder(order,function() {
-            getOrders();
-        });
+        saveOrder(order,getOrders);
+        $('#createNewOrder-Form').hide();
     }
 });
 
@@ -101,10 +100,12 @@ function onDeviceReady() {
 }
 
 function setupTable(tx){
+    $('#log').append("<p>setupTable</p>");
         tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
 }
 
 function getOrders() {
+    $('#log').append("<p>getOrders</p>");
         db.transaction(function(tx){
         tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
         },errorCB);
@@ -122,6 +123,7 @@ function getOrdersSuccess(tx, results) {
         }
     }
 function saveOrder(order, cb) {
+    $('#log').append("<p>saveOrder</p>");
         db.transaction(function(tx){
             tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',[order.name,"0",new Date()]);
         },errorCB, cb);
