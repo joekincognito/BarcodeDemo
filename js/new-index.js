@@ -101,6 +101,7 @@ function onDeviceReady() {
 
 function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
+        tx.executeSql('drop table if exists orders');
         tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
 }
 
