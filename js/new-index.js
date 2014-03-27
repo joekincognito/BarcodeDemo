@@ -55,55 +55,13 @@ $('#createNewOrder').click(function(){
     }
 });
 */
-var db;
-
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
-    getCurrentOrder();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
-        db.transaction(setupTables, errorCB, successCB);S
+        db.transaction(setupTables, errorCB, getCurrentOrder);
     }
-    // do everything here.
-    $('#scan').click(function(){
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-        scanner.scan( function (result) { 
-
-            alert("We got a barcode\n" + 
-            "Result: " + result.text + "\n" + 
-            "Format: " + result.format + "\n" + 
-            "Cancelled: " + result.cancelled);  
-
-           $('#log').append("Scanner result: \n" +
-                "text: " + result.text + "\n" +
-                "format: " + result.format + "\n" +
-                "cancelled: " + result.cancelled + "\n");
-            $('#log').append(result);
-            /*$( "#info" ).append( result.text + "\n");*/
-            /* The scan data doesn't need to be sent to a php script
-            *  The scan data will be the bercor number
-            $.mobile.allowCrossDomainPages = true;
-            $.support.cors = true;
-            */
-            $.ajax({
-                url: "http://50.204.18.115/apps/BarcodeDemo2/php/test.php",
-                data: "qs=" + result.text,
-                crossDomain: true,
-                statusCode: {
-                    404: function() {
-                    alert( "page not found" );
-                    }} 
-                })
-                .done(function( returnData ) {
-                    $('#log').append("<p>"+returnData+"</p>");
-                    $( "#info" ).append( returnData );
-                });
-
-        }, function (error) { 
-            $('#log').append("<p>Scanning failed: " + error + "</p>"); 
-        } );
-    });
 }
 
 function setupTables(tx){
@@ -183,3 +141,42 @@ function errorCB(err) {
 function successCB() {
             $('#log').append("<p>success!</p>");
         }    
+
+    $('#scan').click(function(){
+        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+        scanner.scan( function (result) { 
+
+            alert("We got a barcode\n" + 
+            "Result: " + result.text + "\n" + 
+            "Format: " + result.format + "\n" + 
+            "Cancelled: " + result.cancelled);  
+
+           $('#log').append("Scanner result: \n" +
+                "text: " + result.text + "\n" +
+                "format: " + result.format + "\n" +
+                "cancelled: " + result.cancelled + "\n");
+            $('#log').append(result);
+            /*$( "#info" ).append( result.text + "\n");*/
+            /* The scan data doesn't need to be sent to a php script
+            *  The scan data will be the bercor number
+            $.mobile.allowCrossDomainPages = true;
+            $.support.cors = true;
+            */
+            $.ajax({
+                url: "http://50.204.18.115/apps/BarcodeDemo2/php/test.php",
+                data: "qs=" + result.text,
+                crossDomain: true,
+                statusCode: {
+                    404: function() {
+                    alert( "page not found" );
+                    }} 
+                })
+                .done(function( returnData ) {
+                    $('#log').append("<p>"+returnData+"</p>");
+                    $( "#info" ).append( returnData );
+                });
+
+        }, function (error) { 
+            $('#log').append("<p>Scanning failed: " + error + "</p>"); 
+        } );
+    });
