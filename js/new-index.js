@@ -33,7 +33,7 @@ $(document).bind("mobileinit", function(){
 
 $('#addToOrder').click(function(){
     $('#log').html('');
-    $('#log').append('addToOrder Clicked'+'\n');
+    $('#log').append('addToOrder Clicked<br>');
     var item = {bercor:$('#item').val()};
     addToOrder(item,atoCB);      
 });
@@ -60,6 +60,7 @@ var db;
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
+    getCurrentOrder();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, successCB);S
@@ -112,7 +113,7 @@ function setupTables(tx){
 }
 
 function addToOrder(item, cb) {
-    $('#log').append("inside add to order function"+" \n");
+    $('#log').append("inside add to order function<br>");
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
