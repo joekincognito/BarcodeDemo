@@ -106,7 +106,7 @@ function getOrdersSuccess(tx, results) {
 function getCurrentOrder() {
         $('#log').append("<p>getCurrentOrder</p>");
         db.transaction(function(tx){
-        tx.executeSql('SELECT Id FROM orders where isSubmitted NOT 1', [], getCurrentOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id FROM orders where isSubmitted IS null', [], getCurrentOrderSuccess, errorCB);
         }, errorCB);
     }
 
