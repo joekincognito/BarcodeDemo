@@ -31,7 +31,9 @@ $(document).bind("mobileinit", function(){
 });
 */
 
-$('.order').click(function(){
+$('#addToOrder').click(function(){
+    $('#log').html('');
+    $('#log').append('addToOrder Clicked \n');
     var item = {bercor:$('#item').val()};
     addToOrder(item,atoCB);      
 });
@@ -56,14 +58,13 @@ $('#createNewOrder').click(function(){
 var db;
 
 function onDeviceReady() {
+    $('#deviceready .listening').hide();
+    $('#deviceready .received').show();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, successCB);S
     }
     // do everything here.
-    $('#deviceready .listening').hide();
-    $('#deviceready .received').show();
-
     $('#scan').click(function(){
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
         scanner.scan( function (result) { 
@@ -111,7 +112,7 @@ function setupTables(tx){
 }
 
 function addToOrder(item, cb) {
-    $('#log').append("<p>add to order</p>");
+    $('#log').append("inside add to order function \n");
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
