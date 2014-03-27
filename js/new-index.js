@@ -32,7 +32,7 @@ $(document).bind("mobileinit", function(){
 */
 
 $('.order').click(function(){
-    order.item = {bercor = $('#item').val()};
+    var item = {bercor:$('#item').val()};
     addToOrder(item,atoCB);      
 });
 /*
@@ -116,7 +116,7 @@ function addToOrder(item, cb) {
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
         db.transaction(function(tx){
-            tx.executeSql('insert into orderItems(bercor) values(?,?,?)',[order.Id,order.item.bercor,1]);
+            tx.executeSql('insert into orderItems(bercor) values(?,?,?)',[order.Id,item.bercor,1]);
         },errorCB, cb);
     } 
 function atoCB(){
