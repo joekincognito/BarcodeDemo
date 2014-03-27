@@ -23,7 +23,8 @@ function onDeviceReady() {
 }
 function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
-        tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+    tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+    tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
 }
     function getOrders() {
             $('#log').append("<p>getOrders</p>");
@@ -43,11 +44,6 @@ function setupTable(tx){
                 $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
             }
         }
-function populateDB(tx) {
-            tx.executeSql('create table if not exists order_item (order_Id, item_Id)');
-            tx.executeSql('insert into order_item (order_Id, item_Id) values ('+orderID+','+itemID+')');
-        }
-
 function errorCB(err) {
             $('#log').append("<p>Error processing SQL: "+err.code+"</p>");
         }
