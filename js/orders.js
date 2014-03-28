@@ -29,7 +29,7 @@ function setupTable(tx){
     function getOrders() {
             $('#log').append("<p>getOrders</p>");
             db.transaction(function(tx){
-                tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
+                tx.executeSql('SELECT Id, name, bercor, qty FROM orders NATURAL JOIN orderItems', [], getOrdersSuccess, errorCB);
             }, errorCB);
         }
         // Query the success callback
@@ -40,8 +40,8 @@ function setupTable(tx){
             $('#log').append("<p>Orders table: " + len + " rows found.</p>");
             $('#current').html('');
             for (var i=0; i<len; i++){
-                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
-                $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+'</p>');
+                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
+                $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name++ " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
             }
         }
 function errorCB(err) {
