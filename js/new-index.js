@@ -20,22 +20,14 @@ $(document).ready(function() {
 $( document ).ajaxError(function() {
   $( "#log" ).append( "Triggered ajaxError handler." );
 });
-/*
-Seeing if I can remove jQuery mobile because its a pain in my ass
-$(document).bind("mobileinit", function(){
-    $('#log').append('mobileinit function');
-    $(".ui-loader").hide();
-    // - didnt work - $.mobile.loadingMessage = 'potato';
-    $.mobile.allowCrossDomainPages = true;
-    $.support.cors = true;
-});
-*/
-
 $('#addToOrder').click(function(){
     $('#log').html('');
     $('#log').append('addToOrder Clicked<br>');
     var item = {bercor:$('#item').val()};
     addToOrder(item,atoCB);      
+});
+$('#clearDB').click(function(){
+    db.transaction(clearDB, errorCB, getCurrentOrder);
 });
 /*
 removing for now but it was working
@@ -69,6 +61,12 @@ function setupTables(tx){
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
 }
+
+function clearDB(tx){
+    tx.executeSql('drop table if exists orders');
+    tx.executeSql('drop table if exists orderItems');
+}
+
 
 function addToOrder(item, cb) {
     $('#log').append("inside add to order function<br>");
