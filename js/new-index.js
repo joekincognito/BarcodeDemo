@@ -66,6 +66,7 @@ function onDeviceReady() {
 
 function setupTables(tx){
     $('#log').append("<p>setupTable</p>");
+    tx.executeSql('drop table if exists orders');
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
 }
@@ -112,6 +113,7 @@ function getCurrentOrder() {
 
 function getCurrentOrderSuccess(tx, results) {
         var len = results.rows.length;
+        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
         if (len == 0) {
             $('#log').append("adding row");
             newOrder(getCurrentOrder);
