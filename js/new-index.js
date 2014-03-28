@@ -75,8 +75,8 @@ function addToOrder(item, cb) {
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
-        $('#log').append("order.Id is " + order.Id);
         $('#log').append("item.bercor is " + item.bercor);
+        $('#log').append("order.Id is " + order.Id);
 
         db.transaction(function(tx){
             tx.executeSql('insert into orderItems(orderID, bercor, qty) values(?,?,?)',[order.Id,item.bercor,1]);
