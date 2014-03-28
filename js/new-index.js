@@ -1,5 +1,5 @@
 var db;
-var order;
+var order={};
 
 $(document).ready(function() {
     // are we running in native app or in a browser?
