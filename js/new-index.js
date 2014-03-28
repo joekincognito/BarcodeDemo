@@ -168,13 +168,14 @@ function successCB() {
                 url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
                 data: "qs=" + result.text,
                 crossDomain: true,
+                type: json,
                 statusCode: {
                     404: function() {
                     alert( "page not found" );
                     }} 
                 })
                 .done(function( returnData ) {
-                    $('#log').append("<p>"+returnData+"</p>");
+                    $('#log').append("<p>"+returnData.bercor+"</p>");
                     $( "#info" ).append( returnData );
                     $('#item').val( returnData.bercor);
                 });
