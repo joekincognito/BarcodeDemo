@@ -29,5 +29,11 @@ include_once zend_deployment_library_path('PHP Toolkit for IBMI i') . DIRECTORY_
         	//http://www.php.net/manual/en/function.db2-bind-param.php
     	}
 	}
-echo $bercor . ' - ' . $desc;
+   // $item["item"]= array(
+     $item = array(
+            "bercor" => $bercor,
+            "desc" => $desc
+            );
+echo json_encode($item);
+//echo $bercor . ' - ' . $desc;
 ?>
