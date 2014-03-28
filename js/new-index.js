@@ -59,7 +59,7 @@ function onDeviceReady() {
 function setupTables(tx){
     $('#log').append("<p>setupTable</p>");
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
-    tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
+    tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
 }
 
 function clearDB(tx){
@@ -165,7 +165,7 @@ function successCB() {
             $.support.cors = true;
             */
             $.ajax({
-                url: "http://50.204.18.115/apps/BarcodeDemo2/php/test.php",
+                url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
                 data: "qs=" + result.text,
                 crossDomain: true,
                 statusCode: {
@@ -176,6 +176,7 @@ function successCB() {
                 .done(function( returnData ) {
                     $('#log').append("<p>"+returnData+"</p>");
                     $( "#info" ).append( returnData );
+                    $('#item').val( returnData.bercor);
                 });
 
         }, function (error) { 
