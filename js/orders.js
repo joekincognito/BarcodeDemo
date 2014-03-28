@@ -41,7 +41,7 @@ function setupTable(tx){
             $('#current').html('');
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
-                $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name++ " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
+                $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+ " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
             }
         }
 function errorCB(err) {
