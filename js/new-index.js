@@ -66,7 +66,6 @@ function onDeviceReady() {
 
 function setupTables(tx){
     $('#log').append("<p>setupTable</p>");
-    tx.executeSql('drop table if exists orders');
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
 }
@@ -76,6 +75,9 @@ function addToOrder(item, cb) {
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
+        $('#log').append("order.Id is " + order.Id);
+        $('#log').append("item.bercor is " + item.bercor);
+
         db.transaction(function(tx){
             tx.executeSql('insert into orderItems(orderID, bercor, qty) values(?,?,?)',[order.Id,item.bercor,1]);
         },errorCB, cb);
