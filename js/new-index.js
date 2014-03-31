@@ -173,9 +173,11 @@ function successCB() {
                     }} 
                 })
                 .done(function( returnData ) {
-                    $('#log').append("<p>"+returnData.bercor+"</p>");
-                    $( "#info" ).append( returnData );
-                    $('#item').val( returnData.bercor);
+                    var item = jQuery.parseJSON( returnData );
+                    $('#log').append("<p>"+item.bercor+"</p>");
+                    $( "#info" ).append( item );
+                    $( "#info" ).append( "<p>" + returnData + "</p>" );
+                    $('#item').val( item.bercor);
                 });
 
         }, function (error) { 
