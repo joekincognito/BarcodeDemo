@@ -1,3 +1,6 @@
+var order = {};
+var item = {};
+var db;
 $(document).ready(function() {
     // are we running in native app or in a browser?
     window.isphone = false;
@@ -14,10 +17,26 @@ $(document).ready(function() {
         onDeviceReady();
     }
 });
-var db;
 
 $('.panel-heading').click(function(){
     $('#log').toggle();
+});
+
+$('#itemQTY').change(function(){
+    //add changed class to the tr if it doesnt already have it
+    if (!$(this).parent().hasClass("changed")){
+        $(this).parent().addClass("changed");
+    }
+});
+$('#update').click(function(){
+    //update records where the tr has the changed class
+    $('#changed').each(function(){
+        order.Id=$(this).attr('id');
+        item.qty=$(this).children().filter('#itemQTY').val();
+        db.transaction(function(tx){
+            tx.executeSql('update orderItems set qty=? where Id=?',[item.qty,order.Id]);
+        },errorCB);
+    }); 
 });
 
 function onDeviceReady() {
@@ -47,7 +66,7 @@ function setupTable(tx){
             $('#current tbody').html('');
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
-                $('#current tbody').append('<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
+                $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" type="number" min="1" max="200" value="'+results.rows.item(i).qty+'""></td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
             }
         }
 function errorCB(err) {
