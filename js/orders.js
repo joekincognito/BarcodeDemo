@@ -24,12 +24,12 @@ function onDeviceReady() {
 function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
-    tx.executeSql('create table if not exists orderItems (orderID, bercor, qty)');
+    tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
 }
     function getOrders() {
             $('#log').append("<p>getOrders</p>");
             db.transaction(function(tx){
-                tx.executeSql('SELECT Id, name, bercor, qty FROM orders NATURAL JOIN orderItems', [], getOrdersSuccess, errorCB);
+                tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], getOrdersSuccess, errorCB);
             }, errorCB);
         }
         // Query the success callback
@@ -41,7 +41,7 @@ function setupTable(tx){
             $('#current').html('');
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
-                $('#current').append('<p>'+results.rows.item(i).Id+'---'+results.rows.item(i).name+ " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
+                $('#current tbody').append('<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
             }
         }
 function errorCB(err) {
