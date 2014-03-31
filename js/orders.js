@@ -30,7 +30,7 @@ $('#itemQTY').change(function(){
 });
 $('#update').click(function(){
     //update records where the tr has the changed class
-    $('#changed').each(function(){
+    $('.changed').each(function(){
         order.Id=$(this).attr('id');
         item.qty=$(this).children().filter('#itemQTY').val();
         db.transaction(function(tx){
@@ -66,7 +66,7 @@ function setupTable(tx){
             $('#current tbody').html('');
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
-                $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" type="number" min="1" max="200" value="'+results.rows.item(i).qty+'""></td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
+                $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
             }
         }
 function errorCB(err) {
