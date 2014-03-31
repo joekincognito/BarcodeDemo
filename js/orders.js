@@ -38,9 +38,9 @@ function setupTable(tx){
         $('#log').append("<p>getOrdersSuccess</p>");
             var len = results.rows.length;
             $('#log').append("<p>Orders table: " + len + " rows found.</p>");
-            $('#current').html('');
+            $('#current tbody').html('');
             for (var i=0; i<len; i++){
-                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + "</p>");
+                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
                 $('#current tbody').append('<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
             }
         }
