@@ -24,12 +24,15 @@ $('.panel-heading').click(function(){
 
 $('#itemQTY').change(function(){
     //add changed class to the tr if it doesnt already have it
+    $('#log').append("<p>#itemQTY change function triggered</p>");
     if (!$(this).parent().hasClass("changed")){
+        $('#log').append("<p>addClass</p>");
         $(this).parent().addClass("changed");
     }
 });
 $('#update').click(function(){
     //update records where the tr has the changed class
+    $('#log').append("<p>Update Clicked</p>");
     $('.changed').each(function(){
         order.Id=$(this).attr('id');
         item.qty=$(this).children().filter('#itemQTY').val();
