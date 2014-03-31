@@ -79,7 +79,7 @@ function addToOrder(item, cb) {
         $('#log').append("order.Id is " + order.Id);
 
         db.transaction(function(tx){
-            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?)',[order.Id,item.bercor,item.desc,1]);
+            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,item.desc,1]);
         },errorCB, cb);
     } 
 function atoCB(){
