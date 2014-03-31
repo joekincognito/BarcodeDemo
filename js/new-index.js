@@ -168,7 +168,7 @@ function successCB() {
                 url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
                 data: "qs=" + result.text,
                 crossDomain: true,
-                dataType: json,
+                dataType: "jsonp",
                 statusCode: {
                     404: function() {
                     alert( "page not found" );
