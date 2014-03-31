@@ -79,7 +79,7 @@ function addToOrder(item, cb) {
         $('#log').append("order.Id is " + order.Id);
 
         db.transaction(function(tx){
-            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,item.desc,1]);
+            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
         },errorCB, cb);
     } 
 function atoCB(){
@@ -139,7 +139,7 @@ function saveOrder(order, cb) {
         },errorCB, cb);
     } 
 function errorCB(err) {
-            $('#log').append("<p>Error processing SQL: "+err.code+"</p>");
+            $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
         }
 
 function successCB() {
