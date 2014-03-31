@@ -167,8 +167,6 @@ function successCB() {
             $.ajax({
                 url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
                 data: "qs=" + result.text,
-                crossDomain: true,
-                dataType: "jsonp",
                 statusCode: {
                     404: function() {
                     alert( "page not found" );
