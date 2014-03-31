@@ -1,5 +1,6 @@
 var db;
 var order={};
+var item={};
 
 $(document).ready(function() {
     // are we running in native app or in a browser?
@@ -23,8 +24,8 @@ $( document ).ajaxError(function() {
 $('#addToOrder').click(function(){
     $('#log').html('');
     $('#log').append('addToOrder Clicked<br>');
-    var item = {bercor:$('#item').val()};
-    addToOrder(item,atoCB);      
+    //item = {bercor:$('#item').val()};
+        addToOrder(item,atoCB);      
 });
 $('#clearDB').click(function(){
     db.transaction(clearDB, errorCB, getCurrentOrder);
@@ -74,10 +75,11 @@ function addToOrder(item, cb) {
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
         $('#log').append("item.bercor is " + item.bercor);
+        $('#log').append("item.desc is " + item.desc);
         $('#log').append("order.Id is " + order.Id);
 
         db.transaction(function(tx){
-            tx.executeSql('insert into orderItems(orderID, bercor, qty) values(?,?,?)',[order.Id,item.bercor,1]);
+            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?)',[order.Id,item.bercor,item.desc,1]);
         },errorCB, cb);
     } 
 function atoCB(){
@@ -173,10 +175,9 @@ function successCB() {
                     }} 
                 })
                 .done(function( returnData ) {
-                    var item = jQuery.parseJSON( returnData );
+                    item = jQuery.parseJSON( returnData );
                     $('#log').append("<p>"+item.bercor+"</p>");
-                    $( "#info" ).append( item );
-                    $( "#info" ).append( "<p>" + returnData + "</p>" );
+                    $( "#info" ).append( "<p>" + item.desc + "</p>" );
                     $('#item').val( item.bercor);
                 });
 
