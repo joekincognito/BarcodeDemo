@@ -74,7 +74,7 @@ function addToOrder(item, cb) {
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
-        $('#log').append("item.bercor is " + item.bercor);
+        $('#log').append("item.bercor ish " + item.bercor);
         $('#log').append("item.desc is " + item.desc);
         $('#log').append("order.Id is " + order.Id);
 
