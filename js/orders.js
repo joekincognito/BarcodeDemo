@@ -15,7 +15,13 @@ $(document).ready(function() {
     }
 });
 var db;
+
+$('.panel-heading').click(function(){
+    $('#log').toggle();
+});
+
 function onDeviceReady() {
+    $('#log').hide();
     if( window.isphone ) {
     db = window.openDatabase("Database", "1.0", "The Database", 200000);
     db.transaction(setupTable, errorCB, getOrders);

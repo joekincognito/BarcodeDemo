@@ -21,6 +21,11 @@ $(document).ready(function() {
 $( document ).ajaxError(function() {
   $( "#log" ).append( "Triggered ajaxError handler." );
 });
+
+$('.panel-heading').click(function(){
+    $('#log').toggle();
+});
+
 $('#addToOrder').click(function(){
     $('#log').html('');
     $('#log').append('addToOrder Clicked<br>');
@@ -51,6 +56,7 @@ $('#createNewOrder').click(function(){
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
+    $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
@@ -177,6 +183,7 @@ function successCB() {
                 .done(function( returnData ) {
                     item = jQuery.parseJSON( returnData );
                     $('#log').append("<p>"+item.bercor+"</p>");
+                    $('#info').html("");
                     $( "#info" ).append( "<p>" + item.desc + "</p>" );
                     $('#item').val( item.bercor);
                 });
