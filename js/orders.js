@@ -22,7 +22,7 @@ $('.panel-heading').click(function(){
     $('#log').toggle();
 });
 
-$('#itemQTY').change(function(){
+$('#current tbody').on("change", "#itemQTY", function(){
     //add changed class to the tr if it doesnt already have it
     $('#log').append("<p>#itemQTY change function triggered</p>");
     if (!$(this).parent().hasClass("changed")){
