@@ -40,7 +40,7 @@ $('#update').click(function(){
         $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor]);
-        },errorCB);
+        },errorCB,getOrders);
     }); 
 });
 
