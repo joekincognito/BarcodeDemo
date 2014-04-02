@@ -36,9 +36,10 @@ $('#update').click(function(){
     $('.changed').each(function(){
         order.Id=$(this).attr('id');
         item.qty=$(this).children().filter('#itemQTY').val();
-        $('#log').append("<p>item id= " + item.qty + " and order.Id = " + order.Id + " </p>");
+        item.bercor=$(this).children().filter('#bercor').text();
+        $('#log').append("<p>item id= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
-            tx.executeSql('update orderItems set qty=? where Id=?',[item.qty,order.Id]);
+            tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor]);
         },errorCB);
     }); 
 });
@@ -70,7 +71,7 @@ function setupTable(tx){
             $('#current tbody').html('');
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
-                $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td>'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
+                $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
             }
         }
 function errorCB(err) {
