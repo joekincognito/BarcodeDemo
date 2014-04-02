@@ -36,6 +36,7 @@ $('#update').click(function(){
     $('.changed').each(function(){
         order.Id=$(this).attr('id');
         item.qty=$(this).children().filter('#itemQTY').val();
+        $('#log').append("<p>item id= " + item.qty + " and order.Id = " + order.Id + " </p>");
         db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where Id=?',[item.qty,order.Id]);
         },errorCB);
@@ -73,7 +74,7 @@ function setupTable(tx){
             }
         }
 function errorCB(err) {
-            $('#log').append("<p>Error processing SQL: "+err.code+"</p>");
+            $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
         }
 
 function successCB() {
