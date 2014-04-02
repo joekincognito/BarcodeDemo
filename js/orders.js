@@ -22,12 +22,12 @@ $('.panel-heading').click(function(){
     $('#log').toggle();
 });
 
-$('#current tbody').on("change", "#itemQTY", function(){
+$('#current tbody tr').on("change", "#itemQTY", function(){
     //add changed class to the tr if it doesnt already have it
     $('#log').append("<p>#itemQTY change function triggered</p>");
-    if (!$(this).parent().hasClass("changed")){
+    if (!$(this).parent().parent().hasClass("changed")){
         $('#log').append("<p>addClass</p>");
-        $(this).parent().addClass("changed");
+        $(this).parent().parent().addClass("changed");
     }
 });
 $('#update').click(function(){
@@ -35,9 +35,9 @@ $('#update').click(function(){
     $('#log').append("<p>Update Clicked</p>");
     $('.changed').each(function(){
         order.Id=$(this).attr('id');
-        item.qty=$(this).children().filter('#itemQTY').val();
+        item.qty=$(this).children().filter('td #itemQTY').val();
         item.bercor=$(this).children().filter('#bercor').text();
-        $('#log').append("<p>item id= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
+        $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor]);
         },errorCB);
