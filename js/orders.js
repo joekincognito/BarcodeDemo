@@ -43,8 +43,6 @@ $('#update').click(function(){
             tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],null,errorCB);
         },errorCB,updateSuccessCB);
     });
-
-    getOrders();
 });
 updateSuccessCB
 function updateSuccessCB(tx, results){
@@ -56,6 +54,7 @@ function updateSuccessCB(tx, results){
     // the number of rows returned by the select statement
     $('#log').append("Insert ID = " + results.rows.length);
     $('#log').append("<br>");
+    getOrders();
 }
 
 function onDeviceReady() {
