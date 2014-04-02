@@ -40,9 +40,21 @@ $('#update').click(function(){
         $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor]);
-        },errorCB,getOrders);
+        },errorCB,updateSuccessCB);
     }); 
+    getOrders();
 });
+
+function updateSuccessCB(tx, results){
+    $('#log').append("Insert ID = " + results.insertId);
+    $('#log').append("<br>");
+    // this will be 0 since it is a select statement
+    $('#log').append("Rows Affected = " + results.rowAffected);
+    $('#log').append("<br>");
+    // the number of rows returned by the select statement
+    $('#log').append("Insert ID = " + results.rows.length);
+    $('#log').append("<br>");
+}
 
 function onDeviceReady() {
     $('#log').hide();
