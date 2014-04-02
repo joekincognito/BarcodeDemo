@@ -44,7 +44,6 @@ $('#update').click(function(){
         },errorCB,updateSuccessCB);
     });
 });
-updateSuccessCB
 function updateSuccessCB(tx, results){
     $('#log').append("Insert ID = " + results.insertId);
     $('#log').append("<br>");
