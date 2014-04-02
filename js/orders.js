@@ -41,7 +41,7 @@ $('#update').click(function(){
         $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where bercor=?',[item.qty,item.bercor],updateSuccessCB,errorCB);
-        },errorCB);
+        },errorCB,successCB);
         /*db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],null,errorCB);
         },errorCB,updateSuccessCB);*/
@@ -49,7 +49,7 @@ $('#update').click(function(){
 });
 function updateSuccessCB(tx, results){
     $('#log').append("updateSuccessCB");
-    $('#log').append("and changes = " + changes());
+    $('#log').append("results legnth" = results.rows.length);
     $('#log').append("Insert ID = " + results.insertId);
     $('#log').append("<br>");
     // this will be 0 since it is a select statement
