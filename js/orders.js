@@ -40,7 +40,7 @@ $('#update').click(function(){
         item.bercor=$(this).children().filter('#bercor').text();
         $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
-            tx.executeSql('update orderItems set qty=? where bercor=?',[item.qty,item.bercor],updateSuccessCB,errorCB);
+            tx.executeSql('update orderItems set qty=? where bercor=?',[item.qty,item.bercor],null,errorCB);
         },errorCB,successCB);
         /*db.transaction(function(tx){
             tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],null,errorCB);
