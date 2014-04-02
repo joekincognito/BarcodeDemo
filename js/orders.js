@@ -33,15 +33,17 @@ $('#current tbody').on("change", "#itemQTY", function(){
 $('#update').click(function(){
     //update records where the tr has the changed class
     $('#log').append("<p>Update Clicked</p>");
+
     $('.changed').each(function(){
         order.Id=$(this).attr('id');
         item.qty=$(this).children().children().filter('#itemQTY').val();
         item.bercor=$(this).children().filter('#bercor').text();
         $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
-            tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor]);
-        },errorCB,updateSuccessCB);
-    }); 
+            tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],updateSuccessCB,errorCB);
+        },errorCB);
+    });
+
     getOrders();
 });
 
