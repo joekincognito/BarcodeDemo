@@ -40,13 +40,13 @@ $('#update').click(function(){
         item.bercor=$(this).children().filter('#bercor').text();
         $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
         db.transaction(function(tx){
-            tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],updateSuccessCB,errorCB);
-        },errorCB);
+            tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],null,errorCB);
+        },errorCB,updateSuccessCB);
     });
 
     getOrders();
 });
-
+updateSuccessCB
 function updateSuccessCB(tx, results){
     $('#log').append("Insert ID = " + results.insertId);
     $('#log').append("<br>");
