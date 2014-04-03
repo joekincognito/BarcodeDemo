@@ -76,13 +76,11 @@ function clearDB(tx){
 
 
 function addToOrder(item, cb) {
-    $('#log').append("inside add to order function<br>");
+        $('#log').append("inside add to order function<br>");
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
-        $('#log').append("item.bercor ish " + item.bercor);
-        $('#log').append("item.desc is " + item.desc);
-        $('#log').append("order.Id is " + order.Id);
+        $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         db.transaction(function(tx){
             tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
         },errorCB, cb);
@@ -171,23 +169,33 @@ function successCB() {
             $.mobile.allowCrossDomainPages = true;
             $.support.cors = true;
             */
-            $.ajax({
-                url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
-                data: "qs=" + result.text,
-                statusCode: {
-                    404: function() {
-                    alert( "page not found" );
-                    }} 
-                })
-                .done(function( returnData ) {
-                    item = jQuery.parseJSON( returnData );
-                    $('#log').append("<p>"+item.bercor+"</p>");
-                    $('#info').html("");
-                    $( "#info" ).append( "<p>" + item.desc + "</p>" );
-                    $('#item').val( item.bercor);
-                });
-
+            if(!(result.text.toString().length===15)){
+                alert("Scan Error or invalid barcode\n" +
+                 "Please Try Again!");
+            }
+            else 
+            {
+                ajax(result);
+            }
         }, function (error) { 
             $('#log').append("<p>Scanning failed: " + error + "</p>"); 
-        } );
+        });
+        
     });
+function ajax(result){
+        $.ajax({
+            url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
+            data: "qs=" + result.text,
+            statusCode: {
+                404: function() {
+                alert( "page not found" );
+                }} 
+            })
+            .done(function( returnData ) {
+                item = jQuery.parseJSON( returnData );
+                $('#log').append("<p>"+item.bercor+"</p>");
+                $('#info').html("");
+                $( "#info" ).append( "<p>" + item.desc + "</p>" );
+                $('#item').val( item.bercor);
+            });    
+}

@@ -100,7 +100,7 @@ function setupTable(tx){
             $('#current tbody').html('');
             order.Id = results.rows.item(0).Id;
             order.name = results.rows.item(0).name;
-            $('#po').val("'"+order.name+"'");
+            $('#po').val(order.name);
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
                 $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
