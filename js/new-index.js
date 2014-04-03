@@ -82,8 +82,11 @@ function addToOrder(item, cb) {
         //while doing 1 order at a time, that will work
         if(!item.desc){
             ajax(item.bercor);
-            setTimeout(function(){$('#log').append('<p>timeout over item.desc is ' + item.desc + '</p>')},2000);
-            if(!item.desc){addToOrder(item,atoCB)};
+            if(!item.desc){
+                for (var i=0;i<5;i++){
+                    setTimeout(function(){$('#log').append('<p>timeout over item.desc is ' + item.desc + '</p>')},2000);
+                }
+            }    
         }
         $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         db.transaction(function(tx){
