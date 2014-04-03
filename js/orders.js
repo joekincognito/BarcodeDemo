@@ -30,13 +30,25 @@ $('#current tbody').on("change", "#itemQTY", function(){
         $(this).parent().parent().addClass("changed");
     }
 });
+$('#po').change(function(){
+    $('#log').append("<p>dat der order nambre hast bein change</p>");
+    if (!$(this).hasClass("poChanged")){
+        $(this).addClass("poChanged");
+    }
+});
 
 $('#update').click(function(){
     //update records where the tr has the changed class
     $('#log').append("<p>Update Clicked</p>");
+    if ($('#po').hasClass("poChanged")){
+        order.name=$('#po').val();
+        db.transaction(function(tx){
+            tx.executeSql('update orders set name=? where Id=?',[order.name,order.Id]);    
+        });
+    }
     db.transaction(function(tx){
         $('.changed').each(function(){
-            order.Id=$(this).attr('id');
+            //Moved---order.Id=$(this).attr('id');
             item.qty=$(this).children().children().filter('#itemQTY').val();
             item.bercor=$(this).children().filter('#bercor').text();
             $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
@@ -86,6 +98,9 @@ function setupTable(tx){
             var len = results.rows.length;
             $('#log').append("<p>Orders table: " + len + " rows found.</p>");
             $('#current tbody').html('');
+            order.Id = results.rows.item(0).Id;
+            order.name = results.rows.item(0).name;
+            $('#po').val("'"+order.name+"'");
             for (var i=0; i<len; i++){
                 $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
                 $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
