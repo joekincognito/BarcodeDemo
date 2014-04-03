@@ -30,23 +30,23 @@ $('#current tbody').on("change", "#itemQTY", function(){
         $(this).parent().parent().addClass("changed");
     }
 });
+
 $('#update').click(function(){
     //update records where the tr has the changed class
     $('#log').append("<p>Update Clicked</p>");
-
-    $('.changed').each(function(){
-        order.Id=$(this).attr('id');
-        item.qty=$(this).children().children().filter('#itemQTY').val();
-        item.bercor=$(this).children().filter('#bercor').text();
-        $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
-        db.transaction(function(tx){
-            tx.executeSql('update orderItems set qty=? where bercor=?',[item.qty,item.bercor],null,errorCB);
-        },errorCB,successCB);
-        /*db.transaction(function(tx){
-            tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[item.qty,order.Id,item.bercor],null,errorCB);
-        },errorCB,updateSuccessCB);*/
-    });
+    db.transaction(function(tx){
+        $('.changed').each(function(){
+            order.Id=$(this).attr('id');
+            item.qty=$(this).children().children().filter('#itemQTY').val();
+            item.bercor=$(this).children().filter('#bercor').text();
+            $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
+            //All three log correctly
+                tx.executeSql('update orderItems set qty=? where bercor=?',[item.qty,item.bercor],null,errorCB);
+            //All three log success
+        });
+    },errorCB,successCB);
 });
+
 function updateSuccessCB(tx, results){
     $('#log').append("updateSuccessCB");
     $('#log').append("results legnth" = results.rows.length);
