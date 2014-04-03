@@ -80,14 +80,6 @@ function addToOrder(item, cb) {
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
-        if(!item.desc){
-            ajax(item.bercor);
-            if(!item.desc){
-                for (var i=0;i<5;i++){
-                    setTimeout(function(){$('#log').append('<p>timeout over item.desc is ' + item.desc + '</p>')},2000);
-                }
-            }    
-        }
         $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         db.transaction(function(tx){
             tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
