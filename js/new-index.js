@@ -29,7 +29,7 @@ $('.panel-heading').click(function(){
 $('#addToOrder').click(function(){
     $('#log').html('');
     $('#log').append('addToOrder Clicked<br>');
-    //item = {bercor:$('#item').val()};
+    item = {bercor:$('#item').val()};
         addToOrder(item,atoCB);      
 });
 $('#clearDB').click(function(){
@@ -80,6 +80,10 @@ function addToOrder(item, cb) {
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
+        if(!item.desc){
+            console.log('test');
+            ajax(item.bercor);
+        }
         $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         db.transaction(function(tx){
             tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
@@ -175,17 +179,18 @@ function successCB() {
             }
             else 
             {
-                ajax(result);
+                ajax(result.text,null);
             }
         }, function (error) { 
             $('#log').append("<p>Scanning failed: " + error + "</p>"); 
         });
         
     });
-function ajax(result){
+function ajax(number){ //number will be either scan data or bercor
         $.ajax({
             url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
-            data: "qs=" + result.text,
+            //data: "qs=" + result.text,
+            data: "qs=" + number,
             statusCode: {
                 404: function() {
                 alert( "page not found" );
