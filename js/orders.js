@@ -59,19 +59,9 @@ $('#update').click(function(){
     },errorCB,successCB);
 });
 
-function updateSuccessCB(tx, results){
-    $('#log').append("updateSuccessCB");
-    $('#log').append("results legnth" = results.rows.length);
-    $('#log').append("Insert ID = " + results.insertId);
-    $('#log').append("<br>");
-    // this will be 0 since it is a select statement
-    $('#log').append("Rows Affected = " + results.rowAffected);
-    $('#log').append("<br>");
-    // the number of rows returned by the select statement
-    $('#log').append("Insert ID = " + results.rows.length);
-    $('#log').append("<br>");
-    getOrders();
-}
+$('#placeOrder').click(function(){
+    processOrder();
+});
 
 function onDeviceReady() {
     $('#log').hide();
@@ -85,31 +75,60 @@ function setupTable(tx){
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
 }
-    function getOrders() {
-            $('#log').append("<p>getOrders</p>");
-            db.transaction(function(tx){
-                tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], getOrdersSuccess, errorCB);
-            }, errorCB);
-        }
-        // Query the success callback
-        //
-    function getOrdersSuccess(tx, results) {
-        $('#log').append("<p>getOrdersSuccess</p>");
-            var len = results.rows.length;
-            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
-            $('#current tbody').html('');
-            order.Id = results.rows.item(0).Id;
-            order.name = results.rows.item(0).name;
-            $('#po').val(order.name);
-            for (var i=0; i<len; i++){
-                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
-                $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
-            }
-        }
+function getOrders() {
+    $('#log').append("<p>getOrders</p>");
+    db.transaction(function(tx){
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], getOrdersSuccess, errorCB);
+    }, errorCB);
+}
+
+function getOrdersSuccess(tx, results) {
+    $('#log').append("<p>getOrdersSuccess</p>");
+        var len = results.rows.length;
+        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        $('#current tbody').html('');
+        order.Id = results.rows.item(0).Id;
+        order.name = results.rows.item(0).name;
+        $('#po').val(order.name);
+        for (var i=0; i<len; i++){
+            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
+            $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
+    }
+}
+
+function processOrder()
+{
+    var orders2 = {};
+    orders = db.transaction(function(tx){
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], null, errorCB);
+    }, errorCB);
+    dump(orders);
+
+    db.transaction(function(tx){
+        orders2 = tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], null, errorCB);
+    }, errorCB);    
+    dump(orders2);
+}
+
 function errorCB(err) {
-            $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
-        }
+    $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
+}
 
 function successCB() {
-            $('#log').append("<p>success!</p>");
-        } 
+    $('#log').append("<p>success!</p>");
+} 
+
+function dump(obj) {
+    var out = '';
+    for (var i in obj) {
+        out += i + ": " + obj[i] + "\n";
+    }
+
+    alert(out);
+
+    // or, if you wanted to avoid alerts...
+
+    var pre = document.createElement('pre');
+    pre.innerHTML = out;
+    document.body.appendChild(pre)
+}
