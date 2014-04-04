@@ -29,7 +29,8 @@ $('.panel-heading').click(function(){
 $('#addToOrder').click(function(){
     $('#log').html('');
     $('#log').append('addToOrder Clicked<br>');
-    item = {bercor:$('#item').val()};
+    //item = {bercor:$('#item').val()};
+    item.bercor=$('#item').val();
         addToOrder(item,atoCB);      
 });
 $('#clearDB').click(function(){
