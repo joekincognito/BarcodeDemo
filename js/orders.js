@@ -98,18 +98,76 @@ function getOrdersSuccess(tx, results) {
 
 function processOrder()
 {
-    var orders2 = {};
-    orders = db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], null, errorCB);
-    }, errorCB);
-    dump(orders);
-
     db.transaction(function(tx){
-        orders2 = tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], null, errorCB);
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], processOrderSuccess, errorCB);
     }, errorCB);    
-    dump(orders2);
 }
 
+function processOrderSuccess(tx, results) {
+    //function processOrderSuccess() {---BROWSER TESTING
+        var orderJSON = "";
+        var itemsJSON = "";
+        var len = results.rows.length;
+        order.Id = results.rows.item(0).Id;
+        order.name = results.rows.item(0).name;
+        order.custID = '2501';
+        orderJSON = '{';
+        /* --------WAS FOR TESTING IN BROWSER
+        orderJSON += '"ID":"1",';      
+        orderJSON += '"name":"test order",';
+        orderJSON += '"CustID":"2501",';
+        */
+        orderJSON += '"ID":"'+order.Id+'",';
+        orderJSON += '"name":"'+order.name+'",';
+        orderJSON += '"CustID":"'+order.custID+'",';
+
+        /* --------WAS FOR TESTING IN BROWSER
+        var items = [];
+        console.log('wtf');        
+        items[0] = new itemf('0','12345','2');
+        items[1] = new itemf('1','33345','4');
+        items[2] = new itemf('2','12345','1');
+        console.log('wtf2');
+        */
+
+        itemsJSON = '"items":[';
+        for (var i=0; i<len; i++){
+            itemsJSON += '{';
+            itemsJSON += '"line":"'+i+'",';
+            itemsJSON += '"bercor":"'+results.rows.item(i).bercor+'",';
+            itemsJSON += '"qty":"'+results.rows.item(i).qty)+'"';
+            itemsJSON += '}';
+            if (!(i==(len-1))){itemsJSON += ',';}
+        }
+        
+        /* --------WAS FOR TESTING IN BROWSER
+        for (var i=0; i<items.length;i++)
+        {
+            itemsJSON += '{';
+            itemsJSON += '"line":"'+items[i].idd+'",';
+            itemsJSON += '"bercor":"'+items[i].bercor+'",';
+            itemsJSON += '"qty":"'+items[i].qty+'"';
+            itemsJSON += '}';
+            if (!(i==(items.length-1))){itemsJSON += ',';}
+        }
+        */
+        itemsJSON += ']';
+        orderJSON += itemsJSON;
+        orderJSON += '}';
+        alert(orderJSON);
+        //console.log(orderJSON);
+        //dump(items[0]);
+        //var itemJSON = $.toJSON(items);
+        //dump(itemJson);
+}
+/* --------WAS FOR TESTING IN BROWSER
+function itemf(idd,bercor,qty)
+{
+    this.idd=idd;
+    this.bercor=bercor;
+    this.qty=qty;
+}
+*/
 function errorCB(err) {
     $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
 }
@@ -128,7 +186,7 @@ function dump(obj) {
 
     // or, if you wanted to avoid alerts...
 
-    var pre = document.createElement('pre');
-    pre.innerHTML = out;
-    document.body.appendChild(pre)
+    //var pre = document.createElement('pre');
+    //pre.innerHTML = out;
+    //document.body.appendChild(pre)
 }
