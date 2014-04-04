@@ -154,11 +154,29 @@ function processOrderSuccess(tx, results) {
         itemsJSON += ']';
         orderJSON += itemsJSON;
         orderJSON += '}';
-        alert(orderJSON);
+        placeOrder(orderJSON);
+        //alert(orderJSON);
         //console.log(orderJSON);
         //dump(items[0]);
         //var itemJSON = $.toJSON(items);
         //dump(itemJson);
+}
+function placeOrder(JSONstring)
+{
+    $.ajax({
+            //url: "http://50.204.18.115/apps/BarcodeDemo/php/order.php",
+            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
+            //data: "qs=" + result.text,
+            data: "qs=" + JSONstring,
+            statusCode: {
+                404: function() {
+                alert( "page not found" );
+                }} 
+            })
+            .done(function( returnData ) {
+                //item = jQuery.parseJSON( returnData );
+                $('#log').append("<p>returndata is"+returnData+"</p>");
+            });
 }
 /* --------WAS FOR TESTING IN BROWSER
 function itemf(idd,bercor,qty)
