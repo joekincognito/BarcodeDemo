@@ -135,7 +135,7 @@ function processOrderSuccess(tx, results) {
             itemsJSON += '{';
             itemsJSON += '"line":"'+i+'",';
             itemsJSON += '"bercor":"'+results.rows.item(i).bercor+'",';
-            itemsJSON += '"qty":"'+results.rows.item(i).qty)+'"';
+            itemsJSON += '"qty":"'+results.rows.item(i).qty+'"';
             itemsJSON += '}';
             if (!(i==(len-1))){itemsJSON += ',';}
         }
