@@ -90,7 +90,7 @@ function addToOrder(item) {
 function addToOrderResults(tx,results){
     if (results.rows.length > 0){
             db.transaction(function(tx){
-                tx.executeSql('update orderItems set bercor = bercor+1 where orderID =? and bercor = ?',[order.ID,item.bercor],null,errorCB);
+                tx.executeSql('update orderItems set qty = qty+1 where orderID =? and bercor = ?',[order.ID,item.bercor],null,errorCB);
             },errorCB, atoCB);
         }
     else
