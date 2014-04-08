@@ -83,7 +83,11 @@ function addToOrder(item, cb) {
         //while doing 1 order at a time, that will work
         $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         db.transaction(function(tx){
-            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
+            tx.executeSql(
+                'if exists(select * from orderItems where (orderID = $orderID and bercor = $item.bercor))
+                update orderItems set bercor=bercor+1 where (orderID = $orderID and bercor = $item.bercor)
+                else
+                insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
         },errorCB, cb);
     } 
 function atoCB(){
@@ -185,7 +189,8 @@ function successCB() {
     });
 function ajax(number){ //number will be either scan data or bercor
         $.ajax({
-            url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
+            //url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
+            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",
             //data: "qs=" + result.text,
             data: "qs=" + number,
             statusCode: {
