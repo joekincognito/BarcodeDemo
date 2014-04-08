@@ -31,7 +31,7 @@ $('#addToOrder').click(function(){
     $('#log').append('addToOrder Clicked<br>');
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
-        addToOrder(item,atoCB);      
+        addToOrder(item);      
 });
 $('#clearDB').click(function(){
     db.transaction(clearDB, errorCB, getCurrentOrder);
@@ -76,20 +76,30 @@ function clearDB(tx){
 }
 
 
-function addToOrder(item, cb) {
+function addToOrder(item) {
         $('#log').append("inside add to order function<br>");
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
         $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
+        
         db.transaction(function(tx){
-            tx.executeSql(
-                'if exists(select * from orderItems where (orderID = $orderID and bercor = $item.bercor))
-                update orderItems set bercor=bercor+1 where (orderID = $orderID and bercor = $item.bercor)
-                else
-                insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
-        },errorCB, cb);
+            tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],addToOrderResults,errorCB)
+        },errorCB, null);//this was cb instead of null
     } 
+function addToOrderResults(tx,results){
+    if (results.rows.length > 0){
+            db.transaction(function(tx){
+                tx.executeSql('update orderItems set bercor = bercor+1 where orderID =? and bercor = ?',[order.ID,item.bercor],null,errorCB);
+            },errorCB, atoCB);
+        }
+    else
+        {
+            db.transaction(function(tx){
+                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
+            },errorCB, atoCB);
+        }
+}    
 function atoCB(){
     $('#info').html('item successfully added to the order in progress');
     $('#item').val('');
