@@ -75,11 +75,12 @@ function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
+    tx.executeSql('create table if not exists customer (customerID)');
 }
 function getOrders() {
     $('#log').append("<p>getOrders</p>");
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE orderItems.qty > 0', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE qty > 0', [], getOrdersSuccess, errorCB);
     }, errorCB);
 }
 
@@ -100,7 +101,7 @@ function getOrdersSuccess(tx, results) {
 function processOrder()
 {
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], processOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE qty > 0', [], processOrderSuccess, errorCB);
     }, errorCB);    
 }
 

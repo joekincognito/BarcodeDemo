@@ -45,12 +45,17 @@ function onDeviceReady() {
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
-        db.transaction(function(tx){
-            tx.executeSql('select * from customer',[],$('#log').append("<p>at1---"+results.rows.length+"</p>",errorCB)
-        },errorCB, null);
+        
+         $('#log').append('<p>111111111</p>');
         db.transaction(function(tx,results){
             tx.executeSql('select * from customer',[],$('#log').append("<p>at2---"+results.rows.length+"</p>",errorCB)
         },errorCB, null);
+
+        $('#log').append('<p>22222222222222222</p>');
+        db.transaction(function(tx){
+            tx.executeSql('select * from customer',[],$('#log').append("<p>at1---"+results.rows.length+"</p>",errorCB)
+        },errorCB, null);
+
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
 }
