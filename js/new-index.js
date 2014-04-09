@@ -46,7 +46,9 @@ function onDeviceReady() {
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(function(tx){
-            tx.executeSql('select * from customer',[],function(tx,results){$('#log').append("<p>at2---"+results.rows.length+"</p>")},errorCB)
+            tx.executeSql('select * from customer',[],function(tx,results){
+                if(results.rows.length==0){window.location="customer.html";}
+            },errorCB)
         },errorCB, null);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
