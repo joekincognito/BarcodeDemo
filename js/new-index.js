@@ -1,7 +1,7 @@
 var db;
-var order={};
-var item={};
-
+var order = {};
+var item = {};
+var customer = {};
 $(document).ready(function() {
     // are we running in native app or in a browser?
     window.isphone = false;
@@ -45,6 +45,12 @@ function onDeviceReady() {
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
+        db.transaction(function(tx){
+            tx.executeSql('select * from customer',[],$('#log').append("<p>at1---"+results.rows.length+"</p>",errorCB)
+        },errorCB, null);
+        db.transaction(function(tx,results){
+            tx.executeSql('select * from customer',[],$('#log').append("<p>at2---"+results.rows.length+"</p>",errorCB)
+        },errorCB, null);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
 }
@@ -53,6 +59,7 @@ function setupTables(tx){
     $('#log').append("<p>setupTable</p>");
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
+    tx.executeSql('create table if not exists customer (customerID)');
 }
 
 function clearDB(tx){

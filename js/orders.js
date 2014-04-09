@@ -1,6 +1,7 @@
+var db;
 var order = {};
 var item = {};
-var db;
+var customer = {};
 $(document).ready(function() {
     // are we running in native app or in a browser?
     window.isphone = false;
@@ -53,7 +54,7 @@ $('#update').click(function(){
             item.bercor=$(this).children().filter('#bercor').text();
             $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
             //All three log correctly
-                tx.executeSql('update orderItems set qty=? where bercor=?',[item.qty,item.bercor],null,errorCB);
+                tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[item.qty, order.Id,item.bercor],null,errorCB);
             //All three log success
         });
     },errorCB,successCB);
@@ -78,7 +79,7 @@ function setupTable(tx){
 function getOrders() {
     $('#log').append("<p>getOrders</p>");
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE orderItems.qty > 0', [], getOrdersSuccess, errorCB);
     }, errorCB);
 }
 
