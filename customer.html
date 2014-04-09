@@ -63,7 +63,7 @@
                 custID=$('#custID').val();
                 db.transaction(function(tx){
                     tx.executeSql('insert into customer (customerID) values (?)',[custID]);
-                },errorCB, function(tx){$('.navbar-brand').click();});
+                },function(tx){alert('you suck');}, function(tx){$('.navbar-brand').click();});
           });
         </script>      
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
