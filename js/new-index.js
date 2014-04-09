@@ -18,6 +18,7 @@ $(document).ready(function() {
         onDeviceReady();
     }
 });
+
 $( document ).ajaxError(function() {
   $( "#log" ).append( "Triggered ajaxError handler." );
 });
@@ -33,27 +34,11 @@ $('#addToOrder').click(function(){
     item.bercor=$('#item').val();
         addToOrder(item);      
 });
+
 $('#clearDB').click(function(){
     db.transaction(clearDB, errorCB, getCurrentOrder);
 });
-/*
-removing for now but it was working
-$('#new-Order').click(function(){
-    $('#createNewOrder-Form').show();
-});
-$('#createNewOrder').click(function(){
-    var order = {name:$("#orderName").val()}; 
-                    //body:$("#noteBody").val(),
-                    //id:$("#noteId").val()
-        //};
-    if (order.name != ""
-        && window.isphone)
-    {  
-        $('#createNewOrder-Form').hide();
-        saveOrder(order,getOrders);
-    }
-});
-*/
+
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
@@ -75,7 +60,6 @@ function clearDB(tx){
     tx.executeSql('drop table if exists orderItems');
 }
 
-
 function addToOrder(item) {
         $('#log').append("inside add to order function<br>");
         //need to decide how to figure out what the order number is
@@ -86,21 +70,21 @@ function addToOrder(item) {
         db.transaction(function(tx){
             tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],addToOrderResults,errorCB)
         },errorCB, null);//this was cb instead of null
-    } 
+} 
+
 function addToOrderResults(tx,results){
     $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
-    if (results.rows.length > 0){
-            db.transaction(function(tx){
+    db.transaction(function(tx){
+        if (results.rows.length > 0){
                 tx.executeSql('update orderItems set qty = qty+1 where orderID =? and bercor = ?',[order.ID,item.bercor]);
-            },errorCB, atoCB);
-        }
-    else
-        {
-            db.transaction(function(tx){
+            }
+        else
+            {
                 tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
-            },errorCB, atoCB);
-        }
-}    
+            }
+    },errorCB, atoCB);
+}  
+
 function atoCB(){
     $('#info').html('item successfully added to the order in progress');
     $('#item').val('');
@@ -111,7 +95,7 @@ function getOrders() {
         db.transaction(function(tx){
         tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
         }, errorCB);
-    }
+}
 
 function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
@@ -124,13 +108,14 @@ function getOrdersSuccess(tx, results) {
                 $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).Id+'">'+results.rows.item(i).name+'</a></li>');
             }
         }
-    }
+}
+
 function getCurrentOrder() {
         $('#log').append("<p>getCurrentOrder</p>");
         db.transaction(function(tx){
         tx.executeSql('SELECT Id FROM orders', [], getCurrentOrderSuccess, errorCB);
         }, errorCB);
-    }
+}
 
 function getCurrentOrderSuccess(tx, results) {
         var len = results.rows.length;
@@ -145,59 +130,63 @@ function getCurrentOrderSuccess(tx, results) {
                 order.Id=results.rows.item(i).Id;
             }
         }
-    }
+}
+
 function newOrder(cb){
     db.transaction(function(tx){
             tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',["","0",new Date()]);
         },errorCB, cb);
 }
+
 function saveOrder(order, cb) {
     $('#log').append("<p>saveOrder</p>");
         db.transaction(function(tx){
             tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',[order.name,"0",new Date()]);
         },errorCB, cb);
-    } 
+} 
+
 function errorCB(err) {
             $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
-        }
+}
 
 function successCB() {
             $('#log').append("<p>success!</p>");
-        }    
+}    
 
-    $('#scan').click(function(){
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-        scanner.scan( function (result) { 
+$('#scan').click(function(){
+    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    scanner.scan( function (result) { 
 
-            alert("We got a barcode\n" + 
-            "Result: " + result.text + "\n" + 
-            "Format: " + result.format + "\n" + 
-            "Cancelled: " + result.cancelled);  
+        alert("We got a barcode\n" + 
+        "Result: " + result.text + "\n" + 
+        "Format: " + result.format + "\n" + 
+        "Cancelled: " + result.cancelled);  
 
-           $('#log').append("Scanner result: \n" +
-                "text: " + result.text + "\n" +
-                "format: " + result.format + "\n" +
-                "cancelled: " + result.cancelled + "\n");
-            $('#log').append(result);
-            /*$( "#info" ).append( result.text + "\n");*/
-            /* The scan data doesn't need to be sent to a php script
-            *  The scan data will be the bercor number
-            $.mobile.allowCrossDomainPages = true;
-            $.support.cors = true;
-            */
-            if(!(result.text.toString().length===15)){
-                alert("Scan Error or invalid barcode\n" +
-                 "Please Try Again!");
-            }
-            else 
-            {
-                ajax(result.text,null);
-            }
-        }, function (error) { 
-            $('#log').append("<p>Scanning failed: " + error + "</p>"); 
-        });
-        
+       $('#log').append("Scanner result: \n" +
+            "text: " + result.text + "\n" +
+            "format: " + result.format + "\n" +
+            "cancelled: " + result.cancelled + "\n");
+        $('#log').append(result);
+        /*$( "#info" ).append( result.text + "\n");*/
+        /* The scan data doesn't need to be sent to a php script
+        *  The scan data will be the bercor number
+        $.mobile.allowCrossDomainPages = true;
+        $.support.cors = true;
+        */
+        if(!(result.text.toString().length===15)){
+            alert("Scan Error or invalid barcode\n" +
+             "Please Try Again!");
+        }
+        else 
+        {
+            ajax(result.text,null);
+        }
+    }, function (error) { 
+        $('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
+    
+});
+
 function ajax(number){ //number will be either scan data or bercor
         $.ajax({
             //url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
