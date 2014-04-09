@@ -78,7 +78,7 @@ function addToOrderResults(tx,results){
         if (results.rows.length > 0){
             newQty = results.rows.item(0).qty + 1;
             $('#log').append("<p>newQty: " +newQty+"</p>");
-                tx.executeSql('update orderItems set qty=? where orderID=? and bercor=?',[newQty, order.ID,item.bercor]);
+                tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[newQty, order.ID,item.bercor]);
             }
         else
             {
