@@ -45,11 +45,6 @@ function onDeviceReady() {
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
-        db.transaction(function(tx){
-            tx.executeSql('select * from customer',[],function(tx,results){
-                if(results.rows.length==0){window.location="customer.html";}
-            },errorCB)
-        },errorCB, null);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
 }
@@ -59,6 +54,11 @@ function setupTables(tx){
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
     tx.executeSql('create table if not exists customer (customerID)');
+    //db.transaction(function(tx){
+            tx.executeSql('select * from customer',[],function(tx,results){
+                if(results.rows.length==0){window.location="customer.html";}
+            },errorCB)
+    //    },errorCB, null);
 }
 
 function clearDB(tx){
