@@ -49,22 +49,21 @@
     </div>
         <div class="container">
             <h4 class="col-md-2" style="margin-top: 1.5px">Customer ID:</h4>
-                      <div class="col-md-6">
+                      <div class="col-md-2">
                         <input type="text" class="input-group" id="custID" placeholder="Customer ID" style="color:black;">
                       </div>
-                      <button id="save" class="btn btn-info">Save</button>
+                      <div class="col-md-2"><button id="save" class="btn btn-info pull-right">Save</button></div>
         </div> <!-- Container -->
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
         <script>
           $('#save').click(function(){
-                var db = window.openDatabase("Database", "1.0", "The Database", 200000);
+                db = window.openDatabase("Database", "1.0", "The Database", 200000);
                 custID=$('#custID').val();
                 db.transaction(function(tx){
-                    tx.executeSql('update customer set customerID=?',[custID]);    
-                });
-                $('.navbar-brand').click();
+                    tx.executeSql('insert into customer (customerID) values (?)',[custID]);
+                },errorCB, function(tx){$('.navbar-brand').click();});
           });
         </script>      
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
