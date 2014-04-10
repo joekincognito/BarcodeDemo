@@ -54,7 +54,7 @@ $('#update').click(function(){
             item.bercor=$(this).children().filter('#bercor').text();
             $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
             //All three log correctly
-                tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[item.qty, order.Id,item.bercor],null,errorCB);
+                tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[parseInt(item.qty), order.Id,item.bercor],null,errorCB);
             //All three log success
         });
     },errorCB,successCB);
@@ -102,7 +102,7 @@ function getOrdersSuccess(tx, results) {
 function processOrder()
 {
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE qty > 0', [], processOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, bercor, desc, FROM orders NATURAL JOIN orderItems WHERE qty > 0', [], processOrderSuccess, errorCB);
     }, errorCB);    
 }
 

@@ -32,7 +32,9 @@ $('#addToOrder').click(function(){
     $('#log').append('addToOrder Clicked<br>');
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
-        addToOrder(item);      
+    item.qty=parseInt($('#qty').val());
+    
+    addToOrder(item);      
 });
 
 $('#clearDB').click(function(){
@@ -71,7 +73,7 @@ function addToOrder(item) {
         //need to decide how to figure out what the order number is
         //i guess there should only be 1 that is not submitted for now
         //while doing 1 order at a time, that will work
-        $('#log').append("item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
+        $('#log').append("item.qty " + item.qty + "item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         
         db.transaction(function(tx){
             tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],addToOrderResults,errorCB)
@@ -82,13 +84,13 @@ function addToOrderResults(tx,results){
     $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
     db.transaction(function(tx){
         if (results.rows.length > 0){
-            newQty = results.rows.item(0).qty + 1;
+            newQty = parseInt(results.rows.item(0).qty) + item.qty;
             $('#log').append("<p>newQty: " +newQty+"   orderID: "+order.Id+"  item.bercor: "+item.bercor+"</p>");
-                tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[newQty, order.Id,item.bercor]);
+                tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[parseInt(newQty), order.Id,item.bercor]);
             }
         else
             {
-                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',1]);
+                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
             }
     },errorCB, atoCB);
 }  

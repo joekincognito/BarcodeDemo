@@ -61,15 +61,16 @@
             <br><br>
             <p id="info" class="alert alert-info" display="hidden"></p>
             <div class="well bs-component">
-                <form class="form-horizontal">
+                <form class="form-inline">
                     <fieldset>
                         <legend>Quick Order</legend>
-                        <div class="input-group">
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="qty" id="qty" min="1" max="100" value="1">
+                        </div><!-- /form-group -->
+                        <div class="form-group">
                             <input type="text" class="form-control" id="item">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-primary" id="addToOrder">Add to Order</button>
-                             </div><!-- /btn-group -->
-                        </div><!-- /input-group -->
+                        </div><!-- /form-group -->
+                        <button type="button" class="btn btn-primary" id="addToOrder">Add to Order</button>
                     </fieldset>
                 </form>
             </div><!-- /well bs-component-->
