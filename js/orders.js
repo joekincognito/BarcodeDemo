@@ -83,7 +83,7 @@ function setupTable(tx){
 function getOrders() {
     $('#log').append("<p>getOrders</p>");
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE (qty > 0 AND isSubmitted = 0)', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE (qty > 0 AND isSubmitted = 0)', [], getOrdersSuccess, errorCB);
         //tx.executeSql('SELECT orders.Id, orders.name, orderItems.bercor, orderItems.desc, orderItems.qty FROM orders JOIN orderItems ON (orders.Id = orderItems.orderID) WHERE orderItems.qty >> 0', [], getOrdersSuccess, errorCB);
     }, errorCB);
 }
@@ -97,7 +97,7 @@ function getOrdersSuccess(tx, results) {
         order.name = results.rows.item(0).name;
         $('#po').val(order.name);
         for (var i=0; i<len; i++){
-            $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
+            $('#log').append("<p>isSubmitted= "+results.rows.item(i).isSubmitted+" Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
             $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
     }
 }
@@ -105,7 +105,7 @@ function getOrdersSuccess(tx, results) {
 function processOrder()
 {
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE (qty > 0 and isSubmitted = 0)', [], processOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE (qty > 0 and isSubmitted = 0)', [], processOrderSuccess, errorCB);
     }, errorCB);    
 }
 
