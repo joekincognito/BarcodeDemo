@@ -83,7 +83,7 @@ function setupTable(tx){
 function getOrders() {
     $('#log').append("<p>getOrders</p>");
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE (qty > 0 AND isSubmitted = 0)', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders JOIN orderItems ON (orders.Id = orderItems.orderID) WHERE (qty > 0 and isSubmitted = 0)', [], getOrdersSuccess, errorCB);
         //tx.executeSql('SELECT orders.Id, orders.name, orderItems.bercor, orderItems.desc, orderItems.qty FROM orders JOIN orderItems ON (orders.Id = orderItems.orderID) WHERE orderItems.qty >> 0', [], getOrdersSuccess, errorCB);
     }, errorCB);
 }
@@ -105,7 +105,7 @@ function getOrdersSuccess(tx, results) {
 function processOrder()
 {
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE (qty > 0 and isSubmitted = 0)', [], processOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders JOIN orderItems ON (orders.Id = orderItems.orderID) WHERE (qty > 0 and isSubmitted = 0)', [], processOrderSuccess, errorCB);
     }, errorCB);    
 }
 
