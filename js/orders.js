@@ -76,6 +76,9 @@ function setupTable(tx){
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
     tx.executeSql('create table if not exists customer (customerID)');
+    tx.executeSql('select * from customer', [], function(tx,results){
+        if(results.rows.length>=1){order.custID = results.rows.item(0).customerID:}
+    },errorCB);
 }
 function getOrders() {
     $('#log').append("<p>getOrders</p>");
@@ -102,7 +105,7 @@ function getOrdersSuccess(tx, results) {
 function processOrder()
 {
     db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name, bercor, desc, FROM orders NATURAL JOIN orderItems WHERE qty > 0', [], processOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id, name, bercor, desc, qty FROM orders NATURAL JOIN orderItems WHERE qty > 0', [], processOrderSuccess, errorCB);
     }, errorCB);    
 }
 
@@ -113,7 +116,6 @@ function processOrderSuccess(tx, results) {
         var len = results.rows.length;
         order.Id = results.rows.item(0).Id;
         order.name = results.rows.item(0).name;
-        order.custID = '2501';
         orderJSON = '{';
         /* --------WAS FOR TESTING IN BROWSER
         orderJSON += '"ID":"1",';      
