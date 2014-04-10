@@ -77,7 +77,7 @@ function setupTable(tx){
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
     tx.executeSql('create table if not exists customer (customerID)');
     tx.executeSql('select * from customer', [], function(tx,results){
-        if(results.rows.length>=1){order.custID = results.rows.item(0).customerID:}
+        if(results.rows.length>=1){order.custID = results.rows.item(0).customerID}
     },errorCB);
 }
 function getOrders() {
