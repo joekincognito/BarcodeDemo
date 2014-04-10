@@ -123,7 +123,7 @@ function getOrdersSuccess(tx, results) {
 function getCurrentOrder() {
         $('#log').append("<p>getCurrentOrder</p>");
         db.transaction(function(tx){
-        tx.executeSql('SELECT Id FROM orders', [], getCurrentOrderSuccess, errorCB);
+        tx.executeSql('SELECT Id FROM orders where isSubmitted = 0', [], getCurrentOrderSuccess, errorCB);
         }, errorCB);
 }
 
@@ -144,14 +144,14 @@ function getCurrentOrderSuccess(tx, results) {
 
 function newOrder(cb){
     db.transaction(function(tx){
-            tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',["","0",new Date()]);
+            tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',["",0,new Date()]);
         },errorCB, cb);
 }
 
 function saveOrder(order, cb) {
     $('#log').append("<p>saveOrder</p>");
         db.transaction(function(tx){
-            tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',[order.name,"0",new Date()]);
+            tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',[order.name,0,new Date()]);
         },errorCB, cb);
 } 
 
