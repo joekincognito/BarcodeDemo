@@ -38,7 +38,10 @@ $('#addToOrder').click(function(){
 });
 
 $('#clearDB').click(function(){
-    db.transaction(clearDB, errorCB, getCurrentOrder);
+    db.transaction(function(tx){
+                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){alert(returnData);window.location="home.html";},errorCB);    
+                        });
+    //db.transaction(clearDB, errorCB, getCurrentOrder);
 });
 
 function onDeviceReady() {
