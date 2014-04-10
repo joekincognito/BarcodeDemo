@@ -39,7 +39,7 @@ $('#addToOrder').click(function(){
 
 $('#clearDB').click(function(){
     db.transaction(function(tx){
-                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){alert(returnData);window.location="home.html";},errorCB);    
+                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){alert('marked submitted');window.location="home.html";},errorCB);    
                         });
     //db.transaction(clearDB, errorCB, getCurrentOrder);
 });
