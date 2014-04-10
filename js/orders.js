@@ -183,7 +183,7 @@ function placeOrder(JSONstring)
                 $('#log').append("<p>returndata is"+returnData+"</p>");
                 if (returnData == "Order Placed Successfully!"){
                     db.transaction(function(tx){
-                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){alert(returnData);window.location="home.html";},errorCB);    
+                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){alert(returnData);window.location="index.html";},errorCB);    
                         });
                 }
                 else
