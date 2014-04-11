@@ -73,11 +73,10 @@ function clearDB(tx){
 
 function addToOrder(item) {
         $('#log').append("inside add to order function<br>");
-        //need to decide how to figure out what the order number is
-        //i guess there should only be 1 that is not submitted for now
-        //while doing 1 order at a time, that will work
+        //only doing 1 order at a time for now
+        //In future version it will be expanded to have more than 1 order
         $('#log').append("item.qty " + item.qty + "item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
-        
+        //check to see if the bercor already exists on the order
         db.transaction(function(tx){
             tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],addToOrderResults,errorCB)
         },errorCB, null);//this was cb instead of null
@@ -86,13 +85,15 @@ function addToOrder(item) {
 function addToOrderResults(tx,results){
     $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
     db.transaction(function(tx){
-        if (results.rows.length > 0){
+        if (results.rows.length > 0){ 
+            //if the bercor already exists on the order, add to the qty
             newQty = parseInt(results.rows.item(0).qty) + item.qty;
             $('#log').append("<p>newQty: " +newQty+"   orderID: "+order.Id+"  item.bercor: "+item.bercor+"</p>");
                 tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[parseInt(newQty), order.Id,item.bercor]);
             }
         else
             {
+                //if the bercor does not exist on the order, add it to the order
                 tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
             }
     },errorCB, atoCB);
@@ -103,10 +104,12 @@ function atoCB(){
     $('#item').val('');
 }
 
+/* not using these functions right now
+*  they will be for future version when more than 1 pending order is supported
 function getOrders() {
         $('#log').append("<p>getOrders</p>");
         db.transaction(function(tx){
-        tx.executeSql('SELECT Id, name FROM orders', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT Id, name FROM orders where isSubmitted = 0', [], getOrdersSuccess, errorCB);
         }, errorCB);
 }
 
@@ -122,6 +125,7 @@ function getOrdersSuccess(tx, results) {
             }
         }
 }
+*/
 
 function getCurrentOrder() {
         $('#log').append("<p>getCurrentOrder</p>");
@@ -180,12 +184,7 @@ $('#scan').click(function(){
             "format: " + result.format + "\n" +
             "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
-        /*$( "#info" ).append( result.text + "\n");*/
-        /* The scan data doesn't need to be sent to a php script
-        *  The scan data will be the bercor number
-        $.mobile.allowCrossDomainPages = true;
-        $.support.cors = true;
-        */
+
         if(!(result.text.toString().length===15)){
             alert("Scan Error or invalid barcode\n" +
              "Please Try Again!");
@@ -200,10 +199,10 @@ $('#scan').click(function(){
     
 });
 
-function ajax(number){ //number will be either scan data or bercor
+function ajax(number){ //number will be either scan data or bercor in future versions
         $.ajax({
-            //url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php",
-            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",
+            //url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php", //real url - public
+            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",  //testing url - local
             //data: "qs=" + result.text,
             data: "qs=" + number,
             statusCode: {
