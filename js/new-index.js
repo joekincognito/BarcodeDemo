@@ -174,7 +174,8 @@ $('#scan').click(function(){
              "Please Try Again!", //message
              null,  //callback
              'Scan Error', //title
-             'OK'  //buttonname);
+             'OK'  //buttonname
+             );
         }
         else 
         {
