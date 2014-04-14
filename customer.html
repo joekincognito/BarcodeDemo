@@ -48,11 +48,21 @@
       </div>
     </div>
         <div class="container">
-            <h4 class="col-md-2" style="margin-top: 1.5px">Customer ID:</h4>
-                      <div class="col-md-2">
-                        <input type="text" class="input-group" id="custID" placeholder="Customer ID" style="color:black;">
-                      </div>
-                      <div class="col-md-2"><button id="save" class="btn btn-info pull-right">Save</button></div>
+           <div class="panel panel-primary">
+                <div class="panel-heading"><h3 class="panel-title">Set Customer ID</h3></div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="custID" class="sr-only">Customer ID:&nbsp; </label>
+                            <input type="text" class="form-control" id="custID" placeholder="Customer ID">
+                        </div><!-- /form-group -->
+                       <button type="button" id="save" class="btn btn-info">Save</button>
+                    </form>
+                </div><!-- /panel-body-->
+                <div class="panel-footer" id="info">
+                    <!--<p id="info"></p>-->
+                </div>
+            </div><!-- /panel panel-primary-->
         </div> <!-- Container -->
         
         <script type="text/javascript" src="cordova.js"></script>
