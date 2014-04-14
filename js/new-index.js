@@ -33,15 +33,7 @@ $('#addToOrder').click(function(){
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
     item.qty=parseInt($('#qty').val());
-    
     addToOrder(item);      
-});
-
-$('#clearDB').click(function(){
-    db.transaction(function(tx){
-                        tx.executeSql('update orders set isSubmitted = 1',[],function(){alert('marked submitted');window.location="index.html";},errorCB);    
-                        });
-    //db.transaction(clearDB, errorCB, getCurrentOrder);
 });
 
 function onDeviceReady() {
@@ -173,21 +165,16 @@ function successCB() {
 $('#scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
     scanner.scan( function (result) { 
-
-        alert("We got a barcode\n" + 
-        "Result: " + result.text + "\n" + 
-        "Format: " + result.format + "\n" + 
-        "Cancelled: " + result.cancelled);  
-
-       $('#log').append("Scanner result: \n" +
-            "text: " + result.text + "\n" +
-            "format: " + result.format + "\n" +
-            "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
 
         if(!(result.text.toString().length===15)){
-            alert("Scan Error or invalid barcode\n" +
-             "Please Try Again!");
+            navigator.notification.alert(
+                "Scan Error or invalid barcode\n" +
+             "Please Try Again!", //message
+             null,  //callback
+             'Scan Error', //title
+             'OK'  //buttonname
+             );
         }
         else 
         {

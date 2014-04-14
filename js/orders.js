@@ -183,12 +183,23 @@ function placeOrder(JSONstring)
                 $('#log').append("<p>returndata is"+returnData+"</p>");
                 if (returnData == "Order Placed Successfully!"){
                     db.transaction(function(tx){
-                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){alert(returnData);window.location="index.html";},errorCB);    
+                        tx.executeSql('update orders set isSubmitted=? where Id=?',[1,order.Id],function(){
+                            navigator.notification.alert(
+                                    returnData, //message
+                                    function(){window.location="index.html"}, //callback
+                                    'Order Success!',   //Title
+                                    'OK'                //buttonName
+                                );},errorCB);    
                         });
                 }
                 else
                 {
-                    alert("Order Processing Error");
+                    navigator.notification.alert(
+                                    'Order Processing Error', //message
+                                    function(){window.location="index.html"}, //callback
+                                    'Order Failure',   //Title
+                                    'OK'                //buttonName
+                                );
                 }
             });
 }
