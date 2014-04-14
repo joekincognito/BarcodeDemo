@@ -104,6 +104,7 @@ function getOrdersSuccess(tx, results) {
 
 function processOrder()
 {
+    $('#log').append("<p>In processOrder function</p>")
     db.transaction(function(tx){
         tx.executeSql('SELECT Id, name, isSubmitted, bercor, desc, qty FROM orders JOIN orderItems ON (orders.Id = orderItems.orderID) WHERE (qty > 0 and isSubmitted = 0)', [], processOrderSuccess, errorCB);
     }, errorCB);    
@@ -197,20 +198,13 @@ function placeOrder(JSONstring)
                     navigator.notification.alert(
                                     'Order Processing Error', //message
                                     function(){window.location="index.html"}, //callback
-                                    'Order Failure',   //Title
+                                    'Order ',   //Title
                                     'OK'                //buttonName
                                 );
                 }
             });
 }
-/* --------WAS FOR TESTING IN BROWSER
-function itemf(idd,bercor,qty)
-{
-    this.idd=idd;
-    this.bercor=bercor;
-    this.qty=qty;
-}
-*/
+
 function errorCB(err) {
     $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
 }
@@ -219,17 +213,3 @@ function successCB() {
     $('#log').append("<p>success!</p>");
 } 
 
-function dump(obj) {
-    var out = '';
-    for (var i in obj) {
-        out += i + ": " + obj[i] + "\n";
-    }
-
-    alert(out);
-
-    // or, if you wanted to avoid alerts...
-
-    //var pre = document.createElement('pre');
-    //pre.innerHTML = out;
-    //document.body.appendChild(pre)
-}

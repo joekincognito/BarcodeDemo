@@ -88,7 +88,7 @@ function addToOrderResults(tx,results){
 }  
 
 function atoCB(){
-    $('#info').html('item successfully added to the order in progress');
+    $('#info').html('<p class="alert alert-success msg">item successfully added to the order in progress<p>');
     $('#item').val('');
 }
 
@@ -201,8 +201,7 @@ function ajax(number){ //number will be either scan data or bercor in future ver
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
                 $('#log').append("<p>"+item.bercor+"</p>");
-                $('#info').html("");
-                $( "#info" ).append( "<p>" + item.desc + "</p>" );
+                $('#info').html("<p class='alert alert-info msg'>" + item.desc + "</p>" );
                 $('#item').val( item.bercor);
             });    
 }

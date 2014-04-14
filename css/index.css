@@ -24,6 +24,9 @@
 }
 body { padding-top: 70px; }
 /* Portrait layout (default) */
+.msg{
+    margin-bottom:0px !important;
+}
 .app {
     background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */

@@ -50,13 +50,22 @@
     </div>
         <div class="container">
             <h3>Current (pending) Orders</h3>
-            <div  class="well">
-                <button id="update" class="btn btn-info pull-right">Update</button>
+            <div  class="panel panel-primary">
+              <div class="panel-heading">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <label class="sr-only" for="po">Order Name (PO)</label> 
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="po" placeholder="Order Name">
+                      <span class="input-group-btn">
+                        <button id="update" class="btn btn-default">Update</button>
+                      </span>
+                     </div><!--/input-group-->   
+                  </div><!--/form-group-->
+                </form>
+              </div><!--/panel heading-->
+              <div class="panel-body">
                 <div class="table-responsive">
-                      <h4 class="col-md-2" style="margin-top: 1.5px">Order Name (PO):</h4>
-                      <div class="col-md-6">
-                        <input type="text" class="input-group" id="po" placeholder="Order Name" style="color:black;">
-                      </div>
                     <table class="table table-bordered" id="current" style="font-size:16px">
                       <thead>
                         <tr>
@@ -68,9 +77,13 @@
                       <tbody>
                       </tbody>
                     </table>
-                </div>
-                <button id="placeOrder" class="btn btn-info">Place Order</button>
-            </div>
+                </div><!--/table-responsive-->
+              </div><!--/panel-body-->
+              <div class="panel-footer">
+                <button id="update" class="btn btn-primary">Update</button>
+                <button id="placeOrder" class="btn btn-success">Place Order</button>
+              </div><!--/panel-footer-->              
+            </div><!--/panel panel-primary-->
             <br><br>
             
             <div class="panel panel-primary">
@@ -79,7 +92,7 @@
                 </div>
                 <div id="log" class="panel-body">
                 </div>
-            </div> 
+            </div>  
         </div> <!-- Container -->
         
         <script type="text/javascript" src="cordova.js"></script>
