@@ -112,6 +112,7 @@ function processOrder()
 
 function processOrderSuccess(tx, results) {
     //function processOrderSuccess() {---BROWSER TESTING
+        $('#log').append("<p>processOrderSuccess function</p>");
         var orderJSON = "";
         var itemsJSON = "";
         var len = results.rows.length;
@@ -169,6 +170,7 @@ function processOrderSuccess(tx, results) {
 }
 function placeOrder(JSONstring)
 {
+    $('#log').append("<p>place order function</p>");
     $.ajax({
             //url: "http://50.204.18.115/apps/BarcodeDemo/php/order.php",
             url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
