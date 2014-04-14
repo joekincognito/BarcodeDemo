@@ -33,6 +33,7 @@ $('#addToOrder').click(function(){
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
     item.qty=parseInt($('#qty').val());
+    
     addToOrder(item);      
 });
 
@@ -56,11 +57,6 @@ function setupTables(tx){
                 if(results.rows.length==0){window.location="customer.html";}
             },errorCB)
     //    },errorCB, null);
-}
-
-function clearDB(tx){
-    tx.executeSql('drop table if exists orders');
-    tx.executeSql('drop table if exists orderItems');
 }
 
 function addToOrder(item) {
@@ -165,6 +161,11 @@ function successCB() {
 $('#scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
     scanner.scan( function (result) { 
+
+       $('#log').append("Scanner result: \n" +
+            "text: " + result.text + "\n" +
+            "format: " + result.format + "\n" +
+            "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
 
         if(!(result.text.toString().length===15)){
@@ -173,8 +174,7 @@ $('#scan').click(function(){
              "Please Try Again!", //message
              null,  //callback
              'Scan Error', //title
-             'OK'  //buttonname
-             );
+             'OK'  //buttonname);
         }
         else 
         {
