@@ -2,18 +2,18 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.joekincognito.barcodedemo"
-        version   = "2.0.0">
-    <name>Scanner Demo</name>
+        version   = "0.1.0">
+    <name>GWB Scan Ordering</name>
 
     <description>
-        Scans barcodes.
+        Provides GWB Customers the ability to scan barcodes to order products. 
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
         PhoneGap Team
     </author>
 
-    <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.1.0" />
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
 
     <feature name="http://api.phonegap.com/1.0/device" />
@@ -24,7 +24,7 @@
 -->
 
     <!--<preference name="phonegap-version" value="3.3.0" />-->
-    <preference name="orientation"      value="default" />
+    <preference name="orientation"      value="landscape" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="true" />
     <!--<preference name="webviewbounce"    value="false" />-->
