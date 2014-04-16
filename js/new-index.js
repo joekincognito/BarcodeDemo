@@ -167,20 +167,7 @@ $('#scan').click(function(){
             "format: " + result.format + "\n" +
             "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
-
-        if(!(result.text.toString().length===15)){
-            navigator.notification.alert(
-                "Scan Error or invalid barcode\n" +
-             "Please Try Again!", //message
-             null,  //callback
-             'Scan Error', //title
-             'OK'  //buttonname
-             );
-        }
-        else 
-        {
-            ajax(result.text,null);
-        }
+        ajax(result.text,null);
     }, function (error) { 
         $('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
