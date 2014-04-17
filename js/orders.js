@@ -38,37 +38,40 @@ $('#po').change(function(){
     }
 });
 
-$('#update').click(function(){
-    //update records where the tr has the changed class
-    $('#log').append("<p>Update Clicked</p>");
+$('#poUpdate').click(function(){
     if ($('#po').hasClass("poChanged")){
         order.name=$('#po').val();
         db.transaction(function(tx){
             tx.executeSql('update orders set name=? where Id=?',[order.name,order.Id]);    
         });
     }
+});
+
+$('#update').click(function(){
+    //update records where the tr has the changed class
+    $('#log').append("<p>Update Clicked</p>");
+
     db.transaction(function(tx){
         $('.changed').each(function(){
-            //Moved---order.Id=$(this).attr('id');
             item.qty=$(this).children().children().filter('#itemQTY').val();
             item.bercor=$(this).children().filter('#bercor').text();
             $('#log').append("<p>item.qty= " + item.qty + " and order.Id = " + order.Id + "item.bercor = " + item.bercor + " </p>" );
-            //All three log correctly
                 tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[parseInt(item.qty), order.Id,item.bercor],null,errorCB);
-            //All three log success
         });
     },errorCB,successCB);
 });
 
 $('#placeOrder').click(function(){
+    $('#placeOrder').prop('disabled', true);
+    $('.panel-footer').append('<span class="alert alert-info">Order Processing Please Wait</span>');
     processOrder();
 });
 
 function onDeviceReady() {
     $('#log').hide();
     if( window.isphone ) {
-    db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    db.transaction(setupTable, errorCB, getOrders);
+        db = window.openDatabase("Database", "1.0", "The Database", 200000);
+        db.transaction(setupTable, errorCB, getOrders);
     }
 }
 function setupTable(tx){
