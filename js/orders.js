@@ -31,7 +31,7 @@ $('#current tbody').on("change", "#itemQTY", function(){
         $(this).parent().parent().addClass("changed");
     }
 });
-$('#po').change(function(){
+$('.panel-heading').on("change", '#po',function(){
     $('#log').append("<p>dat der order nambre hast bein change</p>");
     if (!$(this).hasClass("poChanged")){
         $(this).addClass("poChanged");
