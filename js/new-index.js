@@ -176,8 +176,8 @@ $('#scan').click(function(){
 
 function ajax(number){ //number will be either scan data or bercor in future versions
         $.ajax({
-            //url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php", //real url - public
-            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",  //testing url - local
+            url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php", //real url - public
+            //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",  //testing url - local
             //data: "qs=" + result.text,
             data: "qs=" + number,
             statusCode: {

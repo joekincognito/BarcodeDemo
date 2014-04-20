@@ -175,8 +175,8 @@ function placeOrder(JSONstring)
 {
     $('#log').append("<p>place order function</p>");
     $.ajax({
-            //url: "http://50.204.18.115/apps/BarcodeDemo/php/order.php",
-            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
+            url: "http://50.204.18.115/apps/BarcodeDemo/php/order.php",
+            //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
             //data: "qs=" + result.text,
             data: "qs=" + JSONstring,
             statusCode: {
