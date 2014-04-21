@@ -82,7 +82,7 @@ function addToOrderResults(tx,results){
         else
             {
                 //if the bercor does not exist on the order, add it to the order
-                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
+                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',parseInt(item.qty)];
             }
     },errorCB, atoCB);
 }  
@@ -90,6 +90,7 @@ function addToOrderResults(tx,results){
 function atoCB(){
     $('#info').html('<p class="alert alert-success msg">item successfully added to the order in progress<p>');
     $('#item').val('');
+    $('#qty').val(1);
 }
 
 /* not using these functions right now
@@ -167,14 +168,22 @@ $('#scan').click(function(){
             "format: " + result.format + "\n" +
             "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
-        ajax(result.text,null);
+        
+        if(!(result.text.toString().length===5)){
+            alert("Scan Error or invalid barcode\n" +
+             "Please Try Again!");
+        }
+        else 
+        {
+            ajax(result.text,null);
+        }
     }, function (error) { 
         $('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
     
 });
 
-function ajax(number){ //number will be either scan data or bercor in future versions
+function ajax(number){ //number will bercor
         $.ajax({
             url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php", //real url - public
             //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",  //testing url - local
