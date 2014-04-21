@@ -82,7 +82,7 @@ function addToOrderResults(tx,results){
         else
             {
                 //if the bercor does not exist on the order, add it to the order
-                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',parseInt(item.qty)];
+                tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
             }
     },errorCB, atoCB);
 }  
