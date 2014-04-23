@@ -1,5 +1,6 @@
 var db;
 var gQTY; //global scoped qty
+var oh; //global scoped onHand qty field
 var item = {};
 $(document).ready(function() {
     // are we running in native app or in a browser?
@@ -58,7 +59,7 @@ function incInv(bercor,qty){
                 else
                 {
                     //if the bercor does not exist, add it with the qty
-                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
+                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty)]);
                 }
             },errorCB);
         },errorCB,null);
@@ -106,8 +107,7 @@ function setOH(bercor,qty) {
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');    
-    ohQTY = getOH(bercor);
-    oh.val(ohQTY);
+    getOH(bercor);
 });
 function getOH(bercor) {
     db.transaction(
@@ -121,7 +121,7 @@ function getOH(bercor) {
                     $('#log').append("<p>qty: "+gQTY+"</p>");
                 }                  
             },errorCB);
-        },errorCB,function(){return gQTY;});
+        },errorCB,function(){oh.val(gQTY);});
 }
 /******************************/
 /*********SCAN*****************/
