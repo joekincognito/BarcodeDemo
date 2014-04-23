@@ -116,7 +116,7 @@ function getOH(bercor) {
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
-                    qty = parseInt(results.rows.item(0).qty);
+                    qty = parseInt(results.rows.item(0).onHand);
                     $('#log').append("<p>qty: "+qty+"</p>");
                 }                  
             },errorCB);
