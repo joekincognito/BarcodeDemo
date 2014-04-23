@@ -115,6 +115,7 @@ function getOH(bercor,qty) {
 /******************************/
 $('.scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    thisBercor = $(this).parent().parent().find('#bercor');
     scanner.scan( function (result) { 
 
        $('#log').append("Scanner result: \n" +
@@ -127,7 +128,7 @@ $('.scan').click(function(){
         }
         else 
         {
-            $(this).parent().parent().parent().find('#bercor').val(result.text);
+            thisBercor.val(result.text);
         }
     }, function (error) { 
         $('#log').append("<p>Scanning failed: " + error + "</p>"); 
