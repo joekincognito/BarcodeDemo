@@ -44,8 +44,7 @@ $('#incInv').click(function(){
 function incInv(bercor,qty){
         db.transaction(
             function(tx){
-                tx.executeSql('select onHand from inventory where bercor = ?',[bercor])
-            },
+                tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
             function(tx,results){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
@@ -59,9 +58,8 @@ function incInv(bercor,qty){
                     //if the bercor does not exist, add it with the qty
                     tx.executeSql('insert into inventory(bercor, qty) values(?,?)',[bercor,parseInt(qty)]);
                 }
-            },
-            errorCB
-        );
+            },errorCB);
+        },errorCB,null);
 }
 $('#decInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
