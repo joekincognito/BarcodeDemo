@@ -33,7 +33,7 @@ function onDeviceReady() {
 }
 function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
-    tx.executeSql('drop table if exists inventory');
+    //tx.executeSql('drop table if exists inventory');
     tx.executeSql('create table if not exists inventory (bercor, onHand, min, max)');
 }
 /*********************************/
