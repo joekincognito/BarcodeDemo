@@ -32,6 +32,7 @@ function onDeviceReady() {
 }
 function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
+    tx.executeSql('drop table if exists inventory');
     tx.executeSql('create table if not exists inventory (bercor, onHand, min, max)');
 }
 /*********************************/
@@ -40,7 +41,7 @@ function setupTable(tx){
 $('#incInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
-    incInv(bercor,qty);
+    incInv(bercor,parseInt(qty));
 });
 function incInv(bercor,qty){
         db.transaction(
@@ -50,14 +51,14 @@ function incInv(bercor,qty){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
-                    newQty = parseInt(results.rows.item(0).onHand) + parseInt(qty);
+                    newQty = results.rows.item(0).onHand + qty;
                     $('#log').append("<p>newQty: " +newQty+"bercor: "+bercor+"</p>");
-                    tx.executeSql('update inventory set onHand=? where (bercor=?)',[parseInt(newQty), bercor]);
+                    tx.executeSql('update inventory set onHand=? where bercor=?',[parseInt(newQty), bercor]);
                 }
                 else
                 {
                     //if the bercor does not exist, add it with the qty
-                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,parseInt(qty)]);
+                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
         },errorCB,null);
