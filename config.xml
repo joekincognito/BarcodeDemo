@@ -2,8 +2,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.joekincognito.barcodedemo"
-        version   = "0.1.0">
-    <name>GWB Scan Ordering</name>
+        version   = "0.5.0">
+    <name>GWB DEV Scan Ordering</name>
 
     <description>
         Provides GWB Customers the ability to scan barcodes to order products. 
