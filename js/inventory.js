@@ -39,7 +39,7 @@ function setupTable(tx){
 $('#incInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
-    invInv(bercor,qty);
+    incInv(bercor,qty);
 });
 function incInv(bercor,qty){
         db.transaction(
@@ -97,18 +97,33 @@ function getMinMax(bercor,min,max) {
 /*********************************/
 $('#ohUpdate').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
-    oh = min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');
-    oh.val(result.onHand); 
+    oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');
+    //oh.val(result.onHand); 
 });
 function setOH(bercor,qty) {
 
 }
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
-    oh = min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand').val();    
+    oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');    
+    oh.val = getOH(bercor);
 });
-function getOH(bercor,qty) {
-
+function getOH(bercor) {
+    qty=0;
+    db.transaction(
+            function(tx){
+                tx.executeSql('select onHand from inventory where bercor = ?',[bercor])
+            },
+            function(tx,results){
+                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                if (results.rows.length > 0){ 
+                    //if the bercor already exists, add to the qty
+                    qty = parseInt(results.rows.item(0).qty);
+                }                  
+            },
+            errorCB
+        );
+    return qty;
 }
 /******************************/
 /*********SCAN*****************/
