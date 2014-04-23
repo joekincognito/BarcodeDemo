@@ -127,7 +127,7 @@ $('.scan').click(function(){
         }
         else 
         {
-            $(this).parent().siblings('#bercor').val(result.text);
+            $(this).parent().parent().find('#bercor').val(result.text);
         }
     }, function (error) { 
         $('#log').append("<p>Scanning failed: " + error + "</p>"); 
