@@ -1,4 +1,5 @@
 var db;
+var gQTY; //global scoped qty
 var item = {};
 $(document).ready(function() {
     // are we running in native app or in a browser?
@@ -108,7 +109,6 @@ $('#ohCheck').click(function(){
     oh.val(ohQTY);
 });
 function getOH(bercor) {
-    var qty=0;
     db.transaction(
             function(tx){
                 tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
@@ -116,12 +116,12 @@ function getOH(bercor) {
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
-                    qty = parseInt(results.rows.item(0).onHand);
-                    $('#log').append("<p>qty: "+qty+"</p>");
+                    gQTY = parseInt(results.rows.item(0).onHand);
+                    $('#log').append("<p>qty: "+gQTY+"</p>");
                 }                  
             },errorCB);
         },errorCB,null);
-    return qty;
+    return gQTY;
 }
 /******************************/
 /*********SCAN*****************/
