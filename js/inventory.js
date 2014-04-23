@@ -129,7 +129,7 @@ $('#mmCheck').click(function(){
 function getMinMax(bercor) {
     db.transaction(
             function(tx){
-                tx.executeSql('select min,max from inventory where bercor = ?',[bercor],
+                tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
@@ -138,7 +138,8 @@ function getMinMax(bercor) {
                     gqmax = parseInt(result.rows.item(0).max);
                 }             
             },errorCB);
-        },errorCB,function(){min.val(gqmin);max.val(gqmax);});
+        },errorCB,function(){min.val(gqmin); max.val(gqmax);});
+
 }
 /*********************************/
 /*********ON HAND*****************/
