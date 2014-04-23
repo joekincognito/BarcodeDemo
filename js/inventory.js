@@ -51,12 +51,12 @@ function incInv(bercor,qty){
                     //if the bercor already exists, add to the qty
                     newQty = parseInt(results.rows.item(0).qty) + qty;
                     $('#log').append("<p>newQty: " +newQty+"bercor: "+bercor+"</p>");
-                    tx.executeSql('update inventory set qty=? where (bercor=?)',[parseInt(newQty), bercor]);
+                    tx.executeSql('update inventory set onHand=? where (bercor=?)',[parseInt(newQty), bercor]);
                 }
                 else
                 {
                     //if the bercor does not exist, add it with the qty
-                    tx.executeSql('insert into inventory(bercor, qty) values(?,?)',[bercor,parseInt(qty)]);
+                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,parseInt(qty)]);
                 }
             },errorCB);
         },errorCB,null);
