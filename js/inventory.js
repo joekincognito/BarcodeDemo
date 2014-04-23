@@ -59,7 +59,7 @@ function incInv(bercor,qty){
                 else
                 {
                     //if the bercor does not exist, add it with the qty
-                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty)]);
+                    tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
         },errorCB,null);
