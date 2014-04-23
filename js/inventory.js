@@ -104,7 +104,8 @@ function setOH(bercor,qty) {
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');    
-    oh.val = getOH(bercor);
+    ohQTY = getOH(bercor);
+    oh.val(ohQTY);
 });
 function getOH(bercor) {
     qty=0;
@@ -116,6 +117,7 @@ function getOH(bercor) {
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
                     qty = parseInt(results.rows.item(0).qty);
+                    $('#log').append("<p>qty: "+qty+"</p>");
                 }                  
             },errorCB);
         },errorCB,null);
