@@ -50,7 +50,7 @@ function incInv(bercor,qty){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
-                    newQty = parseInt(results.rows.item(0).qty) + qty;
+                    newQty = parseInt(results.rows.item(0).onHand) + qty;
                     $('#log').append("<p>newQty: " +newQty+"bercor: "+bercor+"</p>");
                     tx.executeSql('update inventory set onHand=? where (bercor=?)',[parseInt(newQty), bercor]);
                 }
@@ -120,8 +120,7 @@ function getOH(bercor) {
                     $('#log').append("<p>qty: "+gQTY+"</p>");
                 }                  
             },errorCB);
-        },errorCB,null);
-    return gQTY;
+        },errorCB,function(){return gQTY;});
 }
 /******************************/
 /*********SCAN*****************/
