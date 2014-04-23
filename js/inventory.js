@@ -108,7 +108,7 @@ $('#ohCheck').click(function(){
     oh.val(ohQTY);
 });
 function getOH(bercor) {
-    qty=0;
+    var qty=0;
     db.transaction(
             function(tx){
                 tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
