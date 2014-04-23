@@ -110,17 +110,15 @@ function getOH(bercor) {
     qty=0;
     db.transaction(
             function(tx){
-                tx.executeSql('select onHand from inventory where bercor = ?',[bercor])
-            },
+                tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
             function(tx,results){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
                     qty = parseInt(results.rows.item(0).qty);
                 }                  
-            },
-            errorCB
-        );
+            },errorCB);
+        },errorCB,null);
     return qty;
 }
 /******************************/
