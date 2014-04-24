@@ -6,6 +6,7 @@ var gqmax;//global scoped max quantity
 var min;//global scoped min field
 var max;//global scoped max field
 var item = {};
+var order = {};
 $(document).ready(function() {
     // are we running in native app or in a browser?
     window.isphone = false;
@@ -32,14 +33,39 @@ function onDeviceReady() {
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
-        db.transaction(setupTable, errorCB);
+        db.transaction(setupTable, errorCB, getCurrentOrder);
     }
 }
 function setupTable(tx){
     $('#log').append("<p>setupTable</p>");
     //tx.executeSql('drop table if exists inventory');
     tx.executeSql('create table if not exists inventory (bercor, onHand, min, max)');
+    tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
+    tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
 }
+
+function getCurrentOrder() {
+        $('#log').append("<p>getCurrentOrder</p>");
+        db.transaction(function(tx){
+        tx.executeSql('SELECT Id FROM orders where isSubmitted = 0', [], getCurrentOrderSuccess, errorCB);
+        }, errorCB);
+}
+
+function getCurrentOrderSuccess(tx, results) {
+        var len = results.rows.length;
+        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        if (len == 0) {
+            $('#log').append("adding row");
+            newOrder(getCurrentOrder);
+        }else{
+            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            for (var i=0; i<len; i++){
+                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                order.Id=results.rows.item(i).Id;
+            }
+        }
+}
+
 /*********************************/
 /*********SCAN IN OUT*************/
 /*********************************/
@@ -90,6 +116,7 @@ function decInv(bercor,qty){
                     tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
                     if(newQty < min){
                         orderQty = max - onHand;
+                        tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,bercor,"auto added",qty]);
                         $('#log').append("<p> Order QTY: "+orderQty+"</p>");
                     }
                 }
