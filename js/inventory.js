@@ -76,14 +76,22 @@ $('#decInv').click(function(){
 function decInv(bercor,qty){
    db.transaction(
             function(tx){
-                tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
+                tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
-                    newQty = results.rows.item(0).onHand - qty;
-                    $('#log').append("<p>newQty: " +newQty+"bercor: "+bercor+"</p>");
-                    tx.executeSql('update inventory set onHand=? where bercor=?',[parseInt(newQty), bercor]);
+                    onHand = parseInt(results.rows.item(0).onHand);
+                    newQty = onHand - qty;
+                    //Check min and max
+                    min = parseInt(results.rows.item(0).min);
+                    max = parseInt(results.rows.item(0).max);
+                    $('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
+                    tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
+                    if(newQty < min){
+                        orderQty = max - onHand;
+                        $('#log').append("<p> Order QTY: "+orderQty+"</p>");
+                    }
                 }
                 else
                 {
