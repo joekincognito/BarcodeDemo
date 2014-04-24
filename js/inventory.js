@@ -276,7 +276,7 @@ function ajax(number,itemQTY){ //number will bercor
                         else
                         {
                             //if the bercor does not exist on the order, add it to the order
-                            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"*'+item.desc+'"',item.qty]);
+                            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"*'+item.desc+'"',itemQTY]);
                         }                  
                     },errorCB);
                     },errorCB,function(){$('#log').append("<p>order add success</p>")}
