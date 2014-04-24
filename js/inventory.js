@@ -100,7 +100,7 @@ $('#mmUpdate').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#min').val();    
     max = $(this).parent().parent().children('.panel-body').children('.form-group').children('#max').val();    
-    setMinMax(bercor,min,max);
+    setMinMax(bercor,parseInt(min),parseInt(max));
 });
 function setMinMax(bercor,min,max) {
      db.transaction(
