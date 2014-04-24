@@ -262,7 +262,7 @@ function ajax(number,itemQTY){ //number will bercor
             })
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
-                $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+itemQty+"</p>");
+                $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+itemQTY+"</p>");
                 db.transaction(
                     function(tx){
                         tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',itemQTY]);
