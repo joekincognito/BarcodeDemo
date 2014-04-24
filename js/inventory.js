@@ -264,7 +264,7 @@ function ajax(number,cb){ //number will bercor
                 item = jQuery.parseJSON( returnData );
                 $('#log').append("<p>"+item.bercor+"</p>");
                 $('#info').html("<p class='alert alert-info msg'>" + item.desc + "</p>" );
-                cb();
+                cb;
             });    
 }
 
