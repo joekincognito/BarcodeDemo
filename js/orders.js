@@ -101,7 +101,7 @@ function getOrdersSuccess(tx, results) {
         $('#po').val(order.name);
         for (var i=0; i<len; i++){
             itemDesc = results.rows.item(i).desc;
-            if(itemDesc.charAt(0)=='*'){
+            if(itemDesc.charAt(1)=='*'){
                 $('#current tbody').append('<tr id='+results.rows.item(i).Id+' class="warning"><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + itemDesc + "</td></tr>");
             }
             else
