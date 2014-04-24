@@ -266,7 +266,8 @@ function ajax(number){ //number will bercor
                 db.transaction(
                     function(tx){
                         tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
-                    },errorCB);
+                    },errorCB,function(){$('#log'.append("<p>order add success</p>"))}
+                ;
             });    
 }
 
