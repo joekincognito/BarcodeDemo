@@ -100,8 +100,14 @@ function getOrdersSuccess(tx, results) {
         order.name = results.rows.item(0).name;
         $('#po').val(order.name);
         for (var i=0; i<len; i++){
-            $('#log').append("<p>isSubmitted= "+typeof(results.rows.item(i).isSubmitted)+" "+results.rows.item(i).isSubmitted+" Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + " Bercor = " + results.rows.item(i).bercor + " Qty = " + typeof(results.rows.item(i).qty)+" "+results.rows.item(i).qty + " desc = " + results.rows.item(i).desc + "</p>");
-            $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + results.rows.item(i).desc + "</td></tr>");
+            itemDesc = results.rows.item(i).desc;
+            if(itemDesc.charAt(0)=='*'){
+                $('#current tbody').append('<tr id='+results.rows.item(i).Id+' class="warning"><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + itemDesc + "</td></tr>");
+            }
+            else
+            {            
+            $('#current tbody').append('<tr id='+results.rows.item(i).Id+'><td><input id="itemQTY" class="input-group" name="quantity" type="number" min="1" max="200" style="color:black;" value="'+results.rows.item(i).qty+'""></td><td id="bercor">'+results.rows.item(i).bercor+ "</td><td>" + itemDesc + "</td></tr>");
+            }
     }
 }
 

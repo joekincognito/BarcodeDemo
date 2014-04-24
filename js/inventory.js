@@ -265,7 +265,20 @@ function ajax(number,itemQTY){ //number will bercor
                 $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+itemQTY+"</p>");
                 db.transaction(
                     function(tx){
-                        tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',itemQTY]);
+                        tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],
+                    function(tx,results){
+                        $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                        if (results.rows.length > 0)
+                        { 
+                            //if the bercor already exists on the order, 
+                            tx.executeSql('update orderItems set qty=?, desc=? where (orderID=? and bercor=?)',[itemQTY,'"*'+item.desc+'"',order.Id,item.bercor]);
+                         }
+                        else
+                        {
+                            //if the bercor does not exist on the order, add it to the order
+                            tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"*'+item.desc+'"',item.qty]);
+                        }                  
+                    },errorCB);
                     },errorCB,function(){$('#log').append("<p>order add success</p>")}
                 );
             });    
