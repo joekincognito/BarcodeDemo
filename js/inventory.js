@@ -100,7 +100,7 @@ $('#mmUpdate').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#min').val();    
     max = $(this).parent().parent().children('.panel-body').children('.form-group').children('#max').val();    
-    setMinMax(bercor,parseInt(min),parseInt(max));
+    setMinMax(bercor,min,max);
 });
 function setMinMax(bercor,min,max) {
      db.transaction(
@@ -134,11 +134,11 @@ function getMinMax(bercor) {
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, change onhand
-                    gqmin = result.rows.item(0).min;
-                    gqmax = result.rows.item(0).max;
+                    gqmin = parseInt(results.rows.item(0).min);
+                    gqmax = parseInt(results.rows.item(0).max);
                 }             
             },errorCB);
-        },errorCB,function(){ $('#log').append("<p>getMinMax success</p>") /*min.val(gqmin); max.val(gqmax);*/});
+        },errorCB,function(){min.val(gqmin); max.val(gqmax);});
 
 }
 /*********************************/
