@@ -112,13 +112,13 @@ function decInv(bercor,qty){
                     //Check min and max
                     min = parseInt(results.rows.item(0).min);
                     max = parseInt(results.rows.item(0).max);
-                    $('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
-                    tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
                     if(newQty < min){
                         item.qty = max - onHand;
                         item.bercor = bercor;
                         order.order = true;
                     }
+                    $('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
+                    tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
                 }
                 else
                 {
