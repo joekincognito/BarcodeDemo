@@ -262,10 +262,10 @@ function ajax(number,itemQTY){ //number will bercor
             })
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
-                $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+item.qty+"</p>");
+                $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+itemQty+"</p>");
                 db.transaction(
                     function(tx){
-                        tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',itemQty]);
+                        tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',itemQTY]);
                     },errorCB,function(){$('#log').append("<p>order add success</p>")}
                 );
             });    
