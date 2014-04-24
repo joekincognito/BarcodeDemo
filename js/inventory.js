@@ -138,7 +138,7 @@ function getMinMax(bercor) {
                     gqmax = parseInt(result.rows.item(0).max);
                 }             
             },errorCB);
-        },errorCB,function(){min.val(gqmin); max.val(gqmax);});
+        },errorCB,function(){ $('#log').append("<p>getMinMax success</p>") /*min.val(gqmin); max.val(gqmax);*/});
 
 }
 /*********************************/
