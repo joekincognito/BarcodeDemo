@@ -28,6 +28,7 @@ $('.panel-heading').click(function(){
     $('#log').toggle();
 });
 
+$('.bercor').change(function(){$('.bercor').val($(this).val())});
 
 function onDeviceReady() {
     $('#log').hide();
