@@ -126,7 +126,7 @@ function decInv(bercor,qty){
                     //tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,function(){if(order.order){ajax(item.bercor)}});
+        },errorCB,function(){if(order.order){ajax(item.bercor,item.qty)}});
 }
 /*********************************/
 /*********MIN MAX*****************/
@@ -249,7 +249,7 @@ $('.scan').click(function(){
 
 //tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
 
-function ajax(number){ //number will bercor
+function ajax(number,itemQTY){ //number will bercor
         $.ajax({
             url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php", //real url - public
             //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",  //testing url - local
@@ -265,7 +265,7 @@ function ajax(number){ //number will bercor
                 $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+item.qty+"</p>");
                 db.transaction(
                     function(tx){
-                        tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',item.qty]);
+                        tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"'+item.desc+'"',itemQty]);
                     },errorCB,function(){$('#log').append("<p>order add success</p>")}
                 );
             });    
