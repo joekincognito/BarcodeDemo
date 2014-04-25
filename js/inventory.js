@@ -260,7 +260,7 @@ function getOH(bercor) {
                     $('#log').append("<p>qty: "+gQTY+"</p>");
                 }                  
             },errorCB);
-        },errorCB,function(){$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').parent().toggleClass('has-success has-feedback')},3000);oh.val(gQTY)});
+        },errorCB,function(){oh.val(gQTY)});
 }
 /******************************/
 /*********SCAN*****************/
