@@ -63,7 +63,7 @@ $('#update').click(function(){
 
 $('#placeOrder').click(function(){
     $('#placeOrder').prop('disabled', true);
-    $('.panel-footer').append('<span class="alert alert-info">Order Processing Please Wait</span>');
+    $('.panel-footer').append('<br><span class="alert alert-info">Order Processing Please Wait</span>');
     processOrder();
 });
 
