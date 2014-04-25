@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.joekincognito.barcodedemo"
         version   = "0.5.0">
-    <name>GWB DEV Scan Ordering</name>
+    <name>GWB Scan Ordering</name>
 
     <description>
         Provides GWB Customers the ability to scan barcodes to order products. 
@@ -27,6 +27,7 @@
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="true" />
+    <preference name="detect-data-types" value="false" />
     <!--<preference name="webviewbounce"    value="false" />-->
 
     <icon src="icon.png" />
