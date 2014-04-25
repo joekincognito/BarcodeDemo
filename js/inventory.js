@@ -100,7 +100,7 @@ function incInv(bercor,qty){
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback')},3000)});
+        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');$('#qty').val('')},3000)});
 }
 $('#decInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
@@ -141,7 +141,7 @@ function decInv(bercor,qty){
                     //tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback')},3000);if(order.order){ajax(item.bercor,item.qty)}});
+        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');$('#qty').val('')},3000);if(order.order){ajax(item.bercor,item.qty)}});
 }
 /*********************************/
 /*********MIN MAX*****************/
@@ -183,7 +183,7 @@ function setMinMax(bercor,min,max) {
                     tx.executeSql('insert into inventory(bercor, min, max) values(?,?,?)',[bercor, min, max]);
                 }                  
             },errorCB);
-        },errorCB,function(){$('#min').siblings('span').toggleClass('glyphicon-ok');$('#max').siblings('span').toggleClass('glyphicon-ok');$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#max').siblings('span').toggleClass('glyphicon-ok');$('#min').siblings('span').toggleClass('glyphicon-ok');$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);});
+        },errorCB,function(){$('#min').siblings('span').toggleClass('glyphicon-ok');$('#max').siblings('span').toggleClass('glyphicon-ok');$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#max').siblings('span').toggleClass('glyphicon-ok');$('#min').siblings('span').toggleClass('glyphicon-ok');$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');$('#min').val('');$('#max').val('');},3000);});
 }
 $('#mmCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
@@ -239,7 +239,7 @@ function setOH(bercor,qty) {
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }                  
             },errorCB);
-        },errorCB,function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback')},3000)});
+        },errorCB,function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');$('#onHand').val('');},3000)});
 }
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
