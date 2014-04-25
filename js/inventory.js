@@ -74,8 +74,9 @@ $('#incInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
     if(!qty){
+        $('#qty').siblings('span').toggleClass('glyphicon-warning-sign');
         $('#qty').parent().toggleClass('has-warning has-feedback');
-        setTimeout(function(){$('#qty').parent().toggleClass('has-warning has-feedback')},3000);
+        setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-warning-sign');$('#qty').parent().toggleClass('has-warning has-feedback')},3000);
     }
     else{
         incInv(bercor,parseInt(qty));
@@ -99,14 +100,15 @@ function incInv(bercor,qty){
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,function(){$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').parent().toggleClass('has-success has-feedback')},3000)});
+        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback')},3000)});
 }
 $('#decInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
     if(!qty){
+        $('#qty').siblings('span').toggleClass('glyphicon-warning-sign');
         $('#qty').parent().toggleClass('has-warning has-feedback');
-        setTimeout(function(){$('#qty').parent().toggleClass('has-warning has-feedback')},3000);
+        setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-warning-sign');$('#qty').parent().toggleClass('has-warning has-feedback')},3000);
     }
     else{
         decInv(bercor,parseInt(qty));
@@ -139,7 +141,7 @@ function decInv(bercor,qty){
                     //tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,function(){$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').parent().toggleClass('has-success has-feedback')},3000);if(order.order){ajax(item.bercor,item.qty)}});
+        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback')},3000);if(order.order){ajax(item.bercor,item.qty)}});
 }
 /*********************************/
 /*********MIN MAX*****************/
@@ -154,12 +156,14 @@ $('#mmUpdate').click(function(){
     }
     else{ 
         if(!min){
+            $('#min').siblings('span').toggleClass('glyphicon-warning-sign');
             $('#min').parent().toggleClass('has-warning has-feedback');
-            setTimeout(function(){$('#min').parent().toggleClass('has-warning has-feedback')},3000);
+            setTimeout(function(){$('#min').siblings('span').toggleClass('glyphicon-warning-sign');$('#min').parent().toggleClass('has-warning has-feedback')},3000);
         }
         if(!max){
+            $('#max').siblings('span').toggleClass('glyphicon-warning-sign');
             $('#max').parent().toggleClass('has-warning has-feedback');
-            setTimeout(function(){$('#max').parent().toggleClass('has-warning has-feedback')},3000);
+            setTimeout(function(){$('#max').siblings('span').toggleClass('glyphicon-warning-sign');$('#max').parent().toggleClass('has-warning has-feedback')},3000);
         }
     }
 });
@@ -179,7 +183,7 @@ function setMinMax(bercor,min,max) {
                     tx.executeSql('insert into inventory(bercor, min, max) values(?,?,?)',[bercor, min, max]);
                 }                  
             },errorCB);
-        },errorCB,function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);});
+        },errorCB,function(){$('#min').siblings('span').toggleClass('glyphicon-ok');$('#max').siblings('span').toggleClass('glyphicon-ok');$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#max').siblings('span').toggleClass('glyphicon-ok');$('#min').siblings('span').toggleClass('glyphicon-ok');$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);});
 }
 $('#mmCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
@@ -211,8 +215,9 @@ $('#ohUpdate').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand').val(); 
     if(!oh){
+        $('#onHand').siblings('span').toggleClass('glyphicon-warning-sign');
         $('#onHand').parent().toggleClass('has-warning has-feedback');
-        setTimeout(function(){$('#onHand').parent().toggleClass('has-warning has-feedback')},3000);
+        setTimeout(function(){$('#onHand').siblings('span').toggleClass('glyphicon-warning-sign');$('#onHand').parent().toggleClass('has-warning has-feedback')},3000);
     }
     else{
         setOH(bercor,parseInt(oh));
@@ -234,7 +239,7 @@ function setOH(bercor,qty) {
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }                  
             },errorCB);
-        },errorCB,function(){$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').parent().toggleClass('has-success has-feedback')},3000)});
+        },errorCB,function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback')},3000)});
 }
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
