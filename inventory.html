@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head lang="en">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <title>Barcode Scanner Demo</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">ScanDat</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+        <div class="container">
+           <div class="panel panel-primary">
+                <div class="panel-heading"><h3 class="panel-title">Scan In/Out</h3></div>
+                <div class="panel-body">
+                        <div class="input-group">
+                          <input type="text" class="form-control bercor" placeholder="bercor">
+                          <span class="input-group-btn">
+                            <button id="" class="btn btn-default scan">Scan</button>
+                          </span>
+                        </div><!--/input-group-->
+                        <br>   
+                        <div class="form-group">
+                            <label for="" class="sr-only"></label>
+                            <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty">
+                            <span style="position:absolute;top:0px" class="glyphicon form-control-feedback"></span>
+                        </div><!-- /form-group -->
+                </div><!-- /panel-body-->
+                <div class="panel-footer" id="">
+                    <button type="button" id="incInv" class="btn btn-success" style="font-size:18px;font-weight:bold">+</button>
+                    <button type="button" id="decInv" class="btn btn-danger pull-right" style="font-size:18px;font-weight:bold">-</button>
+                </div>
+            </div><!-- /panel panel-primary-->
+
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h3 class="panel-title">Min/Max</h3></div>
+                <div class="panel-body">
+                        <div class="input-group">
+                          <input type="text" class="form-control bercor" placeholder="bercor">
+                          <span class="input-group-btn">
+                            <button id="" class="btn btn-default scan">Scan</button>
+                          </span>
+                        </div><!--/input-group-->
+                        <br>  
+                        <div class="form-group">
+                            <label for="min" class="sr-only">Min:</label>
+                            <input type="text" class="form-control" name="min" id="min" placeholder="min">
+                            <span style="position:absolute;top:0px" class="glyphicon form-control-feedback"></span>
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <label for="max" class="sr-only">Max:</label>
+                            <input type="text" class="form-control" name="max" id="max" placeholder="max">
+                            <span style="position:absolute;top:0px" class="glyphicon form-control-feedback"></span>
+                        </div><!-- /form-group -->
+                </div><!-- /panel-body-->
+                <div class="panel-footer" id="info">
+                    <button type="button" id="mmCheck" class="btn btn-info">Check</button>
+                    <button type="button" id="mmUpdate" class="btn btn-primary pull-right">Update</button>
+                </div>
+            </div><!-- /panel panel-primary-->
+
+           <div class="panel panel-primary">
+                <div class="panel-heading"><h3 class="panel-title">On Hand</h3></div>
+                <div class="panel-body">
+                        <div class="input-group">
+                          <input type="text" class="form-control bercor" placeholder="bercor">
+                          <span class="input-group-btn">
+                            <button id="" class="btn btn-default scan">Scan</button>
+                          </span>
+                        </div><!--/input-group-->
+                        <br> 
+                        <div class="form-group">
+                            <label for="onHand" class="sr-only">On Hand</label>
+                            <input type="text" class="form-control" name="onHand" id="onHand" placeholder="On Hand">
+                            <span style="position:absolute;top:0px" class="glyphicon form-control-feedback"></span>
+                        </div><!-- /form-group -->
+                </div><!-- /panel-body-->
+                <div class="panel-footer" id="">
+                    <button type="button" id="ohCheck" class="btn btn-info">Check</button>
+                    <button type="button" id="ohUpdate" class="btn btn-primary pull-right">Update</button>
+                </div>
+            </div><!-- /panel panel-primary-->
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">debug log</h3>
+                </div>
+                <div id="log" class="panel-body">
+                </div>
+            </div>  
+        </div> <!-- Container -->
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/inventory.js"></script>      
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        
+    </body>
+</html>
