@@ -71,7 +71,7 @@ function getCurrentOrderSuccess(tx, results) {
 /*********SCAN IN OUT*************/
 /*********************************/
 $('#incInv').click(function(){
-    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
+    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
     if(!qty){
         $('#qty').parent().toggleClass('has-warning has-feedback');
@@ -102,7 +102,7 @@ function incInv(bercor,qty){
         },errorCB,function(){$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').parent().toggleClass('has-success has-feedback')},3000)});
 }
 $('#decInv').click(function(){
-    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
+    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
     if(!qty){
         $('#qty').parent().toggleClass('has-warning has-feedback');
@@ -145,7 +145,7 @@ function decInv(bercor,qty){
 /*********MIN MAX*****************/
 /*********************************/
 $('#mmUpdate').click(function(){
-    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
+    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#min').val();    
     max = $(this).parent().parent().children('.panel-body').children('.form-group').children('#max').val();    
     
@@ -182,7 +182,7 @@ function setMinMax(bercor,min,max) {
         },errorCB,function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);});
 }
 $('#mmCheck').click(function(){
-    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
+    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#min');    
     max = $(this).parent().parent().children('.panel-body').children('.form-group').children('#max');
     if(bercor){
@@ -201,14 +201,14 @@ function getMinMax(bercor) {
                     gqmax = parseInt(results.rows.item(0).max);
                 }             
             },errorCB);
-        },errorCB,function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);min.val(gqmin); max.val(gqmax);});
+        },errorCB,function(){min.val(gqmin); max.val(gqmax);});
 
 }
 /*********************************/
 /*********ON HAND*****************/
 /*********************************/
 $('#ohUpdate').click(function(){
-    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
+    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand').val(); 
     if(!oh){
         $('#onHand').parent().toggleClass('has-warning has-feedback');
@@ -237,7 +237,7 @@ function setOH(bercor,qty) {
         },errorCB,function(){$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').parent().toggleClass('has-success has-feedback')},3000)});
 }
 $('#ohCheck').click(function(){
-    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
+    bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
     oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');    
     if(bercor){
         getOH(bercor);
@@ -262,7 +262,7 @@ function getOH(bercor) {
 /******************************/
 $('.scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-    thisBercor = $(this).parent().parent().find('#bercor');
+    thisBercor = $(this).parent().parent().find('.bercor');
     scanner.scan( function (result) { 
 
        $('#log').append("Scanner result: \n" +
