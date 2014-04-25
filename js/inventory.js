@@ -73,7 +73,13 @@ function getCurrentOrderSuccess(tx, results) {
 $('#incInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
-    incInv(bercor,parseInt(qty));
+    if(!qty){
+        $('#qty').parent().toggleClass('has-warning has-feedback');
+        setTimeout(function(){$('#qty').parent().toggleClass('has-warning has-feedback')},3000);
+    }
+    else{
+        incInv(bercor,parseInt(qty));
+    }
 });
 function incInv(bercor,qty){
         db.transaction(
@@ -93,12 +99,18 @@ function incInv(bercor,qty){
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,null);
+        },errorCB,function(){$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').parent().toggleClass('has-success has-feedback')},3000)});
 }
 $('#decInv').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     qty = $(this).parent().parent().children('.panel-body').children('.form-group').children('#qty').val();
-    decInv(bercor,parseInt(qty));
+    if(!qty){
+        $('#qty').parent().toggleClass('has-warning has-feedback');
+        setTimeout(function(){$('#qty').parent().toggleClass('has-warning has-feedback')},3000);
+    }
+    else{
+        decInv(bercor,parseInt(qty));
+    }
 });
 function decInv(bercor,qty){
    db.transaction(
@@ -127,7 +139,7 @@ function decInv(bercor,qty){
                     //tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }
             },errorCB);
-        },errorCB,function(){if(order.order){ajax(item.bercor,item.qty)}});
+        },errorCB,function(){$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').parent().toggleClass('has-success has-feedback')},3000);if(order.order){ajax(item.bercor,item.qty)}});
 }
 /*********************************/
 /*********MIN MAX*****************/
@@ -136,7 +148,20 @@ $('#mmUpdate').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#min').val();    
     max = $(this).parent().parent().children('.panel-body').children('.form-group').children('#max').val();    
-    setMinMax(bercor,min,max);
+    
+    if(min&&max){
+        setMinMax(bercor,min,max);
+    }
+    else{ 
+        if(!min){
+            $('#min').parent().toggleClass('has-warning has-feedback');
+            setTimeout(function(){$('#min').parent().toggleClass('has-warning has-feedback')},3000);
+        }
+        if(!max){
+            $('#max').parent().toggleClass('has-warning has-feedback');
+            setTimeout(function(){$('#max').parent().toggleClass('has-warning has-feedback')},3000);
+        }
+    }
 });
 function setMinMax(bercor,min,max) {
      db.transaction(
@@ -154,13 +179,15 @@ function setMinMax(bercor,min,max) {
                     tx.executeSql('insert into inventory(bercor, min, max) values(?,?,?)',[bercor, min, max]);
                 }                  
             },errorCB);
-        },errorCB,null);
+        },errorCB,function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);});
 }
 $('#mmCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     min = $(this).parent().parent().children('.panel-body').children('.form-group').children('#min');    
     max = $(this).parent().parent().children('.panel-body').children('.form-group').children('#max');
-    getMinMax(bercor);       
+    if(bercor){
+        getMinMax(bercor);       
+    }
 });
 function getMinMax(bercor) {
     db.transaction(
@@ -174,7 +201,7 @@ function getMinMax(bercor) {
                     gqmax = parseInt(results.rows.item(0).max);
                 }             
             },errorCB);
-        },errorCB,function(){min.val(gqmin); max.val(gqmax);});
+        },errorCB,function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#min').parent().toggleClass('has-success has-feedback');$('#max').parent().toggleClass('has-success has-feedback')},3000);min.val(gqmin); max.val(gqmax);});
 
 }
 /*********************************/
@@ -182,8 +209,14 @@ function getMinMax(bercor) {
 /*********************************/
 $('#ohUpdate').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
-    oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand').val();
-    setOH(bercor,parseInt(oh)); 
+    oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand').val(); 
+    if(!oh){
+        $('#onHand').parent().toggleClass('has-warning has-feedback');
+        setTimeout(function(){$('#onHand').parent().toggleClass('has-warning has-feedback')},3000);
+    }
+    else{
+        setOH(bercor,parseInt(oh));
+    }
 });
 function setOH(bercor,qty) {
      db.transaction(
@@ -201,12 +234,14 @@ function setOH(bercor,qty) {
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }                  
             },errorCB);
-        },errorCB,null);
+        },errorCB,function(){$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').parent().toggleClass('has-success has-feedback')},3000)});
 }
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('#bercor').val();
     oh = $(this).parent().parent().children('.panel-body').children('.form-group').children('#onHand');    
-    getOH(bercor);
+    if(bercor){
+        getOH(bercor);
+    }
 });
 function getOH(bercor) {
     db.transaction(
@@ -220,7 +255,7 @@ function getOH(bercor) {
                     $('#log').append("<p>qty: "+gQTY+"</p>");
                 }                  
             },errorCB);
-        },errorCB,function(){oh.val(gQTY);});
+        },errorCB,function(){$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').parent().toggleClass('has-success has-feedback')},3000);oh.val(gQTY)});
 }
 /******************************/
 /*********SCAN*****************/
