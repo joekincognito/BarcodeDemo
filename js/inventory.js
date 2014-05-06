@@ -128,7 +128,7 @@ function decInv(bercor,qty){
                     min = parseInt(results.rows.item(0).min);
                     max = parseInt(results.rows.item(0).max);
                     if(newQty < min){
-                        item.qty = max - onHand;
+                        item.qty = max - newQty;
                         item.bercor = bercor;
                         order.order = true;
                     }
