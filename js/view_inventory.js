@@ -54,10 +54,10 @@ function getInventorySuccess(tx, results) {
     $('#log').append("<p>getInventorySuccess</p>");
         var len = results.rows.length;
         $('#log').append("<p>Inventory table: " + len + " rows found.</p>");
-        $('#tbody').html('');
+        $('tbody').html('');
         for (var i=0; i<len; i++){
             //$('#log').append("<p>itemDesc: "+itemDesc+" itemDesc.charAt(0): "+itemDesc.charAt(0)+" itemDesc.charAt(1): "+itemDesc.charAt(1)+"</p>");        
-            $('#tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
+            $('tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
     }
 }
 
