@@ -19,7 +19,9 @@ $(document).ready(function() {
     }
 });
 
-
+$('.panel-heading').click(function(){
+    $('#log').toggle();
+});
 
 function onDeviceReady() {
     $('#log').hide();
