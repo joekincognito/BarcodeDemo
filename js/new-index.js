@@ -33,7 +33,9 @@ $('#addToOrder').click(function(){
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
     item.qty=parseInt($('#qty').val());
-    
+    if(!item.desc){
+        ajax(item.bercor);
+    }
     addToOrder(item);      
 });
 
@@ -169,7 +171,7 @@ $('#scan').click(function(){
             "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
         
-        if(!(result.text.toString().length===5)){
+        if(!(result.text.toString().length===5 || result.text.toString().length===6)){
             alert("Scan Error or invalid barcode\n" +
              "Please Try Again!");
         }

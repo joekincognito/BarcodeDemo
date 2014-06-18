@@ -55,49 +55,18 @@
       </div>
     </nav>
         <div class="container">
-            <!--<div class="jumbotron">
-                <h1>Are we ready to ScanDat?</h1>
-                <p>Hit the scan button, scan a barcode, hit add to order.</p>
-                <p><a href="#" class="topcoat-button btn btn-lg btn-success" id="scan">SCAN</a></p>
-            </div>-->
-            <div id="deviceready" class="blink">
-                    <p class="alert alert-info listening">Connecting to Device</p>
-                    <p class="alert alert-success received">Device is Ready</p>
-                </div>            
-            <div class="panel panel-primary">
-                <div class="panel-heading"><h3 class="panel-title">Quick Order</h3></div>
-                <div class="panel-body">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="qty" class="control-label" style="font-size:16px">QTY:&nbsp; </label>
-                            <input type="number" class="form-control" name="qty" id="qty" min="1" max="100" value="1">
-                        </div><!-- /form-group -->
-                        <div class="form-group">
-                            <label for="item" class="control-label" style="font-size:16px">BERCOR:&nbsp; </label><input type="text" class="form-control" name="item" id="item" placehold="bercor from scan data">
-                        </div><!-- /form-group -->
-                        <button type="button" class="btn btn-primary" id="addToOrder">Add to Order</button>
-                        <button type="button" class="topcoat-button btn btn-info" id="scan">Scan</button>
-                    </form>
-                </div><!-- /panel-body-->
-                <div class="panel-footer" id="info">
-                    <!--<p id="info"></p>-->
-                </div>
-            </div><!-- /panel panel-primary-->
-
-            <div class="well bs-component col-md-6 col-md-offset-6" id='createNewOrder-Form' style="display:none;">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <legend>New Order Name</legend>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="orderName">
-                            <div class="input-group-btn">
-                                <button type="button" id="createNewOrder" class="btn btn-primary">Create</button>
-                             </div><!-- /btn-group -->
-                        </div><!-- /input-group -->
-                    </fieldset>
-                </form>
-            </div><!-- /well bs-component-->
-            <br>
+                    <table class="table table-bordered" id="current" style="font-size:16px">
+                      <thead>
+                        <tr>
+                          <th>Bercor</th>
+                          <th>on Hand</th>
+                          <th>Min</th>
+                          <th>Max</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>  
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">debug log</h3>
@@ -107,9 +76,8 @@
             </div> 
         </div> <!-- Container -->
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="barcodescanner.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-          <script type="text/javascript" src="js/new-index.js"></script>
+          <script type="text/javascript" src="js/view_inventory.js"></script>
         <!--<script type="text/javascript" src="js/jquery-mobile-1.4.2.min.js"></script>-->
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
