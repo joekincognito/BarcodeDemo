@@ -39,6 +39,7 @@ $('#addToOrder').click(function(){
         setTimeout(function()
             {
                 if(item.desc){
+                    item.qty=parseInt($('#qty').val());
                     addToOrder(item);
                 }
                 else{
