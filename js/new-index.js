@@ -36,14 +36,15 @@ $('#addToOrder').click(function(){
     //if(!item.hasOwnProperty('desc')){
     if(!item.desc){
         ajax(item.bercor);
-        setTimeout(function(){
-            if(item.desc){
-                addToOrder(item);
-            }
-            else{
-                $('#info').html('<p class="alert alert-warning msg">Try hitting add to order again<p>');
+        setTimeout(function()
+            {
+                if(item.desc){
+                    addToOrder(item);
+                }
+                else{
+                    $('#info').html('<p class="alert alert-warning msg">Try hitting add to order again<p>');
+                }
                 return;
-            }
             },
             3000);//wait 3 seconds then check if we got the description from the ajax call
     }
