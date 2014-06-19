@@ -44,11 +44,12 @@ $('#addToOrder').click(function(){
                 else{
                     $('#info').html('<p class="alert alert-warning msg">Try hitting add to order again<p>');
                 }
-                return;
             },
             3000);//wait 3 seconds then check if we got the description from the ajax call
     }
-    addToOrder(item);      
+    else{
+        addToOrder(item);      
+    }
 });
 
 function onDeviceReady() {
