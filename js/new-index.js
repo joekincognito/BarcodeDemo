@@ -33,8 +33,19 @@ $('#addToOrder').click(function(){
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
     item.qty=parseInt($('#qty').val());
+    //if(!item.hasOwnProperty('desc')){
     if(!item.desc){
         ajax(item.bercor);
+        setTimeout(function(){
+            if(item.desc){
+                addToOrder(item);
+            }
+            else{
+                $('#info').html('<p class="alert alert-warning msg">Try hitting add to order again<p>');
+                return;
+            }
+            },
+            3000);//wait 3 seconds then check if we got the description from the ajax call
     }
     addToOrder(item);      
 });
@@ -198,7 +209,7 @@ function ajax(number){ //number will bercor
             })
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
-                $('#log').append("<p>"+item.bercor+"</p>");
+                $('#log').append("<p>"+item.bercor+"--"+item.desc+"</p>");
                 $('#info').html("<p class='alert alert-info msg'>" + item.desc + "</p>" );
                 $('#item').val( item.bercor);
             });    
