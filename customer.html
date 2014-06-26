@@ -72,6 +72,8 @@
                 db = window.openDatabase("Database", "1.0", "The Database", 200000);
                 custID=$('#custID').val();
                 db.transaction(function(tx){
+                    tx.executeSql('DROP TABLE IF EXISTS customer');
+                    tx.executeSql('create table if not exists customer (customerID)');
                     tx.executeSql('insert into customer (customerID) values (?)',[custID]);
                 },function(tx){alert('error, try again');}, function(tx){window.location="index.html";});
           });
