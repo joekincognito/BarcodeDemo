@@ -106,6 +106,7 @@ function addToOrderResults(tx,results){
 function atoCB(){
     $('#info').html('<p class="alert alert-success msg">item successfully added to the order in progress<p>');
     $('#item').val('');
+    item.desc=false;
     $('#qty').val(1);
 }
 
