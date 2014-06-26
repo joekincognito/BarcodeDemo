@@ -55,56 +55,33 @@
       </div>
     </nav>
         <div class="container">
-            <h3>Current (pending) Orders</h3>
-            <div  class="panel panel-primary">
-              <div class="panel-heading">
-                
-                  <div class="form-group">
-                    <label class="sr-only" for="po">Order Name (PO)</label> 
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="po" placeholder="Order Name">
-                      <span class="input-group-btn">
-                        <button id="poUpdate" class="btn btn-default">Update</button>
-                      </span>
-                     </div><!--/input-group-->   
-                  </div><!--/form-group-->
-                
-              </div><!--/panel heading-->
-              <div class="panel-body">
-                <div class="table-responsive">
                     <table class="table table-bordered" id="current" style="font-size:16px">
                       <thead>
                         <tr>
-                          <th>#</th>
                           <th>Bercor</th>
-                          <th>Desc</th>
+                          <th>on Hand</th>
+                          <th>Min</th>
+                          <th>Max</th>
                         </tr>
                       </thead>
                       <tbody>
                       </tbody>
-                    </table>
-                </div><!--/table-responsive-->
-              </div><!--/panel-body-->
-              <div class="panel-footer">
-                <button id="update" class="btn btn-primary">Update</button>
-                <button id="placeOrder" class="btn btn-success">Place Order</button>
-              </div><!--/panel-footer-->              
-            </div><!--/panel panel-primary-->
-            <br><br>
-            
+                    </table>  
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">debug log</h3>
                 </div>
                 <div id="log" class="panel-body">
                 </div>
-            </div>  
+            </div> 
         </div> <!-- Container -->
-        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-          <script type="text/javascript" src="js/orders.js"></script>
+          <script type="text/javascript" src="js/view_inventory.js"></script>
+        <!--<script type="text/javascript" src="js/jquery-mobile-1.4.2.min.js"></script>-->
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        
+        <script type="text/javascript">
+            /*app.initialize();*/
+        </script>
     </body>
 </html>

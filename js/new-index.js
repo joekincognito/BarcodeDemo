@@ -33,8 +33,24 @@ $('#addToOrder').click(function(){
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
     item.qty=parseInt($('#qty').val());
-    
-    addToOrder(item);      
+    //if(!item.hasOwnProperty('desc')){
+    if(!item.desc){
+        ajax(item.bercor);
+        setTimeout(function()
+            {
+                if(item.desc){
+                    item.qty=parseInt($('#qty').val());
+                    addToOrder(item);
+                }
+                else{
+                    $('#info').html('<p class="alert alert-warning msg">Try hitting add to order again<p>');
+                }
+            },
+            3000);//wait 3 seconds then check if we got the description from the ajax call
+    }
+    else{
+        addToOrder(item);      
+    }
 });
 
 function onDeviceReady() {
@@ -90,6 +106,7 @@ function addToOrderResults(tx,results){
 function atoCB(){
     $('#info').html('<p class="alert alert-success msg">item successfully added to the order in progress<p>');
     $('#item').val('');
+    item.desc=false;
     $('#qty').val(1);
 }
 
@@ -169,7 +186,7 @@ $('#scan').click(function(){
             "cancelled: " + result.cancelled + "\n");
         $('#log').append(result);
         
-        if(!(result.text.toString().length===5)){
+        if(!(result.text.toString().length===5 || result.text.toString().length===6)){
             alert("Scan Error or invalid barcode\n" +
              "Please Try Again!");
         }
@@ -196,7 +213,7 @@ function ajax(number){ //number will bercor
             })
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
-                $('#log').append("<p>"+item.bercor+"</p>");
+                $('#log').append("<p>"+item.bercor+"--"+item.desc+"</p>");
                 $('#info').html("<p class='alert alert-info msg'>" + item.desc + "</p>" );
                 $('#item').val( item.bercor);
             });    

@@ -223,6 +223,37 @@ $('#ohUpdate').click(function(){
         setOH(bercor,parseInt(oh));
     }
 });
+/*
+function decInv(bercor,qty){
+   db.transaction(
+            function(tx){
+                tx.executeSql('select * from inventory where bercor = ?',[bercor],
+            function(tx,results){
+                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                if (results.rows.length > 0){ 
+                    //if the bercor already exists, add to the qty
+                    onHand = parseInt(results.rows.item(0).onHand);
+                    newQty = onHand - qty;
+                    //Check min and max
+                    min = parseInt(results.rows.item(0).min);
+                    max = parseInt(results.rows.item(0).max);
+                    if(newQty < min){
+                        item.qty = max - newQty;
+                        item.bercor = bercor;
+                        order.order = true;
+                    }
+                    $('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
+                    tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
+                }
+                else
+                {
+                    //if the bercor does not exist, do nothing
+                    //tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
+                }
+            },errorCB);
+        },errorCB,function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#qty').siblings('span').toggleClass('glyphicon-ok');$('#qty').parent().toggleClass('has-success has-feedback');$('#qty').val('')},3000);if(order.order){ajax(item.bercor,item.qty)}});
+}
+*/
 function setOH(bercor,qty) {
      db.transaction(
             function(tx){
@@ -230,7 +261,14 @@ function setOH(bercor,qty) {
             function(tx,results){
                 $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
-                    //if the bercor already exists, change onhand
+                    //Check min and max
+                    min = parseInt(results.rows.item(0).min);
+                    max = parseInt(results.rows.item(0).max);
+                    if(qty < min){
+                        item.qty = max - qty;
+                        item.bercor = bercor;
+                        order.order = true;
+                    }
                     $('#log').append("<p>changing to qty: "+qty+"</p>");
                     tx.executeSql('update inventory set onHand=? where bercor=?',[qty, bercor]);
                 }
@@ -239,7 +277,7 @@ function setOH(bercor,qty) {
                     tx.executeSql('insert into inventory(bercor, onhand) values(?,?)',[bercor,qty]);
                 }                  
             },errorCB);
-        },errorCB,function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');$('#onHand').val('');},3000)});
+        },errorCB,function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');setTimeout(function(){$('#onHand').siblings('span').toggleClass('glyphicon-ok');$('#onHand').parent().toggleClass('has-success has-feedback');$('#onHand').val('');},3000);if(order.order){ajax(item.bercor,item.qty)}});
 }
 $('#ohCheck').click(function(){
     bercor = $(this).parent().parent().children('.panel-body').children('.input-group').children('.bercor').val();
