@@ -29,11 +29,13 @@ var shake = (function () {
     
     // Gets the current acceleration snapshot from the last accelerometer watch
     function getAccelerationSnapshot() {
+         $('#log').append('<p>get acceleration snapshot</p>');
         navigator.accelerometer.getCurrentAcceleration(assessCurrentAcceleration, handleError);
     }
     
     // Assess the current acceleration parameters to determine a shake
     function assessCurrentAcceleration(acceleration) {
+         $('#log').append('<p>assess current acceleration</p>');
         var accelerationChange = {};
         if (previousAcceleration.x !== null) {
             accelerationChange.x = Math.abs(previousAcceleration.x, acceleration.x);
