@@ -122,12 +122,12 @@ function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-    shake.startWatch(scan);
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
+    shake.startWatch(scan);
 }
 
 function setupTables(tx){
