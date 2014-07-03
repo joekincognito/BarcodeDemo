@@ -132,7 +132,7 @@ function onDeviceReady() {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
-    shake.startWatch(scan);
+    shake.startWatch(function(){alert('shake')});
 }
 
 function setupTables(tx){
