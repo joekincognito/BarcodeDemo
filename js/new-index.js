@@ -64,6 +64,7 @@ var shake = (function () {
 
     // Handle errors here
     function handleError() {
+        $('#log').append('<p>acceleration error</p>');
     }
     
     return shake;
