@@ -56,6 +56,8 @@ $('#addToOrder').click(function(){
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
+    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    shake.startWatch(scan);
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
@@ -177,7 +179,7 @@ function successCB() {
 }    
 
 $('#scan').click(function(){
-    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    
     scanner.scan( function (result) { 
 
        $('#log').append("Scanner result: \n" +
@@ -199,6 +201,27 @@ $('#scan').click(function(){
     });
     
 });
+function scan(){
+    scanner.scan( function (result) { 
+
+       $('#log').append("Scanner result: \n" +
+            "text: " + result.text + "\n" +
+            "format: " + result.format + "\n" +
+            "cancelled: " + result.cancelled + "\n");
+        $('#log').append(result);
+        
+        if(!(result.text.toString().length===5 || result.text.toString().length===6)){
+            alert("Scan Error or invalid barcode\n" +
+             "Please Try Again!");
+        }
+        else 
+        {
+            ajax(result.text,null);
+        }
+    }, function (error) { 
+        $('#log').append("<p>Scanning failed: " + error + "</p>"); 
+    });
+}
 
 function ajax(number){ //number will bercor
         $.ajax({
