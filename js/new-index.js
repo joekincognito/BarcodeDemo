@@ -42,6 +42,7 @@ var shake = (function () {
         }
         if (accelerationChange.x + accelerationChange.y + accelerationChange.z > 30) {
             // Shake detected
+            $( "#log" ).append( "<p>Shake Detected!</p>" );
             if (typeof (shakeCallBack) === "function") {
                 shakeCallBack();
             }
@@ -268,6 +269,7 @@ $('#scan').click(function(){
     
 });
 function scan(){
+    $('#log').append("<p>In scan function</p>");
     scanner.scan( function (result) { 
 
        $('#log').append("Scanner result: \n" +
