@@ -2,6 +2,7 @@ var db;
 var order = {};
 var item = {};
 var customer = {};
+var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 var shake = (function () {
       $('#log').append('<p>inside shake function</p>');
     var shake = {},
@@ -121,7 +122,7 @@ $('#addToOrder').click(function(){
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
-    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    
     $('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
