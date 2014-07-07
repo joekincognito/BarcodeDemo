@@ -67,7 +67,7 @@ function onDeviceReady() {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
-   shake.startWatch();
+   shake.startWatch(function(){$('#log').append('<p>shake detected</p>')});
 }
 
 
