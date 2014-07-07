@@ -17,7 +17,19 @@ var shake = (function () {
             shakeCallBack = onShake;
         }
         $('#log').append('<p>'+navigator.platform+'</p>');
-        watchId = navigator.accelerometer.watchAcceleration(getAccelerationSnapshot, handleError, options);
+        //watchId = navigator.accelerometer.watchAcceleration(getAccelerationSnapshot, handleError, options);
+        watchId = navigator.accelerometer.watchAcceleration(onSuccess, onErrorr, options);
+    };
+
+    function onSuccess(acceleration) {
+    alert('Acceleration X: ' + acceleration.x + '\n' +
+          'Acceleration Y: ' + acceleration.y + '\n' +
+          'Acceleration Z: ' + acceleration.z + '\n' +
+          'Timestamp: '      + acceleration.timestamp + '\n');
+    };
+
+    function onErrorr() {
+        alert('onError!');
     };
     
     // Stop watching the accelerometer for a shake gesture
