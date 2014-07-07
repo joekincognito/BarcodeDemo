@@ -18,7 +18,6 @@ var shake = (function () {
         }
         $('#log').append('<p>'+navigator.platform+'</p>');
         //watchId = navigator.accelerometer.watchAcceleration(getAccelerationSnapshot, handleError, options);
-        console.log(navigator.accelerometer);
         watchId = navigator.accelerometer.watchAcceleration(onSuccess, onErrorr);
     };
 
@@ -145,7 +144,7 @@ function onDeviceReady() {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
-    shake.startWatch(function(){alert('shake')});
+    shake.startWatch();
 }
 
 function setupTables(tx){
