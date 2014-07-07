@@ -57,6 +57,7 @@ var shake = (function () {
 
 	// Handle errors here
 	function handleError() {
+		$('#log').append('<p>fucking shake error again</p>');
 	}
 	
 	return shake;
