@@ -18,7 +18,7 @@ var shake = (function () {
         }
         $('#log').append('<p>'+navigator.platform+'</p>');
         //watchId = navigator.accelerometer.watchAcceleration(getAccelerationSnapshot, handleError, options);
-        watchId = navigator.accelerometer.watchAcceleration(onSuccess, onErrorr, options);
+        watchId = navigator.accelerometer.watchAcceleration(onSuccess, onErrorr);
     };
 
     function onSuccess(acceleration) {
