@@ -1,9 +1,21 @@
+function alertDismissed() {
+    // do something
+}
+
+navigator.notification.alert(
+    'You are the winner!',  // message
+    alertDismissed,         // callback
+    'Game Over',            // title
+    'Done'                  // buttonName
+);
+
 var db;
 var order = {};
 var item = {};
 var customer = {};
 $(document).ready(function() {
     // are we running in native app or in a browser?
+   
     window.isphone = false;
     if(document.URL.indexOf("http://") === -1 
         && document.URL.indexOf("https://") === -1) {
@@ -18,6 +30,9 @@ $(document).ready(function() {
         onDeviceReady();
     }
 });
+
+
+
 
 $( document ).ajaxError(function() {
   $( "#log" ).append( "Triggered ajaxError handler." );
@@ -61,6 +76,7 @@ function onDeviceReady() {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
+
 }
 
 function setupTables(tx){
