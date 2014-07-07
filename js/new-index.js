@@ -5,7 +5,7 @@ var customer = {};
 var shake = (function () {
       $('#log').append('<p>inside shake function</p>');
     var shake = {},
-        watchId = null,
+        //watchId = null,
         options = { frequency: 300 },
         previousAcceleration = { x: null, y: null, z: null },
         shakeCallBack = null;
@@ -18,7 +18,7 @@ var shake = (function () {
         }
         $('#log').append('<p>'+navigator.platform+'</p>');
         //watchId = navigator.accelerometer.watchAcceleration(getAccelerationSnapshot, handleError, options);
-        watchId = navigator.accelerometer.watchAcceleration(onSuccess, onErrorr);
+       var watchId = navigator.accelerometer.watchAcceleration(onSuccess, onErrorr);
     };
 
     function onSuccess(acceleration) {
