@@ -67,19 +67,8 @@ function onDeviceReady() {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
-    navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+   shake.startWatch();
 }
-function onSuccess(acceleration) {
-      $('#log').append('<p>Acceleration</p>');
-    $('#log').append('Acceleration X: ' + acceleration.x + '\n' +
-          'Acceleration Y: ' + acceleration.y + '\n' +
-          'Acceleration Z: ' + acceleration.z + '\n' +
-          'Timestamp: '      + acceleration.timestamp + '\n');
-};
-
-function onError() {
-    $('#log').append('Accelerometer Error!');
-};
 
 
 function setupTables(tx){
