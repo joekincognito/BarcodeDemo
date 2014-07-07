@@ -16,6 +16,7 @@ var shake = (function () {
         if (onShake) {
             shakeCallBack = onShake;
         }
+        $('#log').append('<p>'+navigator.platform+'</p>');
         watchId = navigator.accelerometer.watchAcceleration(getAccelerationSnapshot, handleError, options);
     };
     
@@ -68,7 +69,6 @@ var shake = (function () {
     function handleError() {
         $('#log').append('<p>acceleration error</p>');
     }
-    
     return shake;
 })();
 var scanner;
