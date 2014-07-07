@@ -1,13 +1,4 @@
-function alertDismissed() {
-    // do something
-}
 
-navigator.notification.alert(
-    'You are the winner!',  // message
-    alertDismissed,         // callback
-    'Game Over',            // title
-    'Done'                  // buttonName
-);
 
 var db;
 var order = {};
@@ -76,8 +67,19 @@ function onDeviceReady() {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
     }
+    navigator.notification.alert(
+    'You are the winner!',  // message
+    alertDismissed,         // callback
+    'Game Over',            // title
+    'Done'                  // buttonName
+);
 
 }
+function alertDismissed() {
+    // do something
+}
+
+
 
 function setupTables(tx){
     $('#log').append("<p>setupTable</p>");
