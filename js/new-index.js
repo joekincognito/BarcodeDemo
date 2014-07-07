@@ -22,14 +22,14 @@ var shake = (function () {
     };
 
     function onSuccess(acceleration) {
-    alert('Acceleration X: ' + acceleration.x + '\n' +
+        $('#log').append('Acceleration X: ' + acceleration.x + '\n' +
           'Acceleration Y: ' + acceleration.y + '\n' +
           'Acceleration Z: ' + acceleration.z + '\n' +
           'Timestamp: '      + acceleration.timestamp + '\n');
     };
 
     function onErrorr() {
-        alert('onError!');
+        $('#log').append('onError!');
     };
     
     // Stop watching the accelerometer for a shake gesture
