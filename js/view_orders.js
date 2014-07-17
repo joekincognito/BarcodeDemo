@@ -47,7 +47,6 @@ function getOrdersSuccess(tx, results) {
     $('#log').append("<p>getInventorySuccess</p>");
         var len = results.rows.length;
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
-        console.log(results);
         for (var i=0; i<len; i++){
             var result=results.rows.item(i);
             $('#orderItems').append('<ul><li>'+ result.name + '</li></ul>');
