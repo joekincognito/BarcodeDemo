@@ -48,8 +48,10 @@ function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
         console.log(results);
-        console.debug(results);
         for (var i=0; i<len; i++){
+            var result=results.rows.item(i);
+            $('#orderItems').append('<ul><li>'+ result.name + '</li></ul>');
+
             //order name
             //each order item  --< hidden...expand to reveal
             //$('tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
