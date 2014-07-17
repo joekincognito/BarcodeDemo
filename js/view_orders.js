@@ -47,9 +47,21 @@ function getOrdersSuccess(tx, results) {
     $('#log').append("<p>getInventorySuccess</p>");
         var len = results.rows.length;
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
+        
+        var name = results.rows.items(0).name;
+        $('#orderHistory').append('<p>'+ name + '</p>');
         for (var i=0; i<len; i++){
             var result=results.rows.item(i);
-            $('#orderHistory').append('<ul><li>'+ result.name + '</li></ul>');
+            if (name == results.rows.item(i).name)
+            {
+                $('#orderHistory').append('<span>'+ name + '</span>');   
+            }
+            else
+            {
+                var name = result.name;
+                $('#orderHistory').append('<p>'+ name + '</p>');        
+            }
+            //$('#orderHistory').append('<ul><li>'+ result.name + '</li></ul>');
 
             //order name
             //each order item  --< hidden...expand to reveal
