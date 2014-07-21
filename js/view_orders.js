@@ -67,14 +67,14 @@ function getOrdersSuccess(tx, results) {
                  $('#orderHistory').append('<tr><td>'+results.rows.item(0).qty+'</td><td>'+results.rows.item(0).bercor+'</td><td>'+results.rows.item(0).desc+'</td></tr>');
                 //$('#orderHistory').append('<p>'+ name + '</p>');        
             }
-            $('#orderHistory').append('</tbody></table>');
-            $('body').append($('#orderHistory').html());
             //$('#orderHistory').append('<ul><li>'+ result.name + '</li></ul>');
 
             //order name
             //each order item  --< hidden...expand to reveal
             //$('tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
         }
+        $('#orderHistory').append('</tbody></table>');
+        $('body').append($('#orderHistory').html());
 }
 
 function errorCB(err) {
