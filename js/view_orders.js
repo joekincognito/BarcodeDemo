@@ -67,6 +67,7 @@ function getOrdersSuccess(tx, results) {
                  $('#orderHistory').append('<tr><td>'+results.rows.item(0).qty+'</td><td>'+results.rows.item(0).bercor+'</td><td>'+results.rows.item(0).desc+'</td></tr>');
                 //$('#orderHistory').append('<p>'+ name + '</p>');        
             }
+            $('#orderHistory').append('</tbody></table>');
             //$('#orderHistory').append('<ul><li>'+ result.name + '</li></ul>');
 
             //order name
