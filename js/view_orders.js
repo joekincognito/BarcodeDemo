@@ -49,31 +49,32 @@ function getOrdersSuccess(tx, results) {
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
         
         var name = results.rows.item(0).name;
-        $('#orderHistory').append('<table class="table table-bordered"><thead><tr><th>'+results.rows.item(0).date+'</th><th>Order Name</th><th>'+ name + '</th></tr></thead><tbody>');
-        $('#orderHistory').append('<tr><td>QTY</td><td>Bercor</td><td>Desc</td></tr>');
+        var orderholder = '<table class="table table-bordered"><thead><tr><th>'+results.rows.item(0).date+'</th><th>Order Name</th><th>'+ name + '</th></tr></thead><tbody>';
+        orderholder += '<tr><td>QTY</td><td>Bercor</td><td>Desc</td></tr>';
         for (var i=0; i<len; i++){
             var result=results.rows.item(i);
             if (name == results.rows.item(i).name)
             {
-                $('#orderHistory').append('<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).desc+'</td></tr>');
-                //$('#orderHistory').append('<span>'+ result.desc + '</span>');   
+                orderholder +='<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).desc+'</td></tr>';
+                //orderholder +='<span>'+ result.desc + '</span>');   
             }
             else
             {
-                $('#orderHistory').append('</tbody></table>');
+                orderholder +='</tbody></table>';
                 var name = result.name;
-                $('#orderHistory').append('<table class="table table-bordered"><thead><tr><th>'+results.rows.item(i).date+'</th><th>Order Name</th><th>'+ name + '</th></tr></thead><tbody>');
-               $('#orderHistory').append('<tr><td>QTY</td><td>Bercor</td><td>Desc</td></tr>');
-                 $('#orderHistory').append('<tr><td>'+results.rows.item(0).qty+'</td><td>'+results.rows.item(0).bercor+'</td><td>'+results.rows.item(0).desc+'</td></tr>');
-                //$('#orderHistory').append('<p>'+ name + '</p>');        
+                orderholder +='<table class="table table-bordered"><thead><tr><th>'+results.rows.item(i).date+'</th><th>Order Name</th><th>'+ name + '</th></tr></thead><tbody>';
+               orderholder +='<tr><td>QTY</td><td>Bercor</td><td>Desc</td></tr>';
+                 orderholder +='<tr><td>'+results.rows.item(0).qty+'</td><td>'+results.rows.item(0).bercor+'</td><td>'+results.rows.item(0).desc+'</td></tr>';
+                //orderholder +='<p>'+ name + '</p>');        
             }
-            //$('#orderHistory').append('<ul><li>'+ result.name + '</li></ul>');
+            //orderholder +='<ul><li>'+ result.name + '</li></ul>');
 
             //order name
             //each order item  --< hidden...expand to reveal
             //$('tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
         }
-        $('#orderHistory').append('</tbody></table>');
+        orderholder +='</tbody></table>';
+        $('#orderHistory').append(orderholder);
         $('#orderHistory').text($('#orderHistory').html());
 }
 
