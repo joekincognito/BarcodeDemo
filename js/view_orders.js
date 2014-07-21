@@ -75,7 +75,7 @@ function getOrdersSuccess(tx, results) {
         }
         orderholder +='</tbody></table>';
         $('#orderHistory').append(orderholder);
-        $('#orderHistory').text($('#orderHistory').html());
+        //$('#orderHistory').text($('#orderHistory').html());
 }
 
 function errorCB(err) {
