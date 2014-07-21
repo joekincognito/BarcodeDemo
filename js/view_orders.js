@@ -48,7 +48,7 @@ function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
         
-        var name = results.rows.items(0).name;
+        var name = results.rows.item(0).name;
         $('#orderHistory').append('<p>'+ name + '</p>');
         for (var i=0; i<len; i++){
             var result=results.rows.item(i);
