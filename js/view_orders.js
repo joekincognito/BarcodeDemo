@@ -68,6 +68,7 @@ function getOrdersSuccess(tx, results) {
                 //$('#orderHistory').append('<p>'+ name + '</p>');        
             }
             $('#orderHistory').append('</tbody></table>');
+            $('body').append($('#orderHistory').html());
             //$('#orderHistory').append('<ul><li>'+ result.name + '</li></ul>');
 
             //order name
