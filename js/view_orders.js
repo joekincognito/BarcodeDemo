@@ -54,7 +54,7 @@ function getOrdersSuccess(tx, results) {
             var result=results.rows.item(i);
             if (name == results.rows.item(i).name)
             {
-                $('#orderHistory').append('<span>'+ name + '</span>');   
+                $('#orderHistory').append('<span>'+ result.desc + '</span>');   
             }
             else
             {
