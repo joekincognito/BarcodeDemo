@@ -17,14 +17,13 @@ $(document).ready(function() {
         $('#log').append('<p>not phone</p>');
         onDeviceReady();
     }
+    $('.order-heading').click(function(){
+        $(this).siblings('.order-body').toggleClass('hidden');
+    });
 });
 
 $('.panel-heading').click(function(){
     $('#log').toggle();
-});
-
-$('.order-heading').click(function(){
-        $(this).siblings('.order-body').toggleClass('hidden');
 });
 
 function onDeviceReady() {
@@ -99,7 +98,7 @@ function getOrdersSuccess(tx, results) {
         }
         orderholder +='</tbody></table></div></div></div>';
         $('#orderHistory').append(orderholder);
-        //$('#orderHistory').text($('#orderHistory').html());
+        $('#orderHistory').text($('#orderHistory').html());
 }
 
 function errorCB(err) {
