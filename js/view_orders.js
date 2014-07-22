@@ -74,7 +74,7 @@ function getOrdersSuccess(tx, results) {
             }
             else
             {
-                orderholder +='</tbody></table></div></div>';
+                orderholder +='</tbody></table></div></div></div>';
                 var name = result.name;
                 orderholder += '<div class="panel panel-primary">'+
                                    '<div class="panel-heading order-heading">'+
@@ -97,7 +97,7 @@ function getOrdersSuccess(tx, results) {
             //each order item  --< hidden...expand to reveal
             //$('tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
         }
-        orderholder +='</tbody></table></div></div>';
+        orderholder +='</tbody></table></div></div></div>';
         $('#orderHistory').append(orderholder);
         //$('#orderHistory').text($('#orderHistory').html());
 }
