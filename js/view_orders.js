@@ -54,8 +54,9 @@ function getOrdersSuccess(tx, results) {
         var name = results.rows.item(0).name;
         var orderholder = '<div class="panel panel-primary">'+
                             '<div class="panel-heading order-heading">'+
-                              '<h4 style="margin-top:0px;margin-bottom:0px">' +
-                              results.rows.item(0).date.substring(4,15)+'<span class="pull-right">'+ name + '</span></h4>'+
+                              '<h4 style="margin-top:0px;margin-bottom:0px" class="row">' +
+                              '<span class="col-md-5">'+results.rows.item(0).date.substring(4,15)+'</span><span class="col-md-5">'+ name + '</span>'+
+                              '<span class="col-md-2"><span class="caret pull-right" style="border-top: 8px solid; border-right: 8px solid transparent; border-left: 8px solid transparent;"></span></span></h4>'+
                             '</div>';
             orderholder += '<div class="panel-body order-body hidden">'+
                               '<div class="table-responsive">'+
@@ -76,10 +77,11 @@ function getOrdersSuccess(tx, results) {
                 orderholder +='</tbody></table></div></div></div>';
                 var name = result.name;
                 orderholder += '<div class="panel panel-primary">'+
-                                   '<div class="panel-heading order-heading">'+
-                                     '<h4 style="margin-top:0px;margin-bottom:0px">' +
-                                       results.rows.item(i).date.substring(4,15)+'<span class="pull-right">'+ name + '</span></h4>'+
-                                   '</div>';
+                                 '<div class="panel-heading order-heading">'+
+                                   '<h4 style="margin-top:0px;margin-bottom:0px" class="row">' +
+                              '<span class="col-md-5">'+results.rows.item(i).date.substring(4,15)+'</span><span class="col-md-5">'+ name + '</span>'+
+                              '<span class="col-md-2"><span class="caret pull-right" style="border-top: 8px solid; border-right: 8px solid transparent; border-left: 8px solid transparent;"></span></span></h4>'+
+                            '</div>';
                 orderholder +=    '<div class="panel-body order-body hidden">'+
                                      '<div class="table-responsive">'+
                                         '<table class="table table-bordered" style="font-size:16px">'+
