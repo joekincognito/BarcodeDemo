@@ -17,6 +17,10 @@ $(document).ready(function() {
         $('#log').append('<p>not phone</p>');
         onDeviceReady();
     }
+
+    $('.order-heading').click(function(){
+        $(this).siblings('.order-body').toggleClass('hidden');
+    });
 });
 
 $('.panel-heading').click(function(){
@@ -49,8 +53,18 @@ function getOrdersSuccess(tx, results) {
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
         
         var name = results.rows.item(0).name;
-        var orderholder = '<table class="table table-bordered"><thead><tr><th>'+results.rows.item(0).date+'</th><th>Order Name</th><th>'+ name + '</th></tr></thead><tbody>';
-        orderholder += '<tr><td>QTY</td><td>Bercor</td><td>Desc</td></tr>';
+        var orderholder = '<div class="panel panel-primary">
+                            <div class="panel-heading order-heading">
+                              <h4 style="margin-top:0px;margin-bottom:0px">' 
+                              +results.rows.item(0).date+'<span class="pull-right">'+ name + '</span></h4>
+                            </div>';
+            orderholder += '<div class="panel-body order-body hidden">
+                              <div class="table-responsive">
+                                <table class="table table-bordered" style="font-size:16px">
+                                  <thead>
+                                    <tr><th>#</th><th>Bercor</th><th>Desc</th></tr>
+                                  </thead>
+                                  <tbody>';
         for (var i=0; i<len; i++){
             var result=results.rows.item(i);
             if (name == results.rows.item(i).name)
@@ -60,11 +74,21 @@ function getOrdersSuccess(tx, results) {
             }
             else
             {
-                orderholder +='</tbody></table>';
+                orderholder +='</tbody></table></div></div>';
                 var name = result.name;
-                orderholder +='<table class="table table-bordered"><thead><tr><th>'+results.rows.item(i).date+'</th><th>Order Name</th><th>'+ name + '</th></tr></thead><tbody>';
-               orderholder +='<tr><td>QTY</td><td>Bercor</td><td>Desc</td></tr>';
-                 orderholder +='<tr><td>'+results.rows.item(0).qty+'</td><td>'+results.rows.item(0).bercor+'</td><td>'+results.rows.item(0).desc+'</td></tr>';
+                orderholder += '<div class="panel panel-primary">
+                                   <div class="panel-heading order-heading">
+                                     <h4 style="margin-top:0px;margin-bottom:0px">' 
+                                       +results.rows.item(i).date+'<span class="pull-right">'+ name + '</span></h4>
+                                   </div>';
+                orderholder +=    '<div class="panel-body order-body hidden">
+                                     <div class="table-responsive">
+                                        <table class="table table-bordered" style="font-size:16px">
+                                          <thead>
+                                            <tr><th>#</th><th>Bercor</th><th>Desc</th></tr>
+                                          </thead>
+                                          <tbody>';
+                 orderholder +='<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).desc+'</td></tr>';
                 //orderholder +='<p>'+ name + '</p>');        
             }
             //orderholder +='<ul><li>'+ result.name + '</li></ul>');
@@ -73,7 +97,7 @@ function getOrdersSuccess(tx, results) {
             //each order item  --< hidden...expand to reveal
             //$('tbody').append('<tr id='+results.rows.item(i).Id+'><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).onHand+'</td><td>'+results.rows.item(i).min+'</td><td>'+results.rows.item(i).max+'</td></tr>');
         }
-        orderholder +='</tbody></table>';
+        orderholder +='</tbody></table></div></div>';
         $('#orderHistory').append(orderholder);
         //$('#orderHistory').text($('#orderHistory').html());
 }
