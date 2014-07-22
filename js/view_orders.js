@@ -55,7 +55,7 @@ function getOrdersSuccess(tx, results) {
         var orderholder = '<div class="panel panel-primary">'+
                             '<div class="panel-heading order-heading">'+
                               '<h4 style="margin-top:0px;margin-bottom:0px">' +
-                              results.rows.item(0).date+'<span class="pull-right">'+ name + '</span></h4>'+
+                              results.rows.item(0).date.substring(4,15)+'<span class="pull-right">'+ name + '</span></h4>'+
                             '</div>';
             orderholder += '<div class="panel-body order-body hidden">'+
                               '<div class="table-responsive">'+
@@ -78,7 +78,7 @@ function getOrdersSuccess(tx, results) {
                 orderholder += '<div class="panel panel-primary">'+
                                    '<div class="panel-heading order-heading">'+
                                      '<h4 style="margin-top:0px;margin-bottom:0px">' +
-                                       results.rows.item(i).date+'<span class="pull-right">'+ name + '</span></h4>'+
+                                       results.rows.item(i).date.substring(4,15)+'<span class="pull-right">'+ name + '</span></h4>'+
                                    '</div>';
                 orderholder +=    '<div class="panel-body order-body hidden">'+
                                      '<div class="table-responsive">'+
