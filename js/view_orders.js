@@ -17,14 +17,14 @@ $(document).ready(function() {
         $('#log').append('<p>not phone</p>');
         onDeviceReady();
     }
-
-    $('.order-heading').click(function(){
-        $(this).siblings('.order-body').toggleClass('hidden');
-    });
 });
 
 $('.panel-heading').click(function(){
     $('#log').toggle();
+});
+
+$('.order-heading').click(function(){
+        $(this).siblings('.order-body').toggleClass('hidden');
 });
 
 function onDeviceReady() {
