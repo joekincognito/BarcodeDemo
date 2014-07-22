@@ -53,18 +53,18 @@ function getOrdersSuccess(tx, results) {
         $('#log').append("<p>Order table: " + len + " rows found.</p>");
         
         var name = results.rows.item(0).name;
-        var orderholder = '<div class="panel panel-primary">
-                            <div class="panel-heading order-heading">
-                              <h4 style="margin-top:0px;margin-bottom:0px">' 
-                              +results.rows.item(0).date+'<span class="pull-right">'+ name + '</span></h4>
-                            </div>';
-            orderholder += '<div class="panel-body order-body hidden">
-                              <div class="table-responsive">
-                                <table class="table table-bordered" style="font-size:16px">
-                                  <thead>
-                                    <tr><th>#</th><th>Bercor</th><th>Desc</th></tr>
-                                  </thead>
-                                  <tbody>';
+        var orderholder = '<div class="panel panel-primary">'+
+                            '<div class="panel-heading order-heading">'+
+                              '<h4 style="margin-top:0px;margin-bottom:0px">' +
+                              results.rows.item(0).date+'<span class="pull-right">'+ name + '</span></h4>'+
+                            '</div>';
+            orderholder += '<div class="panel-body order-body hidden">'+
+                              '<div class="table-responsive">'+
+                                '<table class="table table-bordered" style="font-size:16px">'+
+                                  '<thead>'+
+                                    '<tr><th>#</th><th>Bercor</th><th>Desc</th></tr>'+
+                                  '</thead>'+
+                                  '<tbody>';
         for (var i=0; i<len; i++){
             var result=results.rows.item(i);
             if (name == results.rows.item(i).name)
@@ -76,18 +76,18 @@ function getOrdersSuccess(tx, results) {
             {
                 orderholder +='</tbody></table></div></div>';
                 var name = result.name;
-                orderholder += '<div class="panel panel-primary">
-                                   <div class="panel-heading order-heading">
-                                     <h4 style="margin-top:0px;margin-bottom:0px">' 
-                                       +results.rows.item(i).date+'<span class="pull-right">'+ name + '</span></h4>
-                                   </div>';
-                orderholder +=    '<div class="panel-body order-body hidden">
-                                     <div class="table-responsive">
-                                        <table class="table table-bordered" style="font-size:16px">
-                                          <thead>
-                                            <tr><th>#</th><th>Bercor</th><th>Desc</th></tr>
-                                          </thead>
-                                          <tbody>';
+                orderholder += '<div class="panel panel-primary">'+
+                                   '<div class="panel-heading order-heading">'+
+                                     '<h4 style="margin-top:0px;margin-bottom:0px">' +
+                                       results.rows.item(i).date+'<span class="pull-right">'+ name + '</span></h4>'+
+                                   '</div>';
+                orderholder +=    '<div class="panel-body order-body hidden">'+
+                                     '<div class="table-responsive">'+
+                                        '<table class="table table-bordered" style="font-size:16px">'+
+                                          '<thead>'+
+                                            '<tr><th>#</th><th>Bercor</th><th>Desc</th></tr>'+
+                                          '</thead>'+
+                                          '<tbody>';
                  orderholder +='<tr><td>'+results.rows.item(i).qty+'</td><td>'+results.rows.item(i).bercor+'</td><td>'+results.rows.item(i).desc+'</td></tr>';
                 //orderholder +='<p>'+ name + '</p>');        
             }
