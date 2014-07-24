@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Barcode Scanner Demo</title>
+    </head>
+    <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">ScanDat</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+              <li><a href="orders.html">Order</a></li>
+              <li><a href="inventory.html">Inventory</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">View<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="view_orders.html">Orders</a></li>
+                      <li><a href="view_inventory.html">Inventory</a></li>
+                      <li><a href="view_info.html">Help/About</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </div><!--/.navbar-collapse -->
+        </div>
+      </nav>
+        <div class="container">
+          <h3>Scan App Documentation</h3>
+             <a class = "btn btn-primary" href="http://4d385e492976300bfcb0-a79605eab0a13ccb449d0ff6765dfddf.r19.cf2.rackcdn.com/Scan%20App%20Documentation%202(new).pdf" title="View Scan App Usage Documentation"> Tap to View App Usage Documentation</a>
+          <h3>Change Log / Road Map</h3>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-success">
+                  <h3 class="list-group-item-heading">V 1.0</h3>
+                  <p class="list-group-item-text">
+                    Status: Published - Date: 6/13/2014 <span class="badge "><span class="glyphicon glyphicon-ok"></span></span>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Allow 6 digit bercor <span class="glyphicon glyphicon-ok"></span>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    View Inventory Information <span class="glyphicon glyphicon-ok"></span>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Add "auto order triggering" to onHand <span class="glyphicon glyphicon-ok"></span>
+                    <br>
+                    <small>Making a change to the on-hand that takes the on-hand count below the minimum will trigger the auto add to order </small>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Allow all bercors to be typed instead of scanned in <span class="glyphicon glyphicon-ok"></span>
+                  </p>
+                </a>
+              </div>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-success">
+                  <h3 class="list-group-item-heading">V 1.5</h3>
+                  <p class="list-group-item-text">
+                    Status: Published - Date: 7/24/2014 <span class="badge "><span class="glyphicon glyphicon-ok"></span></span>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    View Order History <span class="glyphicon glyphicon-ok"></span>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Email Confirmation <span class="glyphicon glyphicon-ok"></span>
+                     <br>
+                    <small>Requires Email Address to be provided and added to the confirmation emails list </small>
+                  </p>
+                </a>
+              </div>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-warning">
+                  <h3 class="list-group-item-heading">V 2.0</h3>
+                  <p class="list-group-item-text">
+                    Status: In Progress 
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Explore Syncing Options <br>
+                    <small>Outcome will likely be a "Managers Dashboard" where inventory from multiple "inventory centers" can be viewed. It should also provide the ability to audit "inventory centers". A specific truck would be an example of an "inventory center"</small>
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Provide the ability to change shipping method/date
+                  </p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <p class="list-group-item-text">
+                    Add the ability to print and/or export inventory
+                  </p>
+                </a>
+              </div>
+        </div> <!-- Container -->
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        
+    </body>
+</html>

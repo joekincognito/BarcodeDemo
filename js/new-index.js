@@ -11,10 +11,10 @@ $(document).ready(function() {
     }
 
     if( window.isphone ) {
-        $('#log').append('<p>phone</p>');
+        //$('#log').append('<p>phone</p>');
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
-        $('#log').append('<p>not phone</p>');
+        //$('#log').append('<p>not phone</p>');
         onDeviceReady();
     }
 });
@@ -23,13 +23,13 @@ $( document ).ajaxError(function() {
   $( "#log" ).append( "Triggered ajaxError handler." );
 });
 
-$('.panel-heading').click(function(){
-    $('#log').toggle();
-});
+/*$('.panel-heading').click(function(){
+    //$('#log').toggle();
+});*/
 
 $('#addToOrder').click(function(){
-    $('#log').html('');
-    $('#log').append('addToOrder Clicked<br>');
+    //$('#log').html('');
+    //$('#log').append('addToOrder Clicked<br>');
     //item = {bercor:$('#item').val()};
     item.bercor=$('#item').val();
     item.qty=parseInt($('#qty').val());
@@ -56,7 +56,7 @@ $('#addToOrder').click(function(){
 function onDeviceReady() {
     $('#deviceready .listening').hide();
     $('#deviceready .received').show();
-    $('#log').hide();
+    //$('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTables, errorCB, getCurrentOrder);
@@ -64,7 +64,7 @@ function onDeviceReady() {
 }
 
 function setupTables(tx){
-    $('#log').append("<p>setupTable</p>");
+    //$('#log').append("<p>setupTable</p>");
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
     tx.executeSql('create table if not exists customer (customerID)');
@@ -76,10 +76,10 @@ function setupTables(tx){
 }
 
 function addToOrder(item) {
-        $('#log').append("inside add to order function<br>");
+        //$('#log').append("inside add to order function<br>");
         //only doing 1 order at a time for now
         //In future version it will be expanded to have more than 1 order
-        $('#log').append("item.qty " + item.qty + "item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
+        //$('#log').append("item.qty " + item.qty + "item.bercor ish " + item.bercor + " item.desc is " + item.desc + " order.Id is " + order.Id);
         //check to see if the bercor already exists on the order
         db.transaction(function(tx){
             tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],addToOrderResults,errorCB)
@@ -87,12 +87,12 @@ function addToOrder(item) {
 } 
 
 function addToOrderResults(tx,results){
-    $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+    //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
     db.transaction(function(tx){
         if (results.rows.length > 0){ 
             //if the bercor already exists on the order, add to the qty
             newQty = parseInt(results.rows.item(0).qty) + item.qty;
-            $('#log').append("<p>newQty: " +newQty+"   orderID: "+order.Id+"  item.bercor: "+item.bercor+"</p>");
+            //$('#log').append("<p>newQty: " +newQty+"   orderID: "+order.Id+"  item.bercor: "+item.bercor+"</p>");
                 tx.executeSql('update orderItems set qty=? where (orderID=? and bercor=?)',[parseInt(newQty), order.Id,item.bercor]);
             }
         else
@@ -113,7 +113,7 @@ function atoCB(){
 /* not using these functions right now
 *  they will be for future version when more than 1 pending order is supported
 function getOrders() {
-        $('#log').append("<p>getOrders</p>");
+        //$('#log').append("<p>getOrders</p>");
         db.transaction(function(tx){
         tx.executeSql('SELECT Id, name FROM orders where isSubmitted = 0', [], getOrdersSuccess, errorCB);
         }, errorCB);
@@ -122,11 +122,11 @@ function getOrders() {
 function getOrdersSuccess(tx, results) {
         var len = results.rows.length;
         if (len == 0) {
-            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            //$('#log').append("<p>Orders table: " + len + " rows found.</p>");
         }else{
-            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            //$('#log').append("<p>Orders table: " + len + " rows found.</p>");
             for (var i=0; i<len; i++){
-                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                //$('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
                 $('.dropdown-menu').prepend('<li><a href="#" id="'+results.rows.item(i).Id+'">'+results.rows.item(i).name+'</a></li>');
             }
         }
@@ -134,7 +134,7 @@ function getOrdersSuccess(tx, results) {
 */
 
 function getCurrentOrder() {
-        $('#log').append("<p>getCurrentOrder</p>");
+        //$('#log').append("<p>getCurrentOrder</p>");
         db.transaction(function(tx){
         tx.executeSql('SELECT Id FROM orders where isSubmitted = 0', [], getCurrentOrderSuccess, errorCB);
         }, errorCB);
@@ -142,14 +142,14 @@ function getCurrentOrder() {
 
 function getCurrentOrderSuccess(tx, results) {
         var len = results.rows.length;
-        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        //$('#log').append("<p>Orders table: " + len + " rows found.</p>");
         if (len == 0) {
-            $('#log').append("adding row");
+            //$('#log').append("adding row");
             newOrder(getCurrentOrder);
         }else{
-            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            //$('#log').append("<p>Orders table: " + len + " rows found.</p>");
             for (var i=0; i<len; i++){
-                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                //$('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
                 order.Id=results.rows.item(i).Id;
             }
         }
@@ -162,29 +162,29 @@ function newOrder(cb){
 }
 
 function saveOrder(order, cb) {
-    $('#log').append("<p>saveOrder</p>");
+    //$('#log').append("<p>saveOrder</p>");
         db.transaction(function(tx){
             tx.executeSql('insert into orders(name,isSubmitted, date) values(?,?,?)',[order.name,0,new Date()]);
         },errorCB, cb);
 } 
 
 function errorCB(err) {
-            $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
+            //$('#log').append("<p>Error processing SQL: "+err.message+"</p>");
 }
 
 function successCB() {
-            $('#log').append("<p>success!</p>");
+            //$('#log').append("<p>success!</p>");
 }    
 
 $('#scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
     scanner.scan( function (result) { 
 
-       $('#log').append("Scanner result: \n" +
+       /*$('#log').append("Scanner result: \n" +
             "text: " + result.text + "\n" +
             "format: " + result.format + "\n" +
-            "cancelled: " + result.cancelled + "\n");
-        $('#log').append(result);
+            "cancelled: " + result.cancelled + "\n");*/
+        //$('#log').append(result);
         
         if(!(result.text.toString().length===5 || result.text.toString().length===6)){
             alert("Scan Error or invalid barcode\n" +
@@ -195,7 +195,7 @@ $('#scan').click(function(){
             ajax(result.text,null);
         }
     }, function (error) { 
-        $('#log').append("<p>Scanning failed: " + error + "</p>"); 
+        //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
     
 });
@@ -213,7 +213,7 @@ function ajax(number){ //number will bercor
             })
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
-                $('#log').append("<p>"+item.bercor+"--"+item.desc+"</p>");
+                //$('#log').append("<p>"+item.bercor+"--"+item.desc+"</p>");
                 $('#info').html("<p class='alert alert-info msg'>" + item.desc + "</p>" );
                 $('#item').val( item.bercor);
             });    

@@ -11,10 +11,10 @@ $(document).ready(function() {
     }
 
     if( window.isphone ) {
-        $('#log').append ('<p>phone<p>');
+        //$('#log').append ('<p>phone<p>');
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
-        $('#log').append('<p>not phone</p>');
+        //$('#log').append('<p>not phone</p>');
         onDeviceReady();
     }
     $('#orderHistory').on("click", ".order-heading", function(){
@@ -22,24 +22,24 @@ $(document).ready(function() {
     });
 });
 
-$('.panel-heading').click(function(){
-    $('#log').toggle();
-});
+/*$('.panel-heading').click(function(){
+    //$('#log').toggle();
+});*/
 
 function onDeviceReady() {
-    $('#log').hide();
+    //$('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTable, errorCB, getOrders);
     }
 }
 function setupTable(tx){
-    $('#log').append("<p>setupTable</p>");
+    //$('#log').append("<p>setupTable</p>");
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
     tx.executeSql('create table if not exists orderItems (orderID, bercor, desc, qty)');
 }
 function getOrders() {
-    $('#log').append("<p>getInventory</p>");
+    //$('#log').append("<p>getInventory</p>");
     db.transaction(function(tx){
         tx.executeSql('SELECT * FROM orders inner join orderItems on Id = orderID WHERE (qty > 0 and isSubmitted = 1)', [], getOrdersSuccess, errorCB);
         //need a join here for orderItems
@@ -47,9 +47,9 @@ function getOrders() {
 }
 
 function getOrdersSuccess(tx, results) {
-    $('#log').append("<p>getInventorySuccess</p>");
+    //$('#log').append("<p>getInventorySuccess</p>");
         var len = results.rows.length;
-        $('#log').append("<p>Order table: " + len + " rows found.</p>");
+        //$('#log').append("<p>Order table: " + len + " rows found.</p>");
         
         var name = results.rows.item(0).name;
         var orderholder = '<div class="panel panel-primary">'+
@@ -104,10 +104,10 @@ function getOrdersSuccess(tx, results) {
 }
 
 function errorCB(err) {
-    $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
+    //$('#log').append("<p>Error processing SQL: "+err.message+"</p>");
 }
 
 function successCB() {
-    $('#log').append("<p>success!</p>");
+    //$('#log').append("<p>success!</p>");
 } 
 
