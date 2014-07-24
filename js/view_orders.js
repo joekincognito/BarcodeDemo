@@ -41,7 +41,7 @@ function setupTable(tx){
 function getOrders() {
     $('#log').append("<p>getInventory</p>");
     db.transaction(function(tx){
-        tx.executeSql('SELECT * FROM orders inner join orderItems on Id = orderID', [], getOrdersSuccess, errorCB);
+        tx.executeSql('SELECT * FROM orders inner join orderItems on Id = orderID WHERE (qty > 0 and isSubmitted = 1)', [], getOrdersSuccess, errorCB);
         //need a join here for orderItems
     }, errorCB);
 }
