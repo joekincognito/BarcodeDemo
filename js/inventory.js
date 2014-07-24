@@ -16,29 +16,29 @@ $(document).ready(function() {
     }
 
     if( window.isphone ) {
-        $('#log').append ('<p>phone<p>');
+        //$('#log').append ('<p>phone<p>');
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
-        $('#log').append('<p>not phone</p>');
+        //$('#log').append('<p>not phone</p>');
         onDeviceReady();
     }
 });
 
-$('.panel-heading').click(function(){
-    $('#log').toggle();
-});
+/*$('.panel-heading').click(function(){
+    //$('#log').toggle();
+});*/
 
 $('.bercor').change(function(){$('.bercor').val($(this).val())});
 
 function onDeviceReady() {
-    $('#log').hide();
+    ////$('#log').hide();
     if( window.isphone ) {
         db = window.openDatabase("Database", "1.0", "The Database", 200000);
         db.transaction(setupTable, errorCB, getCurrentOrder);
     }
 }
 function setupTable(tx){
-    $('#log').append("<p>setupTable</p>");
+    //$('#log').append("<p>setupTable</p>");
     //tx.executeSql('drop table if exists inventory');
     tx.executeSql('create table if not exists inventory (bercor, onHand, min, max)');
     tx.executeSql('create table if not exists orders (Id INTEGER PRIMARY KEY, name, isSubmitted, date)');
@@ -46,7 +46,7 @@ function setupTable(tx){
 }
 
 function getCurrentOrder() {
-        $('#log').append("<p>getCurrentOrder</p>");
+        //$('#log').append("<p>getCurrentOrder</p>");
         db.transaction(function(tx){
         tx.executeSql('SELECT Id FROM orders where isSubmitted = 0', [], getCurrentOrderSuccess, errorCB);
         }, errorCB);
@@ -54,14 +54,14 @@ function getCurrentOrder() {
 
 function getCurrentOrderSuccess(tx, results) {
         var len = results.rows.length;
-        $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+        //$('#log').append("<p>Orders table: " + len + " rows found.</p>");
         if (len == 0) {
-            $('#log').append("adding row");
+            //$('#log').append("adding row");
             newOrder(getCurrentOrder);
         }else{
-            $('#log').append("<p>Orders table: " + len + " rows found.</p>");
+            //$('#log').append("<p>Orders table: " + len + " rows found.</p>");
             for (var i=0; i<len; i++){
-                $('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
+                //$('#log').append("<p>Row = " + i + " ID = " + results.rows.item(i).Id + " Name =  " + results.rows.item(i).name + "</p>");
                 order.Id=results.rows.item(i).Id;
             }
         }
@@ -87,11 +87,11 @@ function incInv(bercor,qty){
             function(tx){
                 tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
                     newQty = results.rows.item(0).onHand + qty;
-                    $('#log').append("<p>newQty: " +newQty+"bercor: "+bercor+"</p>");
+                    //$('#log').append("<p>newQty: " +newQty+"bercor: "+bercor+"</p>");
                     tx.executeSql('update inventory set onHand=? where bercor=?',[parseInt(newQty), bercor]);
                 }
                 else
@@ -119,7 +119,7 @@ function decInv(bercor,qty){
             function(tx){
                 tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
                     onHand = parseInt(results.rows.item(0).onHand);
@@ -132,7 +132,7 @@ function decInv(bercor,qty){
                         item.bercor = bercor;
                         order.order = true;
                     }
-                    $('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
+                    //$('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
                     tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
                 }
                 else
@@ -172,10 +172,10 @@ function setMinMax(bercor,min,max) {
             function(tx){
                 tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, change onhand
-                    $('#log').append("<p>changing to min: "+min+"</p>");
+                    //$('#log').append("<p>changing to min: "+min+"</p>");
                     tx.executeSql('update inventory set min=?, max=? where bercor=?',[min, max, bercor]);
                 }
                 else
@@ -198,7 +198,7 @@ function getMinMax(bercor) {
             function(tx){
                 tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, change onhand
                     gqmin = parseInt(results.rows.item(0).min);
@@ -229,7 +229,7 @@ function decInv(bercor,qty){
             function(tx){
                 tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
                     onHand = parseInt(results.rows.item(0).onHand);
@@ -242,7 +242,7 @@ function decInv(bercor,qty){
                         item.bercor = bercor;
                         order.order = true;
                     }
-                    $('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
+                    //$('#log').append("<p>newQty: " +newQty+" bercor: "+bercor+"</p>");
                     tx.executeSql('update inventory set onHand=? where bercor=?',[newQty, bercor]);
                 }
                 else
@@ -259,7 +259,7 @@ function setOH(bercor,qty) {
             function(tx){
                 tx.executeSql('select * from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //Check min and max
                     min = parseInt(results.rows.item(0).min);
@@ -269,7 +269,7 @@ function setOH(bercor,qty) {
                         item.bercor = bercor;
                         order.order = true;
                     }
-                    $('#log').append("<p>changing to qty: "+qty+"</p>");
+                    //$('#log').append("<p>changing to qty: "+qty+"</p>");
                     tx.executeSql('update inventory set onHand=? where bercor=?',[qty, bercor]);
                 }
                 else
@@ -291,11 +291,11 @@ function getOH(bercor) {
             function(tx){
                 tx.executeSql('select onHand from inventory where bercor = ?',[bercor],
             function(tx,results){
-                $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                 if (results.rows.length > 0){ 
                     //if the bercor already exists, add to the qty
                     gQTY = parseInt(results.rows.item(0).onHand);
-                    $('#log').append("<p>qty: "+gQTY+"</p>");
+                    //$('#log').append("<p>qty: "+gQTY+"</p>");
                 }                  
             },errorCB);
         },errorCB,function(){oh.val(gQTY)});
@@ -308,9 +308,9 @@ $('.scan').click(function(){
     //thisBercor = $(this).parent().parent().find('.bercor');
     scanner.scan( function (result) { 
 
-       $('#log').append("Scanner result: \n" +
-            "text: " + result.text + "\n");
-        $('#log').append(result);
+       /*$('#log').append("Scanner result: \n" +
+            "text: " + result.text + "\n");*/
+        //$('#log').append(result);
         
         if(!(result.text.toString().length===5)){
             alert("Scan Error or invalid barcode\n" +
@@ -321,7 +321,7 @@ $('.scan').click(function(){
             $('.bercor').val(result.text);
         }
     }, function (error) { 
-        $('#log').append("<p>Scanning failed: " + error + "</p>"); 
+        //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
     
 });
@@ -341,12 +341,12 @@ function ajax(number,itemQTY){ //number will bercor
             })
             .done(function( returnData ) {
                 item = jQuery.parseJSON( returnData );
-                $('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+itemQTY+"</p>");
+                //$('#log').append("<p>"+order.Id+" "+item.bercor+" "+item.desc+" "+itemQTY+"</p>");
                 db.transaction(
                     function(tx){
                         tx.executeSql('select * from orderItems where orderID = ? and bercor = ?',[order.Id,item.bercor],
                     function(tx,results){
-                        $('#log').append("<p>results rows length:"+results.rows.length+"</p>");
+                        //$('#log').append("<p>results rows length:"+results.rows.length+"</p>");
                         if (results.rows.length > 0)
                         { 
                             //if the bercor already exists on the order, 
@@ -358,16 +358,16 @@ function ajax(number,itemQTY){ //number will bercor
                             tx.executeSql('insert into orderItems(orderID, bercor, desc, qty) values(?,?,?,?)',[order.Id,item.bercor,'"*'+item.desc+'"',itemQTY]);
                         }                  
                     },errorCB);
-                    },errorCB,function(){$('#log').append("<p>order add success</p>")}
+                    },errorCB,function(){/*$('#log').append("<p>order add success</p>")*/}
                 );
             });    
 }
 
 function errorCB(err) {
-    $('#log').append("<p>Error processing SQL: "+err.message+"</p>");
+    //$('#log').append("<p>Error processing SQL: "+err.message+"</p>");
 }
 
 function successCB() {
-    $('#log').append("<p>success!</p>");
+    //$('#log').append("<p>success!</p>");
 } 
 
