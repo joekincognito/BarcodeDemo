@@ -15,7 +15,7 @@ function backup(table) {
 $(document).on("click", "#doBackupBtn", function(e) {
 	e.preventDefault();
 	//$('#log').append("<p>setupTable</p>");
-	$('#log').append(("<p>Begin backup process</p>");
+	$('#log').append("<p>Begin backup process</p>");
 
 	$.when(
 		backup("inventory"), 
