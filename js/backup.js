@@ -1,6 +1,6 @@
 function backup(table) {
 	var def = new $.Deferred();
-	db.readTransaction(function(tx) {
+	db.transaction(function(tx) {
 		tx.executeSql("select * from "+table, [], function(tx,results) {
 			var data = convertResults(results);
 			$('#log').append(data);
