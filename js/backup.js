@@ -31,6 +31,19 @@ $(document).on("click", "#doBackupBtn", function(e) {
 
 });
 
+function convertResults(resultset) {
+	var results = [];
+	for(var i=0,len=resultset.rows.length;i<len;i++) {
+		var row = resultset.rows.item(i);
+		var result = {};
+		for(var key in row) {
+			result[key] = row[key];
+		}
+		results.push(result);
+	}
+	return results;
+}
+
 function dbError(err) {
     $('#log').append("<p>Error: "+err.message+"</p>");
 }
