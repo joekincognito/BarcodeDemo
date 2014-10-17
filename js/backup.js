@@ -30,3 +30,7 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	});
 
 });
+
+function dbError(err) {
+    $('#log').append("<p>Error: "+err.message+"</p>");
+}
