@@ -1,27 +1,5 @@
 var db;
 
-$(document).ready(function() {
-    // are we running in native app or in a browser?
-    window.isphone = false;
-    if(document.URL.indexOf("http://") === -1 
-        && document.URL.indexOf("https://") === -1) {
-        window.isphone = true;
-    }
-
-    if( window.isphone ) {
-        //$('#log').append ('<p>phone<p>');
-        document.addEventListener("deviceready", onDeviceReady, false);
-    } else {
-        //$('#log').append('<p>not phone</p>');
-        onDeviceReady();
-    }
-});
-function onDeviceReady() {
-    if( window.isphone ) {
-        db = window.openDatabase("Database", "1.0", "The Database", 200000);
-    }
-}
-
 function backup(table) {
 	var def = new $.Deferred();
 	db.transaction(function(tx) {
@@ -39,6 +17,7 @@ function backup(table) {
 $(document).on("click", "#doBackupBtn", function(e) {
 	e.preventDefault();
 	//$('#log').append("<p>setupTable</p>");
+	db = window.openDatabase("Database", "1.0", "The Database", 200000);
 	$('#log').append("<p>Begin backup process</p>");
         db.transaction(function(tx){
         	tx.executeSql('select * from customer', [], function(tx,results){
