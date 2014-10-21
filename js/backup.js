@@ -16,9 +16,11 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	e.preventDefault();
 	//$('#log').append("<p>setupTable</p>");
 	$('#log').append("<p>Begin backup process</p>");
+	 db.transaction(function(tx){
 	 tx.executeSql('select * from customer', [], function(tx,results){
         if(results.rows.length>=1){custID = results.rows.item(0).customerID}
     },dbError);
+	},dbError);
 	$('#log').append("<p>customer id"+custID+"</p>");
 	$.when(
 		backup("inventory"), 
