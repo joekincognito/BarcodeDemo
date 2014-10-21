@@ -19,12 +19,13 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	//$('#log').append("<p>setupTable</p>");
 	db = window.openDatabase("Database", "1.0", "The Database", 200000);
 	$('#log').append("<p>Begin backup process</p>");
-        db.transaction(function(tx){
+    /*    db.transaction(function(tx){
         	tx.executeSql('select * from customer', [], function(tx,results){
         		if(results.rows.length>=1){custID = results.rows.item(0).customerID}
     		},dbError);
         },dbError, null);
 	$('#log').append("<p>customer id"+custID+"</p>");
+	*/
 	$.when(
 		backup("inventory"), 
 		backup("orders"),
