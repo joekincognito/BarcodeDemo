@@ -17,7 +17,7 @@ function backup(table) {
 $(document).on("click", "#doBackupBtn", function(e) {
 	e.preventDefault();
 	//$('#log').append("<p>setupTable</p>");
-	db = window.openDatabase("Database", "1.0", "The Database", 200000);
+	//db = window.openDatabase("Database", "1.0", "The Database", 200000);
 	$('#log').append("<p>Begin backup process</p>");
     /*    db.transaction(function(tx){
         	tx.executeSql('select * from customer', [], function(tx,results){
