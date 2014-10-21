@@ -18,8 +18,8 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	$('#log').append("<p>Begin backup process</p>");
 	 tx.executeSql('select * from customer', [], function(tx,results){
         if(results.rows.length>=1){custID = results.rows.item(0).customerID}
-    },errorCB);
-
+    },dbError);
+	$('#log').append("<p>customer id"+custID+"</p>");
 	$.when(
 		backup("inventory"), 
 		backup("orders"),
