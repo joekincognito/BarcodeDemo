@@ -27,13 +27,14 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	$('#log').append("<p>customer id"+custID+"</p>");
 	*/
 	$.when(
+		backup("customer"),
 		backup("inventory"), 
 		backup("orders"),
 		backup("orderItems")
 	).then(function(inventory, orders, orderItems) {
 		$('#log').append("All done");
 		//Convert to JSON
-		var data = {customerID:custID, inventory:inventory, orders:orders, orderItems:orderItems};
+		var data = {customer:customer, inventory:inventory, orders:orders, orderItems:orderItems};
 		var serializedData = JSON.stringify(data);
 		ajax(serializedData);
 		//$('#log').append('<p>'+serializedData+'</p>');
