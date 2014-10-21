@@ -31,7 +31,7 @@ $(document).on("click", "#doBackupBtn", function(e) {
 		backup("inventory"), 
 		backup("orders"),
 		backup("orderItems")
-	).then(function(inventory, orders, orderItems) {
+	).then(function(customer, inventory, orders, orderItems) {
 		$('#log').append("All done");
 		//Convert to JSON
 		var data = {customer:customer, inventory:inventory, orders:orders, orderItems:orderItems};
