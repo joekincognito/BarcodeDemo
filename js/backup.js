@@ -26,10 +26,35 @@ $(document).on("click", "#doBackupBtn", function(e) {
 		//Convert to JSON
 		var data = {inventory:inventory, orders:orders, orderItems:orderItems};
 		var serializedData = JSON.stringify(data);
-		$('#log').append('<p>'+serializedData+'</p>');
+		ajax(serializedData);
+		//$('#log').append('<p>'+serializedData+'</p>');
 	});
 
 });
+
+function ajax(JSONstring)
+{
+    //$('#log').append("<p>place order function</p>");
+    $.ajax({
+            url: "http://apps.gwberkheimer.com/index.php/scan_app/backup",
+            //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
+            //data: "qs=" + result.text,
+            data: "qs=" + JSONstring,
+            statusCode: {
+                404: function() {
+                alert( "page not found" );
+                }} 
+            })
+            .done(function( returnData ) {
+                //item = jQuery.parseJSON( returnData );
+                $('#log').append("<p>returndata is"+returnData+"</p>");
+                }
+                else
+                {
+                $('#log').append("<p>backup error</p>");
+                }
+            });
+}
 
 function convertResults(resultset) {
 	var results = [];
