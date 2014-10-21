@@ -50,7 +50,7 @@ function ajax(JSONstring)
             //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
             //data: "qs=" + result.text,
             data: "qs=" + JSONstring,
-            dataType: 'json',
+            //dataType: 'json',
             statusCode: {
                 404: function() {
                 alert( "page not found" );
