@@ -16,6 +16,9 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	e.preventDefault();
 	//$('#log').append("<p>setupTable</p>");
 	$('#log').append("<p>Begin backup process</p>");
+	 tx.executeSql('select * from customer', [], function(tx,results){
+        if(results.rows.length>=1){custID = results.rows.item(0).customerID}
+    },errorCB);
 
 	$.when(
 		backup("inventory"), 
@@ -24,7 +27,7 @@ $(document).on("click", "#doBackupBtn", function(e) {
 	).then(function(inventory, orders, orderItems) {
 		$('#log').append("All done");
 		//Convert to JSON
-		var data = {inventory:inventory, orders:orders, orderItems:orderItems};
+		var data = {customerID:custID, inventory:inventory, orders:orders, orderItems:orderItems};
 		var serializedData = JSON.stringify(data);
 		ajax(serializedData);
 		//$('#log').append('<p>'+serializedData+'</p>');
@@ -40,6 +43,7 @@ function ajax(JSONstring)
             //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
             //data: "qs=" + result.text,
             data: "qs=" + JSONstring,
+            dataType: 'json',
             statusCode: {
                 404: function() {
                 alert( "page not found" );
