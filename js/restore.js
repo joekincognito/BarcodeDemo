@@ -16,8 +16,7 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 	        	$('#log').append("<p>Error retreiving customer number</p>");
 	        }
 		});
-	}, dbError);
-	ajax(custID);
+	}, dbError, function(){ajax(custID);});
 });
 
 function ajax(custID)
