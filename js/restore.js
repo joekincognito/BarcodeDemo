@@ -8,8 +8,8 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 		 tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
 	        {
-	        	$('#log').append("<p>We Have results</p>");
 	        	custID = results.rows.item(0).customerID;
+	        	$('#log').append("<p>Customer Number is: "+custID+"</p>");
 	        }
 	        else
 	        {
