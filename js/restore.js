@@ -43,9 +43,9 @@ function ajaxRestore(custID)
 					*/
 
                 	//$('#log').append("<p>return data is"+returnData+"</p>");
-                	$'#log').append("<p>wtf</p>");
+                	$('#log').append("<p>wtf</p>");
                 	$('#log').append(inventory.inventory[0].bercor);
-                	$'#log').append("<p>ikr</p>");
+                	$('#log').append("<p>ikr</p>");
                 }
                 else
                 {
