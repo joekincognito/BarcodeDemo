@@ -33,7 +33,8 @@ function ajax(custID)
             })
             .done(function( returnData ) {
                 if(returnData){
-                	$('#log').append("<p>returndata is"+returnData+"</p>");
+                	inventory = jQuery.parseJSON( returnData );
+                	$('#log').append("<p>returndata is"+Object.keys(inventory).+"</p>");
                 }
                 else
                 {
