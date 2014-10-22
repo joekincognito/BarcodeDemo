@@ -2,12 +2,13 @@ var db;
 
 $(document).on("click", "#doRestoreBtn", function(e) {
 	e.preventDefault();
+	var custID;
 	$('#log').append("<p>Begin restore process</p>");
 	db.transaction(function(tx) {
 		 tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
 	        {
-	        	var custID = results.rows.item(0).customerID;
+	        	custID = results.rows.item(0).customerID;
 	        }
 	        else
 	        {
