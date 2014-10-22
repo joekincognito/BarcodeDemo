@@ -27,6 +27,7 @@ function ajax(custID)
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/restore",
             data: "qs=" + custID,
+            dataType: "json",
             statusCode: {
                 404: function() {
                 alert( "page not found" );
@@ -34,7 +35,7 @@ function ajax(custID)
             })
             .done(function( returnData ) {
                 if(returnData){
-                	inventory = jQuery.parseJSON(returnData);
+                	inventory = returnData;
 
                 	$.each( inventory, function( key, value ) {
 					$('#log').append("<p>"+key+":"+value+"</p>");
