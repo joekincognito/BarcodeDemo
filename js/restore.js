@@ -1,11 +1,8 @@
 var db;
-
-$(document).on("click", "#doRestoreBtn", function(e) {
-	e.preventDefault();
-	var custID;
-	$('#log').append("<p>Begin restore process</p>");
-	db.transaction(function(tx) {
-		 tx.executeSql('select * from customer', [], function(tx,results){
+var custID
+function getCustomerNumber()
+{
+	tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
 	        {
 	        	custID = results.rows.item(0).customerID;
@@ -16,7 +13,12 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 	        	$('#log').append("<p>Error retreiving customer number</p>");
 	        }
 		});
-	}, dbError, function(){ajax(custID);});
+}
+
+$(document).on("click", "#doRestoreBtn", function(e) {
+	e.preventDefault();
+	$('#log').append("<p>Begin restore process</p>");
+	db.transaction(getCustomerNumber, dbError, ajax(custID));
 });
 
 function ajax(custID)
