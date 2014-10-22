@@ -18,10 +18,10 @@ function getCustomerNumber()
 $(document).on("click", "#doRestoreBtn", function(e) {
 	e.preventDefault();
 	$('#log').append("<p>Begin restore process</p>");
-	db.transaction(getCustomerNumber, dbError, ajax(custID));
+	db.transaction(getCustomerNumber, dbError, ajaxRestore(custID));
 });
 
-function ajax(custID)
+function ajaxRestore(custID)
 {
 	$('#log').append("<p>Begin Ajax</p>");
     $.ajax({

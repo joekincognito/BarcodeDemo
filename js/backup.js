@@ -59,7 +59,7 @@ function ajax(JSONstring)
             .done(function( returnData ) {
                 //item = jQuery.parseJSON( returnData );
                 if(returnData){
-                $('#log').append("<p>returndata is"+returnData+"</p>");
+                $('#log').append("<p>backup return data is"+returnData+"</p>");
                 }
                 else
                 {
