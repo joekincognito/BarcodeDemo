@@ -23,7 +23,6 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 
 function ajax(custID)
 {
-	var inventory;
 	$('#log').append("<p>Begin Ajax</p>");
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/restore",
@@ -35,7 +34,6 @@ function ajax(custID)
             })
             .done(function( returnData ) {
                 if(returnData){
-                	
                 	inventory = jQuery.parseJSON(returnData);
 
                 	$.each( inventory, function( key, value ) {
@@ -43,7 +41,7 @@ function ajax(custID)
                 	});
 
                 	$('#log').append("<p>returndata is"+returnData+"</p>");
-                	$('#log').append("<p>foo is"+inventory.foo+"</p>");
+                	$('#log').append(inventory.foo);
                 }
                 else
                 {
