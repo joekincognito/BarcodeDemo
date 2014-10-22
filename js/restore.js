@@ -36,11 +36,13 @@ function ajax(custID)
                 if(returnData){
                 	inventory = JSON.parse(returnData);
 
+                	/*
                 	$.each( inventory, function( key, value ) {
 					$('#log').append("<p>"+key+":"+value+"</p>");
                 	});
+					*/
 
-                	$('#log').append("<p>returndata is"+returnData+"</p>");
+                	//$('#log').append("<p>returndata is"+returnData+"</p>");
                 	$'#log').append("<p>wtf</p>");
                 	$('#log').append(inventory.inventory[0].bercor);
                 	$'#log').append("<p>ikr</p>");
