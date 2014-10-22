@@ -42,7 +42,7 @@ function ajax(custID)
                 	});
 					*/
 
-                	//$('#log').append("<p>returndata is"+returnData+"</p>");
+                	//$('#log').append("<p>return data is"+returnData+"</p>");
                 	$'#log').append("<p>wtf</p>");
                 	$('#log').append(inventory.inventory[0].bercor);
                 	$'#log').append("<p>ikr</p>");
