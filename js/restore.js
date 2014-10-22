@@ -5,7 +5,14 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 	$('#log').append("<p>Begin restore process</p>");
 	db.transaction(function(tx) {
 		 tx.executeSql('select * from customer', [], function(tx,results){
-        if(results.rows.length>=1){custID = results.rows.item(0).customerID}
+        if(results.rows.length>=1)
+        {
+        	custID = results.rows.item(0).customerID;
+        }
+        else
+        {
+        	$('#log').append("<p>Error retreiving customer number</p>");
+        }
 	},dbError);
 	}, dbError);
 	ajax(custID);
@@ -13,6 +20,7 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 
 function ajax(custID)
 {
+	$('#log').append("<p>Begin Ajax</p>");
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/restore",
             data: "qs=" + custID,
