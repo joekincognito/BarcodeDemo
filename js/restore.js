@@ -33,7 +33,22 @@ function ajax(custID)
             })
             .done(function( returnData ) {
                 if(returnData){
-                	inventory = jQuery.parseJSON(returnData);
+
+                	try
+                	{
+                		if(!jQuery.parseJSON(returnData))
+                		{ 
+                			throw "Did not Parse";
+                		}
+                		else
+                		{
+                			inventory = jQuery.parseJSON(returnData);
+                		}
+                	}
+                	catch(err)
+                	{
+                		$('#log').append("<p>Error: "+err+"</p>");	
+                	}
 
                 	$.each( inventory, function( key, value ) {
 					$('#log').append("<p>"+key+":"+value+"</p>");
