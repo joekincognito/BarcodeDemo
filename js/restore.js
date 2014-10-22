@@ -5,15 +5,15 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 	$('#log').append("<p>Begin restore process</p>");
 	db.transaction(function(tx) {
 		 tx.executeSql('select * from customer', [], function(tx,results){
-        if(results.rows.length>=1)
-        {
-        	custID = results.rows.item(0).customerID;
-        }
-        else
-        {
-        	$('#log').append("<p>Error retreiving customer number</p>");
-        }
-	},dbError);
+	        if(results.rows.length>=1)
+	        {
+	        	var custID = results.rows.item(0).customerID;
+	        }
+	        else
+	        {
+	        	$('#log').append("<p>Error retreiving customer number</p>");
+	        }
+		});
 	}, dbError);
 	ajax(custID);
 });
