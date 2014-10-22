@@ -27,7 +27,6 @@ function ajax(custID)
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/restore",
             data: "qs=" + custID,
-            dataType: "json",
             statusCode: {
                 404: function() {
                 alert( "page not found" );
@@ -35,14 +34,16 @@ function ajax(custID)
             })
             .done(function( returnData ) {
                 if(returnData){
-                	inventory = returnData;
+                	inventory = JSON.parse(returnData);
 
                 	$.each( inventory, function( key, value ) {
 					$('#log').append("<p>"+key+":"+value+"</p>");
                 	});
 
                 	$('#log').append("<p>returndata is"+returnData+"</p>");
-                	$('#log').append(inventory.foo);
+                	$'#log').append("<p>wtf</p>");
+                	$('#log').append(inventory.inventory[0].bercor);
+                	$'#log').append("<p>ikr</p>");
                 }
                 else
                 {
