@@ -50,7 +50,7 @@ function ajax(JSONstring)
                 navigator.notification.alert(
 			            returnData, //message
 			            function(){window.location="view_inventory.html"}, //callback
-			           'Error!',   //Title
+			           'Backup Status!',   //Title
 			           'OK'                //buttonName
 			    	);
                 }
