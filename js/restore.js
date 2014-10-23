@@ -1,6 +1,6 @@
 var db;
 var custID
-function getCustomerNumber()
+function getCustomerNumber(tx)
 {
 	tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
