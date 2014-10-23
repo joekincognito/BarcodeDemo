@@ -7,7 +7,7 @@ function getCustomerNumber()
     tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
 	        {
-	        	custID = results.rows.item(0).customerID;
+	        	custID = setCustID(results);
                 def.resolve(custID);
 	        }
 	        else
@@ -18,6 +18,11 @@ function getCustomerNumber()
     }, dbError);
 
     return def;
+}
+
+function setCustID(resultSet){
+    result = resultSet.rows.item(0).customerID;
+    return result;
 }
 
 $(document).on("click", "#doRestoreBtn", function(e) {
