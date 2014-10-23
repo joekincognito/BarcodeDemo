@@ -45,18 +45,14 @@ function ajaxRestore(custID)
             })
             .done(function( returnData ) {
                 if(returnData){
-                	inventory = JSON.parse(returnData);
+                	restoreData = JSON.parse(returnData);
 
-                	/*
-                	$.each( inventory, function( key, value ) {
+                	$.each( restoreData.inventory, function( key, value ) {
 					$('#log').append("<p>"+key+":"+value+"</p>");
                 	});
-					*/
 
                 	//$('#log').append("<p>return data is"+returnData+"</p>");
-                	$('#log').append("<p>wtf</p>");
-                	$('#log').append(inventory.inventory[0].bercor);
-                	$('#log').append("<p>ikr</p>");
+                	//$('#log').append(restoreData.inventory[0].bercor);
                 }
                 else
                 {
