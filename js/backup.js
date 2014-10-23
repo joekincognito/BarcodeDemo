@@ -16,16 +16,7 @@ function backup(table) {
 
 $(document).on("click", "#doBackupBtn", function(e) {
 	e.preventDefault();
-	//$('#log').append("<p>setupTable</p>");
-	//db = window.openDatabase("Database", "1.0", "The Database", 200000);
-	$('#log').append("<p>Begin backup process</p>");
-    /*    db.transaction(function(tx){
-        	tx.executeSql('select * from customer', [], function(tx,results){
-        		if(results.rows.length>=1){custID = results.rows.item(0).customerID}
-    		},dbError);
-        },dbError, null);
-	$('#log').append("<p>customer id"+custID+"</p>");
-	*/
+
 	$.when(
 		backup("customer"),
 		backup("inventory"), 
@@ -37,18 +28,14 @@ $(document).on("click", "#doBackupBtn", function(e) {
 		var data = {customer:customer, inventory:inventory, orders:orders, orderItems:orderItems};
 		var serializedData = JSON.stringify(data);
 		ajax(serializedData);
-		//$('#log').append('<p>'+serializedData+'</p>');
 	});
 
 });
 
 function ajax(JSONstring)
 {
-    //$('#log').append("<p>place order function</p>");
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/backup",
-            //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/order.php",
-            //data: "qs=" + result.text,
             data: "qs=" + JSONstring,
             //dataType: 'json',
             statusCode: {
@@ -59,11 +46,16 @@ function ajax(JSONstring)
             .done(function( returnData ) {
                 //item = jQuery.parseJSON( returnData );
                 if(returnData){
-                $('#log').append("<p>backup return data is"+returnData+"</p>");
+                //$('#log').append("<p>backup return data is"+returnData+"</p>");
                 }
                 else
                 {
-                $('#log').append("<p>backup error</p>");
+                    navigator.notification.alert(
+			            "Backup Error", //message
+			            function(){window.location="view_inventory.html"}, //callback
+			           'Error!',   //Title
+			           'OK'                //buttonName
+			    	);
                 }
             });
 }
@@ -82,5 +74,10 @@ function convertResults(resultset) {
 }
 
 function dbError(err) {
-    $('#log').append("<p>Error: "+err.message+"</p>");
+    navigator.notification.alert(
+            err.message, //message
+            function(){window.location="view_inventory.html"}, //callback
+           'Error!',   //Title
+           'OK'                //buttonName
+    );
 }

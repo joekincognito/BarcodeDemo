@@ -9,10 +9,6 @@ function getCustomerNumber()
 	        	var custID = setCustID(results);
                 def.resolve(custID);
 	        }
-	        else
-	        {
-	        	$('#log').append("<p>Error retreiving customer number</p>");
-	        }
 		});
     }, dbError);
 
@@ -26,15 +22,15 @@ function setCustID(resultSet){
 
 $(document).on("click", "#doRestoreBtn", function(e) {
 	e.preventDefault();
-	$('#log').append("<p>Begin restore process</p>");
+	//$('#log').append("<p>Begin restore process</p>");
 	
     $.when(getCustomerNumber()).then(function(custID){ajaxRestore(custID)});
 });
 
 function ajaxRestore(custID)
 {
-	$('#log').append("<p>Begin Ajax</p>");
-    $('#log').append("<p>Customer Number is: "+custID+"</p>");
+	//$('#log').append("<p>Begin Ajax</p>");
+    //$('#log').append("<p>Customer Number is: "+custID+"</p>");
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/restore",
             data: "qs=" + custID,
@@ -56,13 +52,23 @@ function ajaxRestore(custID)
                 }
                 else
                 {
-                	$('#log').append("<p>data error</p>");
+                	     navigator.notification.alert(
+                                    "Couldn't find any backup data", //message
+                                    function(){window.location="view_inventory.html"}, //callback
+                                    'Restore Failed!',   //Title
+                                    'OK'                //buttonName
+                                );
                 }
             });
 }
 function dbError(err) 
 {
-    $('#log').append("<p>Error: "+err.message+"</p>");
+    navigator.notification.alert(
+            err.message, //message
+            function(){window.location="view_inventory.html"}, //callback
+           'Error!',   //Title
+           'OK'                //buttonName
+    );
 }
 function restoreSuccess()
 {
