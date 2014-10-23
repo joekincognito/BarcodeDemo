@@ -48,8 +48,10 @@ function ajaxRestore(custID)
                 	restoreData = JSON.parse(returnData);
 
                 	$.each( restoreData.inventory, function( key, value ) {
-					$('#log').append("<p>"+key+":"+value+"</p>");
-                	});
+                        $.each( value, function( k, v ){
+					       $('#log').append("<p>"+k+":"+v+"</p>");
+                	   });
+                    });
 
                 	//$('#log').append("<p>return data is"+returnData+"</p>");
                 	//$('#log').append(restoreData.inventory[0].bercor);
