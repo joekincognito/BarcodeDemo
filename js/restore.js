@@ -7,7 +7,7 @@ function getCustomerNumber()
     tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
 	        {
-	        	custID = setCustID(results);
+	        	var custID = setCustID(results);
                 def.resolve(custID);
 	        }
 	        else
@@ -29,7 +29,7 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 	e.preventDefault();
 	$('#log').append("<p>Begin restore process</p>");
 	
-    $.when(getCustomerNumber).then(ajaxRestore(custID));
+    $.when(getCustomerNumber).then(function(custID){ajaxRestore(custID)});
 });
 
 function ajaxRestore(custID)
