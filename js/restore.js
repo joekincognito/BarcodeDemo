@@ -48,6 +48,7 @@ function ajaxRestore(custID)
                 	restoreData = JSON.parse(returnData);
                     db.transaction(function(tx){
                         tx.executeSql('drop table if exists inventory');
+                        tx.executeSql('create table if not exists inventory (bercor, onHand, min, max)');
                         $.each( restoreData.inventory, function( key, value ) {
                                 tx.executeSql('insert into inventory(bercor, onHand, min, max) values(?,?,?,?)',[value.bercor,value.onHand,value.min,value.max]);
                         });
