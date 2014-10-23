@@ -1,5 +1,4 @@
 var db;
-var custID
 function getCustomerNumber()
 {
     var def = new $.Deferred();
