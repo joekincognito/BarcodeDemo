@@ -24,7 +24,7 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 	e.preventDefault();
 	$('#log').append("<p>Begin restore process</p>");
 	
-    $.when(def).then(ajaxRestore(custID));
+    $.when(getCustomerNumber).then(ajaxRestore(custID));
 });
 
 function ajaxRestore(custID)
