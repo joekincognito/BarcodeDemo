@@ -46,19 +46,12 @@ function ajaxRestore(custID)
             .done(function( returnData ) {
                 if(returnData){
                 	restoreData = JSON.parse(returnData);
-                	/*$.each( restoreData.inventory, function( key, value ) {
-                        $.each( value, function( k, v ){
-					       $('#log').append("<p>"+k+":"+v+"</p>");
-                	   });
-                    });
-                    */
                     db.transaction(function(tx){
+                        tx.executeSql('drop table if exists inventory');
                         $.each( restoreData.inventory, function( key, value ) {
                                 tx.executeSql('insert into inventory(bercor, onHand, min, max) values(?,?,?,?)',[value.bercor,value.onHand,value.min,value.max]);
                         });
                     },dbError,restoreSuccess);
-                    //$('#log').append("<p>return data is"+returnData+"</p>");
-                	//$('#log').append(restoreData.inventory[0].bercor);
                 }
                 else
                 {
@@ -74,7 +67,7 @@ function restoreSuccess()
 {
      navigator.notification.alert(
                                     "Restore Success", //message
-                                    function(){window.location="inventory.html"}, //callback
+                                    function(){window.location="view_inventory.html"}, //callback
                                     'Restore Success!',   //Title
                                     'OK'                //buttonName
                                 );
