@@ -2,22 +2,29 @@ var db;
 var custID
 function getCustomerNumber(tx)
 {
-	tx.executeSql('select * from customer', [], function(tx,results){
+    var def = new $.Deferred();
+	db.transaction(function(tx) {
+    tx.executeSql('select * from customer', [], function(tx,results){
 	        if(results.rows.length>=1)
 	        {
 	        	custID = results.rows.item(0).customerID;
+                def.resolve(custID);
 	        }
 	        else
 	        {
 	        	$('#log').append("<p>Error retreiving customer number</p>");
 	        }
 		});
+    }, dbError);
+
+    return def;
 }
 
 $(document).on("click", "#doRestoreBtn", function(e) {
 	e.preventDefault();
 	$('#log').append("<p>Begin restore process</p>");
-	db.transaction(getCustomerNumber, dbError, ajaxRestore(custID));
+	
+    $.when(def).then(ajaxRestore(custID));
 });
 
 function ajaxRestore(custID)
