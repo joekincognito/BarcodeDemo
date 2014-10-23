@@ -6,7 +6,6 @@ function getCustomerNumber()
 	        if(results.rows.length>=1)
 	        {
 	        	custID = results.rows.item(0).customerID;
-	        	$('#log').append("<p>Customer Number is: "+custID+"</p>");
 	        }
 	        else
 	        {
@@ -24,6 +23,7 @@ $(document).on("click", "#doRestoreBtn", function(e) {
 function ajaxRestore(custID)
 {
 	$('#log').append("<p>Begin Ajax</p>");
+    $('#log').append("<p>Customer Number is: "+custID+"</p>");
     $.ajax({
             url: "http://apps.gwberkheimer.com/index.php/scan_app/restore",
             data: "qs=" + custID,
