@@ -47,6 +47,12 @@ function ajax(JSONstring)
                 //item = jQuery.parseJSON( returnData );
                 if(returnData){
                 //$('#log').append("<p>backup return data is"+returnData+"</p>");
+                navigator.notification.alert(
+			            returnData, //message
+			            function(){window.location="view_inventory.html"}, //callback
+			           'Error!',   //Title
+			           'OK'                //buttonName
+			    	);
                 }
                 else
                 {
