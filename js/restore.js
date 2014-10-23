@@ -1,6 +1,6 @@
 var db;
 var custID
-function getCustomerNumber(tx)
+function getCustomerNumber()
 {
     var def = new $.Deferred();
 	db.transaction(function(tx) {
