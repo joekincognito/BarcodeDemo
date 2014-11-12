@@ -233,7 +233,6 @@ $('#check').click(function(){
                     'Tag Info',   //Title
                     'OK'                //buttonName
                     );
-            }
     }, function (error) {   
         //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
