@@ -204,12 +204,36 @@ $('#scan').click(function(){
             {
                  navigator.notification.alert(
                     'Invalid Barcode', //message
-                    function(){window.location="index.html"}, //callback
+                    function(){window.location="armstrong.html"}, //callback
                     'Scan Error',   //Title
                     'OK'                //buttonName
                     );
             }
         } 
+    }, function (error) {   
+        navigator.notification.alert(
+                    'Scan Error', //message
+                    function(){window.location="armstrong.html"}, //callback
+                    'Scan Error',   //Title
+                    'OK'                //buttonName
+                    );
+    });
+    
+});
+
+$('#check').click(function(){
+    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    scanner.scan( function (result) { 
+                 navigator.notification.alert(
+                   "Scanner result: \n" +
+                    "text: " + result.text + "\n" +
+                    "format: " + result.format + "\n" +
+                    "cancelled: " + result.cancelled + "\n",
+                    function(){window.location="armstrong.html"}, //callback
+                    'Tag Info',   //Title
+                    'OK'                //buttonName
+                    );
+            }
     }, function (error) {   
         //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
