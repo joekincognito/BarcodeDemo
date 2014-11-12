@@ -186,7 +186,7 @@ $('#scan').click(function(){
         //$('#log').append(result);
         $('#info').html("<p class='alert alert-info msg'>text: " + result.text.substring(6,15) + "</p>" );
         ajax(result.text.substring(7,17),null);
-    }, function (error) { 
+    }, function (error) {   
         //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
     
