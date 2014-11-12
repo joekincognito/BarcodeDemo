@@ -179,13 +179,37 @@ function successCB() {
 $('#scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
     scanner.scan( function (result) { 
-       /*$('#log').append("Scanner result: \n" +
-            "text: " + result.text + "\n" +
-            "format: " + result.format + "\n" +
-            "cancelled: " + result.cancelled + "\n");*/
-        //$('#log').append(result);
-        //$('#info').html("<p class='alert alert-info msg'>text: " + result.text.substring(8,17) + "</p>" );
-        ajax(result.text.substring(8,17),null);
+      if(result.text.toString().length===5 || result.text.toString().length===6){
+             ajax(result.text,null);
+        }
+        else 
+        {
+            position = result.text.indexOf('-');
+            if(!(position==-1)){
+                number = result.text.substring((position-6),(position+3));
+            }
+            else
+            {
+                 navigator.notification.alert(
+                    'Invalid Barcode', //message
+                    function(){window.location="index.html"}, //callback
+                    'Scan Error',   //Title
+                    'OK'                //buttonName
+                    );
+            }
+            if(number.length==9){
+                ajax(number,null);
+            }
+            else
+            {
+                 navigator.notification.alert(
+                    'Invalid Barcode', //message
+                    function(){window.location="index.html"}, //callback
+                    'Scan Error',   //Title
+                    'OK'                //buttonName
+                    );
+            }
+        } 
     }, function (error) {   
         //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
