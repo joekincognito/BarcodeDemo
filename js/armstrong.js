@@ -179,15 +179,13 @@ function successCB() {
 $('#scan').click(function(){
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
     scanner.scan( function (result) { 
-
        /*$('#log').append("Scanner result: \n" +
             "text: " + result.text + "\n" +
             "format: " + result.format + "\n" +
             "cancelled: " + result.cancelled + "\n");*/
         //$('#log').append(result);
-        $('#info').html("<p class='alert alert-info msg'>text: " + result.text+ "</p>" );
-
-        //ajax(result.text,null);
+        //$('#info').html("<p class='alert alert-info msg'>text: " + result.text.substring(6,15) + "</p>" );
+        ajax(result.text.substring(6,15),null);
     }, function (error) { 
         //$('#log').append("<p>Scanning failed: " + error + "</p>"); 
     });
@@ -196,8 +194,8 @@ $('#scan').click(function(){
 
 function ajax(number){ //number will be the model number
         $.ajax({
-            url: "http://50.204.18.115/apps/BarcodeDemo/php/test.php", //real url - public
-            //url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/test.php",  //testing url - local
+            //url: "http://50.204.18.115/apps/BarcodeDemo/php/armstrong.php", //real url - public
+            url: "http://10.1.1.1:10080/apps/BarcodeDemo/php/armstrong.php",  //testing url - local
             //data: "qs=" + result.text,
             data: "qs=" + number,
             statusCode: {
